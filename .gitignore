@@ -25,7 +25,7 @@ _cache
 *.sln
 *.sw?
 
-# lockfile
-# package-lock.json
-# pnpm-lock.yaml
-# yarn.lock
+lockfile
+package-lock.json
+pnpm-lock.yaml
+yarn.lock
