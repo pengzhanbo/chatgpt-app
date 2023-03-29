@@ -1,0 +1,29 @@
+navbar:
+  chatGPT: ChatGPT
+  setting: 设置
+
+preference:
+  light: 浅色
+  dark: 深色
+  system: 跟随系统
+
+setting:
+  apiKey: api key
+  model: 模型
+  timeout: 超时时间
+  language: 语言
+  theme: 主题模式
+  httpProxy: HTTP代理
+  socksProxyHost: Socks地址
+  socksProxyPort: Socks端口
+  btnSubmit: 保存
+  placeholder:
+    apiKey: 请输入 openai aip key
+    timeout: 响应最长等待时间
+    httpProxy: 支持 http、https
+    socksProxyHost: 请输入 socks 地址
+    socksProxyPort: 请输入 socks 端口
+  subTitle:
+    regular: 常规
+    agent: 代理
+    chatgpt: ChatGPT

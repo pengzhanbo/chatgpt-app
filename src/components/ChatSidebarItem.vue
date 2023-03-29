@@ -1,0 +1,66 @@
+<script lang="ts" setup>
+import { useChatMessage } from '~/composables/chatMessage'
+import { useChatRecord } from '~/composables/chatRecord'
+
+const props = defineProps({
+  record: {
+    type: Object as PropType<ChatRecord>,
+    default: () => ({}),
+  },
+})
+
+const route = useRoute()
+const router = useRouter()
+const chatId = computed(() => route.params.id)
+
+const toggleChat = () => {
+  router.push({ name: 'chat', params: { id: props.record.id } })
+}
+const { deleteChatRecord, recordList } = useChatRecord()
+const { deleteAllChatMessage } = useChatMessage('')
+
+const deleteRecord = async () => {
+  await deleteChatRecord(props.record.id)
+  await deleteAllChatMessage(props.record.id)
+  const first = recordList.value[0]
+  if (first) {
+    router.push({ name: 'chat', params: { id: first.id } })
+  } else {
+    router.push({ name: 'chat' })
+  }
+}
+</script>
+
+<template>
+  <div
+    class="chat-sidebar-item group"
+    :class="{
+      active: record.id === chatId,
+    }"
+  >
+    <div class="flex-1 flex items-center cursor-pointer" @click="toggleChat">
+      <NIcon size="16"><MessageIcon /></NIcon>
+      <NEllipsis class="ml-3 flex-1 w-0">{{ record.title }}</NEllipsis>
+    </div>
+    <NIcon class="del-icon" size="20" @click="deleteRecord">
+      <DeleteIcon />
+    </NIcon>
+  </div>
+</template>
+
+<style scoped>
+.chat-sidebar-item {
+  @apply h-12 flex items-center border-b border-b-light-800;
+  @apply pl-3 dark:border-b-dark-300 dark:text-gray-500;
+  @apply transition-colors bg-transparent;
+}
+.chat-sidebar-item.active {
+  @apply bg-light-400 dark:bg-dark-600 dark:text-gray-400;
+}
+.chat-sidebar-item:last-of-type {
+  @apply border-none;
+}
+.del-icon {
+  @apply mr-2 text-gray-500 opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer;
+}
+</style>

@@ -1,0 +1,29 @@
+navbar:
+  chatGPT: ChatGPT
+  setting: Setting
+
+preference:
+  light: Light
+  dark: Dark
+  system: System
+
+setting:
+  apiKey: Api key
+  model: Model
+  timeout: Timeout
+  language: Language
+  theme: Theme
+  httpProxy: HTTP Proxy
+  socksProxyHost: Socks Host
+  socksProxyPort: Socks Port
+  btnSubmit: Submit
+  placeholder:
+    apiKey: Please enter the openai aip key
+    timeout: Longest waiting time
+    httpProxy: Supported http、https
+    socksProxyHost: Please enter the socks host
+    socksProxyPort: Please enter the socks port
+  subTitle:
+    regular: Regular
+    agent: Agent
+    chatgpt: ChatGPT
