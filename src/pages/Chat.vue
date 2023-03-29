@@ -119,7 +119,7 @@ onBeforeMount(async () => {
     <ChatSidebar />
     <div class="chatgpt-container flex-1 flex flex-col">
       <ChatMessageList
-        :ref="(c: ComponentPublicInstance) => (scrollRef = c?.$el)"
+        :ref="(c: any) => (scrollRef = c?.$el)"
         :list="messageList"
       />
       <ChatTextArea
