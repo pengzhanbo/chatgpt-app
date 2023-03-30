@@ -46,8 +46,9 @@ export function useChatMessage(id: MaybeRef<string>) {
     await updateHistory()
   }
 
-  async function deleteAllChatMessage(id: string) {
-    await history.del(id)
+  async function clearChatMessage(id: string, clearStore = false) {
+    await history.del(id || chatId.value)
+    clearStore && messageStore.initMessageList([])
   }
 
   function getLastContext() {
@@ -68,7 +69,7 @@ export function useChatMessage(id: MaybeRef<string>) {
     addAssistantEmptyMessage,
     updateAssistantMessage,
     deleteChatMessage,
-    deleteAllChatMessage,
+    clearChatMessage,
     getLastContext,
   }
 }

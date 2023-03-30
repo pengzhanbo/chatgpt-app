@@ -35,6 +35,14 @@ setting:
     agent: 代理
     chatgpt: ChatGPT
 
+chat:
+  textarea:
+    sendTips: Ctrl + Enter 发送
+  memory:
+    enabled: 记忆模式（已启用）
+    disabled: 记忆模式（已关闭）
+    content: 记忆模式下，发送消息会携带当前聊天记录
+
 error:
   message:
     401: 提供错误的API密钥
@@ -44,3 +52,19 @@ error:
     503: 服务器繁忙，请稍后再试
     504: 网关超时
     500: 服务器繁忙，请稍后再试
+
+dialog:
+  appConfig:
+    check:
+      title: 还未配置 api key 或 access token
+      submit: 去配置
+  deleteRecord:
+    title: 删除会话记录
+    content: 是否删除当前会话记录？
+    submit: 删除
+    cancel: 取消
+  clearMessage:
+    title: 清空聊天记录
+    content: 是否清空所有聊天记录？
+    submit: 确认
+    cancel: 取消

@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { type ChatMessage } from 'chatgpt'
 
-const props = defineProps({
+defineProps({
   list: {
     type: Array as PropType<ChatMessage[]>,
     default: () => [],

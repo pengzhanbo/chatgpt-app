@@ -9,22 +9,32 @@ const props = defineProps({
 const route = useRoute()
 const router = useRouter()
 const chatId = computed(() => route.params.id)
+const dialog = useDialog()
+const { t } = useI18n()
 
 const toggleChat = () => {
   router.push({ name: 'chat', params: { id: props.record.id } })
 }
 const { deleteChatRecord, recordList } = useChatRecord()
-const { deleteAllChatMessage } = useChatMessage('')
+const { clearChatMessage } = useChatMessage('')
 
 const deleteRecord = async () => {
-  await deleteChatRecord(props.record.id)
-  await deleteAllChatMessage(props.record.id)
-  const first = recordList.value[0]
-  if (first) {
-    router.push({ name: 'chat', params: { id: first.id } })
-  } else {
-    router.push({ name: 'chat' })
-  }
+  dialog.info({
+    title: t('dialog.deleteRecord.title'),
+    content: t('dialog.deleteRecord.content'),
+    positiveText: t('dialog.deleteRecord.submit'),
+    negativeText: t('dialog.deleteRecord.cancel'),
+    onPositiveClick: async () => {
+      await deleteChatRecord(props.record.id)
+      await clearChatMessage(props.record.id)
+      const first = recordList.value[0]
+      if (first) {
+        router.push({ name: 'chat', params: { id: first.id } })
+      } else {
+        router.push({ name: 'chat' })
+      }
+    },
+  })
 }
 </script>
 

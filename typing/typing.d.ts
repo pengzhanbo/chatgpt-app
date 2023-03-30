@@ -26,6 +26,7 @@ interface ChatRecord {
   lastTime: number
   title: string
   type: 'active' | 'history'
+  memoryMode: boolean
 }
 
 interface ChatGPTMessage {

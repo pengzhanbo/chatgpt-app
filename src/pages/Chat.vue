@@ -1,4 +1,5 @@
 <script lang="ts" setup>
+import { type SendMessageOptions } from 'chatgpt'
 import { chatMessageError } from '~/common/constants'
 
 checkAppConfig()
@@ -11,8 +12,13 @@ const chatId = computed(() => route.params.id as string)
 const messageText = ref('')
 
 const { sendMessage, onMessageProgress } = useChatApi()
-const { createChatRecord, addChatRecord, loadChatRecord, updateChatRecord } =
-  useChatRecord()
+const {
+  recordList,
+  createChatRecord,
+  addChatRecord,
+  loadChatRecord,
+  updateChatRecord,
+} = useChatRecord()
 
 const {
   messageList,
@@ -21,6 +27,7 @@ const {
   updateAssistantMessage,
   addUserMessage,
   getLastContext,
+  clearChatMessage,
 } = useChatMessage(chatId)
 
 const { scrollRef, scrollToBottom, scrollToBottomIfAtBottom } = useScroll()
@@ -34,6 +41,20 @@ watch(
   },
   { immediate: true },
 )
+
+const memoryMode = computed<boolean>(() => {
+  if (chatId.value) {
+    const record = recordList.value.find((item) => item.id === chatId.value)
+    return record ? record.memoryMode : true
+  }
+  return true
+})
+const toggleMemoryMode = async () => {
+  await updateChatRecord({
+    id: chatId.value,
+    memoryMode: !memoryMode.value,
+  })
+}
 
 async function checkChatRecord(title: string) {
   if (!chatId.value) {
@@ -64,9 +85,9 @@ const onMessage = async (message: string) => {
   // 创建一个新的消息容器，但置空，等待服务器消息流填充内容
   assistantWaiting = addAssistantEmptyMessage()
 
-  const response = await sendMessage(message, {
-    ...getLastContext(),
-  })
+  const options: SendMessageOptions = memoryMode.value ? getLastContext() : {}
+
+  const response = await sendMessage(message, options)
 
   if (response.type === 'success') {
     await updateAssistantMessage(assistantWaiting, response.payload, true)
@@ -99,6 +120,19 @@ onMessageProgress(async (response) => {
     scrollToBottomIfAtBottom()
   }
 })
+
+const dialog = useDialog()
+const clearMessageList = () => {
+  dialog.info({
+    title: t('dialog.clearMessage.title'),
+    content: t('dialog.clearMessage.content'),
+    positiveText: t('dialog.clearMessage.submit'),
+    negativeText: t('dialog.clearMessage.cancel'),
+    onPositiveClick: async () => {
+      await clearChatMessage(chatId.value, true)
+    },
+  })
+}
 </script>
 
 <template>
@@ -113,13 +147,45 @@ onMessageProgress(async (response) => {
         v-model="messageText"
         :loading="loading"
         @message="onMessage"
-      />
+      >
+        <div class="flex justify-start items-center">
+          <NPopover>
+            {{ t('dialog.clearMessage.title') }}
+            <template #trigger>
+              <NIcon class="icon" size="24" @click="clearMessageList">
+                <DeleteIcon
+              /></NIcon>
+            </template>
+          </NPopover>
+          <NPopover>
+            <NH5>{{
+              memoryMode ? t('chat.memory.enabled') : t('chat.memory.disabled')
+            }}</NH5>
+            <p>{{ t('chat.memory.content') }}</p>
+            <template #trigger>
+              <NIcon
+                class="icon"
+                :class="{ active: memoryMode }"
+                size="18"
+                @click="toggleMemoryMode"
+                ><MemoryIcon
+              /></NIcon>
+            </template>
+          </NPopover>
+        </div>
+      </ChatTextArea>
     </div>
   </div>
 </template>
 
 <style scoped>
 .chatgpt-container {
-  @apply bg-light-600 dark:bg-dark-900;
+  @apply bg-light-600 dark:bg-dark-900 pb-2;
+}
+.icon {
+  @apply mr-4 text-gray-500 cursor-pointer hover:text-gray-700 transition-colors;
+}
+.icon.active {
+  @apply text-green-500;
 }
 </style>

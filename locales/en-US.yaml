@@ -31,6 +31,14 @@ setting:
     agent: Agent
     chatgpt: ChatGPT
 
+chat:
+  textarea:
+    sendTips: Ctrl + Enter To Send
+  memory:
+    enabled: Memory mode (enabled)
+    disabled: Memory Mode (disabled)
+    content: In memory mode, sending a message carries the current chat history
+
 error:
   message:
     401: Incorrect API key provided
@@ -40,3 +48,19 @@ error:
     503: Server is busy, please try again later
     504: Gateway Time-out
     500: Internal Server Error
+
+dialog:
+  appConfig:
+    check:
+      title: Api keys or access Tokens have not been configured
+      submit: Configuration
+  deleteRecord:
+    title: Deleting session records
+    content: Do you want to delete the current session records?
+    submit: Delete
+    cancel: Cancel
+  clearMessage:
+    title: Clear chat history
+    content: Do you want to clear all chats?
+    submit: Confirm
+    cancel: Cancel

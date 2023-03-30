@@ -22,6 +22,7 @@ export function useChatRecord() {
     raw.lastTime ??= raw.createTime
     raw.type ??= 'active'
     raw.title ??= 'New Chat'
+    raw.memoryMode ??= true
     return raw as ChatRecord
   }
 

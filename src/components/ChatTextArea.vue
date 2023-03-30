@@ -15,6 +15,7 @@ const emit = defineEmits<{
 }>()
 
 const { loading } = toRefs(props)
+const { t } = useI18n()
 
 const message = computed({
   get() {
@@ -38,17 +39,22 @@ const onMessage = () => {
       @keypress.ctrl.enter.exact.prevent="onMessage"
     />
     <div class="chat-textarea-footer">
-      <p class="footer-tips">Ctrl + Enter 发送</p>
-      <NButton
-        type="primary"
-        size="small"
-        :loading="loading"
-        @click="onMessage"
-      >
-        <template #icon>
-          <NIcon><SendIcon /></NIcon>
-        </template>
-      </NButton>
+      <div class="flex-1">
+        <slot></slot>
+      </div>
+      <div class="flex justify-start items-center">
+        <p class="footer-tips">{{ t('chat.textarea.sendTips') }}</p>
+        <NButton
+          type="primary"
+          size="small"
+          :loading="loading"
+          @click="onMessage"
+        >
+          <template #icon>
+            <NIcon><SendIcon /></NIcon>
+          </template>
+        </NButton>
+      </div>
     </div>
   </div>
 </template>
@@ -66,9 +72,9 @@ const onMessage = () => {
   @apply resize-none focus:outline-none;
 }
 .chat-textarea-footer {
-  @apply flex flex-shrink-0 items-end justify-between px-5 pb-2 pt-1;
+  @apply flex flex-shrink-0 items-end px-5 pb-2 pt-1;
 }
 .footer-tips {
-  @apply text-xs text-gray-400 dark:text-gray-700;
+  @apply flex-shrink-0 text-xs text-gray-400 dark:text-gray-700 mr-2;
 }
 </style>

@@ -36,14 +36,15 @@ export function checkAppConfig() {
   const { appConfig, initAppConfig } = useAppConfig()
   const dialog = useDialog()
   const router = useRouter()
+  const { t } = useI18n()
 
   onBeforeMount(async () => {
     await initAppConfig()
     const goSetting = () => router.push({ name: 'setting' })
     !appConfig.value?.openAIApiKey &&
       dialog.warning({
-        title: '还未配置 openai api key',
-        positiveText: '去配置',
+        title: t('dialog.appConfig.check.title'),
+        positiveText: t('dialog.appConfig.check.submit'),
         onPositiveClick: goSetting,
         onMaskClick: goSetting,
         onClose: goSetting,
