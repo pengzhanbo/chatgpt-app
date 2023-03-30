@@ -8,6 +8,8 @@ ChatGPT 桌面应用
 
 ![](docs/app-2.png)
 
+![](docs/app-3.png)
+
 ## Explanation 说明
 
 - This project is based on the MIT license and is only for open source communication and learning purposes.

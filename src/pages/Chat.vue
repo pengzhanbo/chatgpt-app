@@ -34,9 +34,7 @@ const { scrollRef, scrollToBottom, scrollToBottomIfAtBottom } = useScroll()
 watch(
   chatId,
   async (chatId) => {
-    if (chatId) {
-      await loadChatMessage()
-    }
+    await loadChatMessage()
     await loadChatRecord()
   },
   { immediate: true },

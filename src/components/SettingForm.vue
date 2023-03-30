@@ -134,7 +134,9 @@ const onSubmit = async () => {
         </NRadioGroup>
       </NSpace>
     </NFormItem>
-    <div class="flex justify-end">
+    <div
+      class="flex justify-end sticky -bottom-5 bg-light-50 dark:bg-dark-900 py-4"
+    >
       <NButton round type="primary" @click="onSubmit">{{
         t('setting.btnSubmit')
       }}</NButton>

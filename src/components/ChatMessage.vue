@@ -46,7 +46,7 @@ const props = defineProps({
 }
 .message-content {
   @apply box-border relative inline-block max-w-full px-3 py-2 bg-light-50 rounded-md;
-  @apply dark:bg-dark-500 dark:text-gray-400;
+  @apply dark:bg-dark-700 dark:text-gray-400;
 }
 
 .message-content::before {
@@ -68,12 +68,12 @@ const props = defineProps({
   @apply text-right;
 }
 .reverse .message-content {
-  @apply text-left;
+  @apply text-left bg-green-400 dark:bg-green-900 dark:text-gray-200;
 }
 
 .reverse .message-content::before {
   right: -12px;
   left: unset;
-  @apply border-r-transparent border-l-light-50 dark:border-l-dark-500;
+  @apply border-r-transparent border-l-green-400 dark:border-l-green-900;
 }
 </style>
