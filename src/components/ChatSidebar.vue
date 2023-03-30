@@ -1,6 +1,4 @@
 <script lang="ts" setup>
-import { useChatRecord } from '~/composables/chatRecord'
-
 const router = useRouter()
 const { recordList, createChatRecord, addChatRecord } = useChatRecord()
 

@@ -5,12 +5,6 @@ import {
   localeOptions,
   preferenceOptions,
 } from '~/common/constants'
-import { useAppConfig } from '~/composables/appConfig'
-import {
-  updateHtmlDarkClass,
-  updateNativeTheme,
-  useDarkMode,
-} from '~/composables/darkMode'
 
 const chatGPTModelOptions = chatGPTModelOptionsRaw.map((value) => ({
   label: value,

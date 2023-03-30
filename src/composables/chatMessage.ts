@@ -2,8 +2,6 @@ import type { MaybeRef } from '@vueuse/core'
 import type { ChatMessage } from 'chatgpt'
 import { escape } from 'html-escaper'
 import { storeToRefs } from 'pinia'
-import { useChatHistoryDB } from './db'
-import { useChatMessageStore } from '~/store'
 import { generateId } from '~/utils'
 
 export function useChatMessage(id: MaybeRef<string>) {
@@ -52,6 +50,17 @@ export function useChatMessage(id: MaybeRef<string>) {
     await history.del(id)
   }
 
+  function getLastContext() {
+    const assistantList = messageList.value.filter(
+      (item) => item.role === 'assistant',
+    )
+    const lastContext = assistantList[assistantList.length - 1]
+    const parentMessageId = lastContext?.parentMessageId
+    const conversationId = lastContext?.conversationId
+
+    return { parentMessageId, conversationId }
+  }
+
   return {
     messageList,
     loadChatMessage,
@@ -60,6 +69,7 @@ export function useChatMessage(id: MaybeRef<string>) {
     updateAssistantMessage,
     deleteChatMessage,
     deleteAllChatMessage,
+    getLastContext,
   }
 }
 

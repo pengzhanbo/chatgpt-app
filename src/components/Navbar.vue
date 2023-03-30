@@ -28,6 +28,7 @@ const goSetting = () => {
   updateHistoryRoutes()
   router.push({ name: 'setting' })
 }
+const routeName = computed(() => route.name)
 
 const iconSize = 28
 const popoverStyles = {
@@ -38,7 +39,11 @@ const popoverStyles = {
 <template>
   <div class="navbar">
     <div class="navbar-content flex flex-col">
-      <div class="icon" @click="goChat">
+      <div
+        class="icon"
+        :class="{ active: routeName === 'chat' }"
+        @click="goChat"
+      >
         <NPopover :style="popoverStyles" placement="bottom" :delay="300">
           <template #trigger>
             <NIcon :size="iconSize"><OpenAIIcon /></NIcon>
@@ -49,7 +54,11 @@ const popoverStyles = {
     </div>
     <div class="region flex-1"></div>
     <div class="navbar-footer flex flex-col">
-      <div class="icon" @click="goSetting">
+      <div
+        class="icon"
+        :class="{ active: routeName === 'setting' }"
+        @click="goSetting"
+      >
         <NPopover :style="popoverStyles" :delay="300">
           <template #trigger>
             <NIcon :size="iconSize"><SettingIcon /></NIcon>
@@ -68,5 +77,13 @@ const popoverStyles = {
 .icon {
   @apply text-center py-3 cursor-pointer text-gray-500 dark:text-gray-600;
   @apply hover:text-gray-800 hover:dark:text-gray-300 transition-colors;
+}
+.icon.active {
+  @apply text-gray-800 dark:text-gray-300 relative;
+}
+
+.icon.active::before {
+  content: '';
+  @apply inline-block absolute top-2 bottom-2 left-0 w-0.5 bg-gray-700 dark:bg-gray-400;
 }
 </style>

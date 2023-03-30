@@ -1,5 +1,3 @@
-import { useChatDB } from './db'
-
 const db = useChatDB()
 
 const appConfig = ref<AppConfig>()
@@ -32,4 +30,24 @@ async function initAppConfig() {
 export function useAppConfig() {
   initAppConfig()
   return { initAppConfig, getConfig, setConfig, appConfig, updateConfig }
+}
+
+export function checkAppConfig() {
+  const { appConfig, initAppConfig } = useAppConfig()
+  const dialog = useDialog()
+  const router = useRouter()
+
+  onBeforeMount(async () => {
+    await initAppConfig()
+    const goSetting = () => router.push({ name: 'setting' })
+    !appConfig.value?.openAIApiKey &&
+      dialog.warning({
+        title: '还未配置 openai api key',
+        positiveText: '去配置',
+        onPositiveClick: goSetting,
+        onMaskClick: goSetting,
+        onClose: goSetting,
+        onEsc: goSetting,
+      })
+  })
 }

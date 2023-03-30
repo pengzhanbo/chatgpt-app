@@ -1,7 +1,5 @@
 import type { MaybeRef } from '@vueuse/core'
 import { storeToRefs } from 'pinia'
-import { useChatDB } from './db'
-import { useChatRecordStore } from '~/store'
 import { generateId } from '~/utils'
 
 export function useChatRecord() {

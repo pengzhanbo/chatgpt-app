@@ -1,6 +1,5 @@
 import { dateEnUS, dateZhCN, enUS, zhCN } from 'naive-ui'
 import { useI18n } from 'vue-i18n'
-import { useAppConfig } from './appConfig'
 
 const cache: Record<string, any> = {
   'zh-CN': {

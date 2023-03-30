@@ -1,5 +1,4 @@
 import type { InjectionKey, WritableComputedRef } from 'vue'
-import { useAppConfig } from './appConfig'
 import { invoke } from '~/common/electron'
 
 export type DarkModeRef = WritableComputedRef<boolean>

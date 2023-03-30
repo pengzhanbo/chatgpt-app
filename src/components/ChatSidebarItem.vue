@@ -1,7 +1,4 @@
 <script lang="ts" setup>
-import { useChatMessage } from '~/composables/chatMessage'
-import { useChatRecord } from '~/composables/chatRecord'
-
 const props = defineProps({
   record: {
     type: Object as PropType<ChatRecord>,
