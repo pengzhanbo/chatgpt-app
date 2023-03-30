@@ -7,6 +7,10 @@ preference:
   dark: Dark
   system: System
 
+apiModelOptions:
+  official: Official API
+  unofficial: UnOfficial Proxy API
+
 setting:
   apiModel: Call API
   apiKey: Api key
