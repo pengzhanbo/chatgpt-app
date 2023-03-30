@@ -7,8 +7,14 @@ preference:
   dark: 深色
   system: 跟随系统
 
+apiModelOptions:
+  official: 官方API
+  unofficial: 非官方代理API
+
 setting:
+  apiModel: API调用
   apiKey: api key
+  accessToken: AccessToken
   model: 模型
   timeout: 超时时间
   language: 语言
@@ -18,7 +24,8 @@ setting:
   socksProxyPort: Socks端口
   btnSubmit: 保存
   placeholder:
-    apiKey: 请输入 openai aip key
+    apiKey: 请输入 openai api key
+    accessToken: 请输入 openai access token
     timeout: 响应最长等待时间
     httpProxy: 支持 http、https
     socksProxyHost: 请输入 socks 地址
@@ -27,3 +34,13 @@ setting:
     regular: 常规
     agent: 代理
     chatgpt: ChatGPT
+
+error:
+  message:
+    401: 提供错误的API密钥
+    403: 服务器拒绝访问，请稍后再试
+    429: 请求次数过多
+    502: 错误的网关
+    503: 服务器繁忙，请稍后再试
+    504: 网关超时
+    500: 服务器繁忙，请稍后再试

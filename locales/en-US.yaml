@@ -8,7 +8,9 @@ preference:
   system: System
 
 setting:
+  apiModel: Call API
   apiKey: Api key
+  accessToken: AccessToken
   model: Model
   timeout: Timeout
   language: Language
@@ -19,6 +21,7 @@ setting:
   btnSubmit: Submit
   placeholder:
     apiKey: Please enter the openai aip key
+    accessToken: Please enter the openai access token
     timeout: Longest waiting time
     httpProxy: Supported http、https
     socksProxyHost: Please enter the socks host
@@ -27,3 +30,13 @@ setting:
     regular: Regular
     agent: Agent
     chatgpt: ChatGPT
+
+error:
+  message:
+    401: Incorrect API key provided
+    403: Server refused to access, please try again later
+    429: Too Many Requests 
+    502: Bad Gateway
+    503: Server is busy, please try again later
+    504: Gateway Time-out
+    500: Internal Server Error

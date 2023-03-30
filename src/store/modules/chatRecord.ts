@@ -18,6 +18,7 @@ export const useChatRecordStore = defineStore('chat-record', {
       this.recordList.unshift(record)
     },
     updateChatRecord(record: Partial<ChatRecord>) {
+      record.lastTime = Date.now()
       const { id, ...other } = record
       const index = this.recordList.findIndex((item) => item.id === id)
       if (index !== -1) {

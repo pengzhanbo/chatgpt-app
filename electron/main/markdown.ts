@@ -1,11 +1,10 @@
 import mdKatex from '@traptitech/markdown-it-katex'
-import { ipcMain } from 'electron'
 import MarkdownIt from 'markdown-it'
 import linkAttr from 'markdown-it-link-attributes'
 import shiki from 'shiki'
 import { codeLanguageAlias } from './constants'
 
-const mdi = new MarkdownIt({
+export const mdi = new MarkdownIt({
   linkify: true,
 })
 
@@ -16,17 +15,16 @@ mdi.use(mdKatex, {
 })
 
 export async function setupMarkdown() {
-  ipcMain.handle('markdown:render', (_, code: string) => {
-    if (code === '') return code
-    return mdi.render(code)
-  })
-
   const highlighter = await shiki.getHighlighter({
-    theme: 'one-dark-pro',
+    theme: 'material-theme-palenight',
   })
   mdi.options.highlight = (code, lang) => {
     const shortLang = codeLanguageAlias[lang] || lang
     const content = highlighter.codeToHtml(code, { lang })
     return `<div class="language-${lang}" data-lang="${shortLang}"><span class="copy-code"></span>${content}</div>`
   }
+}
+
+export function renderMarkdown(code: string) {
+  return mdi.render(code)
 }

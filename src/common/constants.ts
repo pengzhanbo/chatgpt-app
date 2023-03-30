@@ -21,3 +21,18 @@ export const preferenceOptions = [
   { label: 'preference.dark', value: 'dark', icon: DarkIcon },
   { label: 'preference.system', value: 'system', icon: ModeIcon },
 ]
+
+export const apiModelOptions = [
+  { label: 'apiModelOptions.official', value: 'ChatGPTAPI' },
+  { label: 'apiModelOptions.unofficial', value: 'ChatGPTUnofficialProxyAPI' },
+]
+
+export const chatMessageError: Record<number, string> = {
+  401: 'error.message.401',
+  403: 'error.message.403',
+  429: 'error.message.429',
+  500: 'error.message.500',
+  502: 'error.message.502',
+  503: 'error.message.503',
+  504: 'error.message.504',
+}

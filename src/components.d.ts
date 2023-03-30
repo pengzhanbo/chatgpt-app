@@ -26,6 +26,7 @@ declare module '@vue/runtime-core' {
     LightIcon: typeof import('./components/icons/LightIcon.vue')['default']
     MessageIcon: typeof import('./components/icons/MessageIcon.vue')['default']
     ModeIcon: typeof import('./components/icons/ModeIcon.vue')['default']
+    NAlert: typeof import('naive-ui')['NAlert']
     NAvatar: typeof import('naive-ui')['NAvatar']
     Navbar: typeof import('./components/Navbar.vue')['default']
     NButton: typeof import('naive-ui')['NButton']

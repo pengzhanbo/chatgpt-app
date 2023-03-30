@@ -9,7 +9,8 @@ declare module '*.vue' {
 declare namespace globalThis {
   import type { IpcRenderer } from 'electron'
   interface SafeElectron {
-    ipcRenderer: Pick<IpcRenderer, 'invoke' | 'postMessage' | 'emit' | 'on' | 'once' | 'send' | 'sendSync' | 'off'>
+    // | 'postMessage' | 'emit' | 'once' | 'send' | 'sendSync'
+    ipcRenderer: Pick<IpcRenderer, 'invoke' | 'on' | 'off'>
     process: {
       version: string
       versions: {

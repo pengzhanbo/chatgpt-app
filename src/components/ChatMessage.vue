@@ -1,27 +1,16 @@
 <script lang="ts" setup>
 import { type ChatMessage } from 'chatgpt'
-import { markdownRender } from '~/composables/markdown'
 const props = defineProps({
   message: {
-    type: Object as PropType<ChatMessage>,
-    default: () => {},
+    type: Object as PropType<ChatGPTMessage & { original?: ChatMessage }>,
+    default: () => ({}),
   },
 })
-const render = ref('')
-watch(
-  () => props.message.text,
-  async (text) => {
-    if (text) {
-      render.value = await markdownRender(text)
-    }
-  },
-  { immediate: true },
-)
 </script>
 
 <template>
   <div
-    v-show="message.text"
+    v-show="message.rendered || message.errorMessage"
     class="chat-message"
     :class="{
       reverse: message.role === 'user',
@@ -35,7 +24,14 @@ watch(
     </NAvatar>
     <div class="message-container">
       <div class="message-content">
-        <div class="markdown-body" v-html="render"></div>
+        <div
+          v-if="message.rendered"
+          class="markdown-body"
+          v-html="message.rendered"
+        ></div>
+        <div v-if="message.errorMessage">
+          <NAlert type="error">{{ message.errorMessage }}</NAlert>
+        </div>
       </div>
     </div>
   </div>

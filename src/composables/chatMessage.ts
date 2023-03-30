@@ -1,8 +1,10 @@
 import type { MaybeRef } from '@vueuse/core'
 import type { ChatMessage } from 'chatgpt'
+import { escape } from 'html-escaper'
 import { storeToRefs } from 'pinia'
 import { useChatHistoryDB } from './db'
 import { useChatMessageStore } from '~/store'
+import { generateId } from '~/utils'
 
 export function useChatMessage(id: MaybeRef<string>) {
   const chatId = resolveRef(id)
@@ -20,14 +22,14 @@ export function useChatMessage(id: MaybeRef<string>) {
   }
 
   async function addUserMessage(text: string) {
-    messageStore.addUserMessage(chatId.value, text)
+    messageStore.addUserMessage(generateId(), text, transformUserMessage(text))
     await updateHistory()
     return messageList.value[messageList.value.length - 1]
   }
 
   async function updateAssistantMessage(
     sendId: number,
-    message: MaybeRef<ChatMessage>,
+    message: MaybeRef<Partial<ChatGPTMessage & { original?: ChatMessage }>>,
     updateDB = false,
   ) {
     const raw = resolveUnref(message)
@@ -59,4 +61,11 @@ export function useChatMessage(id: MaybeRef<string>) {
     deleteChatMessage,
     deleteAllChatMessage,
   }
+}
+
+function transformUserMessage(text: string): string {
+  return escape(text)
+    .split(/\n+/)
+    .map((str) => `<p>${str}</p>`)
+    .join('')
 }

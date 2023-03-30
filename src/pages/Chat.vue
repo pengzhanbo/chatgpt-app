@@ -1,19 +1,22 @@
 <script lang="ts" setup>
 import { useDialog } from 'naive-ui'
+import { chatMessageError } from '~/common/constants'
+import { useAppConfig } from '~/composables/appConfig'
 import { useChatApi } from '~/composables/chatApi'
 import { useChatMessage } from '~/composables/chatMessage'
 import { useChatRecord } from '~/composables/chatRecord'
 import { useScroll } from '~/composables/scroll'
+import { generateId } from '~/utils'
 
 const dialog = useDialog()
 const router = useRouter()
 const route = useRoute()
+const { appConfig, initAppConfig } = useAppConfig()
 
 const chatId = computed(() => route.params.id as string)
 const messageText = ref('')
 
-const { sendMessage, onChatGPTUpdate, onMessageProgress, hasApiKey } =
-  useChatApi()
+const { sendMessage, onMessageProgress } = useChatApi()
 const { createChatRecord, addChatRecord, loadChatRecord, updateChatRecord } =
   useChatRecord()
 
@@ -40,7 +43,10 @@ watch(
 )
 
 const loading = ref(false)
-let sendId: number | undefined
+let assistantWaiting: number | undefined
+let senderId: string | number | undefined
+
+const { t } = useI18n()
 
 const onMessage = async (message: string) => {
   if (!message || message === '') return
@@ -60,26 +66,36 @@ const onMessage = async (message: string) => {
   )
   const lastContext = assistantList[assistantList.length - 1]
   const parentMessageId = lastContext?.parentMessageId
+  const conversationId = lastContext?.conversationId
   loading.value = true
   await addUserMessage(message)
   scrollToBottom()
   // 创建一个新的消息容器，但置空，等待服务器消息流填充内容
-  sendId = addAssistantEmptyMessage()
-  const {
-    payload,
-    code,
-    type,
-    message: errorMessage,
-  } = await sendMessage(message, {
-    parentMessageId,
-  })
-  if (type === 'Success') {
-    await updateAssistantMessage(sendId, payload!, true)
+  assistantWaiting = addAssistantEmptyMessage()
+  senderId = generateId()
+  const response = await sendMessage(
+    message,
+    { parentMessageId, conversationId },
+    senderId,
+  )
+  if (response.type === 'success') {
+    await updateAssistantMessage(assistantWaiting, response.payload, true)
     messageText.value = ''
   } else {
-    await deleteChatMessage(sendId)
+    // await deleteChatMessage(assistantWaiting)
+    await updateAssistantMessage(
+      assistantWaiting,
+      {
+        ...response.payload,
+        errorMessage:
+          response.code in chatMessageError
+            ? t(chatMessageError[response.code])
+            : response.payload.errorMessage || response.message,
+      },
+      true,
+    )
   }
-  sendId = undefined
+  assistantWaiting = undefined
   loading.value = false
   scrollToBottomIfAtBottom()
 }
@@ -87,22 +103,17 @@ const onMessage = async (message: string) => {
 /**
  * 当发送消息后，AI模拟正在输入的效果，连续返回响应报文
  */
-onMessageProgress(async (response) => {
-  if (typeof sendId !== 'undefined') {
-    await updateAssistantMessage(sendId, response)
+onMessageProgress(async (response, _senderId) => {
+  if (typeof assistantWaiting !== 'undefined' && _senderId === senderId) {
+    await updateAssistantMessage(assistantWaiting, response)
     scrollToBottomIfAtBottom()
   }
 })
 
-/**
- * 检查 chatGPT API 配置更新时是否发生错误
- */
-onChatGPTUpdate((response) => {})
-
 onBeforeMount(async () => {
-  const has = await hasApiKey()
+  await initAppConfig()
   const goSetting = () => router.push({ name: 'setting' })
-  !has &&
+  !appConfig.value?.openAIApiKey &&
     dialog.warning({
       title: '还未配置 openai api key',
       positiveText: '去配置',

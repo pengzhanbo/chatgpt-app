@@ -1,6 +1,6 @@
 import { release } from 'node:os'
 import { join } from 'node:path'
-import { app } from 'electron'
+import { BrowserWindow, app } from 'electron'
 
 process.env.DIST_ELECTRON = join(__dirname, '..')
 process.env.DIST = join(process.env.DIST_ELECTRON, '../dist')
@@ -21,4 +21,12 @@ if (!app.requestSingleInstanceLock()) {
 
 app.on('window-all-closed', () => {
   if (process.platform !== 'darwin') app.quit()
+})
+
+app.on('second-instance', () => {
+  const allWindows = BrowserWindow.getAllWindows()
+  if (allWindows.length) {
+    if (allWindows[0].isMinimized()) allWindows[0].restore()
+    allWindows[0].focus()
+  }
 })

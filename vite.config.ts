@@ -98,10 +98,9 @@ export default defineConfig(({ command }) => {
               minify: isBuild,
               outDir: 'dist-electron/main',
               rollupOptions: {
-                external: [
-                  ...Object.keys('dependencies' in pkg ? pkg.dependencies : {}),
-                  'ms',
-                ],
+                external: Object.keys(
+                  'dependencies' in pkg ? pkg.dependencies : {},
+                ),
               },
             },
           },
@@ -131,9 +130,7 @@ export default defineConfig(({ command }) => {
         },
       ]),
       // Use Node.js API in the Renderer-process
-      renderer({
-        nodeIntegration: false,
-      }),
+      renderer(),
     ],
     server:
       process.env.VSCODE_DEBUG &&

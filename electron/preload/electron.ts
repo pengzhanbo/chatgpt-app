@@ -3,19 +3,19 @@ import type { IpcRenderer } from 'electron'
 
 const ipc: Partial<IpcRenderer> = {
   invoke: (channel, ...arg) => ipcRenderer.invoke(channel, ...arg),
-  postMessage: (channel, message, transfers) =>
-    ipcRenderer.postMessage(channel, message, transfers),
-  send: (channel, ...args) => ipcRenderer.send(channel, ...args),
-  sendSync: (channel, ...args) => ipcRenderer.send(channel, ...args),
-  emit: (e, ...args) => ipcRenderer.emit(e, ...args),
+  // postMessage: (channel, message, transfers) =>
+  //   ipcRenderer.postMessage(channel, message, transfers),
+  // send: (channel, ...args) => ipcRenderer.send(channel, ...args),
+  // sendSync: (channel, ...args) => ipcRenderer.send(channel, ...args),
+  // emit: (e, ...args) => ipcRenderer.emit(e, ...args),
   on: (channel, listener) => {
     ipcRenderer.on(channel, listener)
     return ipc as IpcRenderer
   },
-  once: (channel, listener) => {
-    ipcRenderer.once(channel, listener)
-    return ipc as IpcRenderer
-  },
+  // once: (channel, listener) => {
+  //   ipcRenderer.once(channel, listener)
+  //   return ipc as IpcRenderer
+  // },
   off: (channel, listener) => ipcRenderer.off(channel, listener),
 }
 

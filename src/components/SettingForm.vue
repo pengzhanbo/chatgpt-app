@@ -1,11 +1,11 @@
 <script lang="ts" setup>
 import {
+  apiModelOptions,
   chatGPTModelOptions as chatGPTModelOptionsRaw,
   localeOptions,
   preferenceOptions,
 } from '~/common/constants'
 import { useAppConfig } from '~/composables/appConfig'
-import { useChatApi } from '~/composables/chatApi'
 import {
   updateHtmlDarkClass,
   updateNativeTheme,
@@ -20,7 +20,6 @@ const chatGPTModelOptions = chatGPTModelOptionsRaw.map((value) => ({
 const { t, locale } = useI18n()
 const { appConfig, updateConfig } = useAppConfig()
 const isDark = useDarkMode()
-const { updateChatGPT } = useChatApi()
 
 const preferenceChange = async (preference: AppConfig['preference']) => {
   updateHtmlDarkClass(isDark)
@@ -31,17 +30,36 @@ const localeChange = (lang: string) => {
 }
 const onSubmit = async () => {
   await updateConfig()
-  await updateChatGPT()
 }
 </script>
 
 <template>
   <NForm label-width="100" label-placement="left" :model="appConfig">
     <NH5>{{ t('setting.subTitle.chatgpt') }}</NH5>
-    <NFormItem :label="t('setting.apiKey')" path="openAIApiKey">
+    <NFormItem :label="t('setting.apiModel')" path="apiModel">
+      <NSelect
+        v-model:value="appConfig!.apiModel"
+        :options="apiModelOptions"
+        :render-label="({ label }) => t(label)"
+      >
+      </NSelect>
+    </NFormItem>
+    <NFormItem
+      v-if="appConfig?.apiModel === 'ChatGPTAPI'"
+      :label="t('setting.apiKey')"
+      path="openAIApiKey"
+    >
       <NInput
         v-model:value="appConfig!.openAIApiKey"
         :placeholder="t('setting.placeholder.apiKey')"
+        show-password-on="mousedown"
+        type="password"
+      ></NInput>
+    </NFormItem>
+    <NFormItem v-else :label="t('setting.accessToken')" path="accessToken">
+      <NInput
+        v-model:value="appConfig!.accessToken"
+        :placeholder="t('setting.placeholder.accessToken')"
         show-password-on="mousedown"
         type="password"
       ></NInput>

@@ -18,6 +18,8 @@ export const DB_NAME = {
 export const defaultAppConfig: AppConfig = {
   preference: 'system',
   locale: 'zh-CN',
+  apiModel: 'ChatGPTAPI',
+  accessToken: '',
   openAIApiKey: '',
   chatModel: 'gpt-3.5-turbo',
   timeout: 60 * 1000,

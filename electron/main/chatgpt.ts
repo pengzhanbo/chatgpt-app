@@ -1,13 +1,28 @@
-import type { ChatGPTAPIOptions, SendMessageOptions } from 'chatgpt'
-import { ChatGPTAPI } from 'chatgpt'
+import type {
+  ChatGPTAPIOptions,
+  ChatMessage,
+  SendMessageOptions,
+} from 'chatgpt'
+import { ChatGPTAPI, ChatGPTUnofficialProxyAPI } from 'chatgpt'
 import { ipcMain } from 'electron'
 import { HttpsProxyAgent } from 'https-proxy-agent'
 import fetch from 'node-fetch'
 import { SocksProxyAgent } from 'socks-proxy-agent'
 import { getAppConfig } from './appConfig'
+import { defaultAppConfig } from './constants'
+import { renderMarkdown } from './markdown'
 
-let api!: ChatGPTAPI
+let api!: ChatGPTAPI | ChatGPTUnofficialProxyAPI
 let webContentsSend!: (channel: string, ...args: any[]) => void
+const cache: {
+  model?: AppConfig['chatModel']
+  apiModel?: AppConfig['apiModel']
+  accessToken?: AppConfig['accessToken']
+} = {
+  model: undefined,
+  apiModel: undefined,
+  accessToken: undefined,
+}
 
 export function setupChatGPTMessage(cb: typeof webContentsSend) {
   webContentsSend = cb
@@ -16,80 +31,131 @@ export function setupChatGPTMessage(cb: typeof webContentsSend) {
 export async function setupChatGPT() {
   ipcMain.handle(
     'chatGPT:sendMessage',
-    async (_, prompt: string, options: SendMessageOptions) => {
-      return await sendMessage(prompt, options)
+    async (
+      _,
+      prompt: string,
+      options: SendMessageOptions,
+      senderId: number,
+    ) => {
+      return await sendMessage(prompt, options, senderId)
     },
   )
-  ipcMain.handle('chatGPT:apiKey', async () => {
-    const config = await getAppConfig()
-    const apiKey = config.openAIApiKey
-    return apiKey
-  })
-  ipcMain.handle('chatGPT:update', async (_) => {
-    await updateChatGPT()
-  })
   await updateChatGPT()
 }
 
-export async function updateChatGPT() {
-  const config = await getAppConfig()
+export async function updateChatGPT(config?: AppConfig) {
+  config ??= await getAppConfig()
   const apiKey = config.openAIApiKey
 
-  if (!apiKey) {
-    webContentsSend?.('chatGPT:update', {
-      type: 'Fail',
-      code: -1,
-    })
-    api = null
-    return
-  }
-
-  const model = config.chatModel || 'gpt-3.5-turbo'
-  const options: ChatGPTAPIOptions = {
-    apiKey,
-    completionParams: { model },
-  }
-
-  if (model.toLowerCase().includes('gpt-4')) {
-    if (model.toLowerCase().includes('32k')) {
-      options.maxModelTokens = 32768
-      options.maxResponseTokens = 8192
-    } else {
-      options.maxModelTokens = 8192
-      options.maxResponseTokens = 2048
+  const model = config.chatModel || defaultAppConfig.chatModel
+  cache.model = model
+  if (config.apiModel === 'ChatGPTUnofficialProxyAPI') {
+    const options = {
+      accessToken: config.accessToken,
+      model,
     }
+    cache.apiModel = 'ChatGPTUnofficialProxyAPI'
+    setupProxy(options as unknown as ChatGPTAPIOptions, config)
+    api = new ChatGPTUnofficialProxyAPI(options)
+  } else {
+    const options: ChatGPTAPIOptions = {
+      apiKey,
+      completionParams: { model },
+    }
+
+    if (model.toLowerCase().includes('gpt-4')) {
+      if (model.toLowerCase().includes('32k')) {
+        options.maxModelTokens = 32768
+        options.maxResponseTokens = 8192
+      } else {
+        options.maxModelTokens = 8192
+        options.maxResponseTokens = 2048
+      }
+    }
+    cache.apiModel = 'ChatGPTAPI'
+    setupProxy(options, config)
+    api = new ChatGPTAPI(options)
   }
-
-  setupProxy(options, config)
-
-  api = new ChatGPTAPI(options)
 }
 
-export async function sendMessage(prompt: string, options: SendMessageOptions) {
+export async function sendMessage(
+  prompt: string,
+  options: SendMessageOptions & { conversationId?: string },
+  senderId: number,
+): Promise<SendMessageResponse> {
   const config = await getAppConfig()
-  options.timeoutMs ??= config.timeout || 30 * 1000
+  if (!config.openAIApiKey) {
+    return { type: 'error', code: -1, message: '', payload: null }
+  }
+  if (
+    !api ||
+    cache.apiModel !== config.apiModel ||
+    cache.model !== config.chatModel
+  ) {
+    await updateChatGPT(config)
+  }
+  if (
+    api instanceof ChatGPTAPI &&
+    config.openAIApiKey !== api.apiKey &&
+    cache.apiModel === 'ChatGPTAPI'
+  ) {
+    api.apiKey = config.openAIApiKey
+  }
+  if (
+    api instanceof ChatGPTUnofficialProxyAPI &&
+    cache.apiModel === 'ChatGPTUnofficialProxyAPI' &&
+    cache.accessToken !== config.accessToken
+  ) {
+    api.accessToken = config.accessToken
+    cache.accessToken = config.accessToken
+  }
+  if (cache.apiModel === 'ChatGPTAPI') {
+    delete options.conversationId
+  }
+  options.timeoutMs ??= config.timeout || defaultAppConfig.timeout
+  let progressResponse!: ChatGPTMessage & { original?: ChatMessage }
   options.onProgress = (response) => {
-    webContentsSend('chatGPT:onProgress', response)
+    progressResponse = transformMessage(response)
+    webContentsSend('chatGPT:onProgress', progressResponse, senderId)
   }
-  if (!api) {
-    try {
-      await updateChatGPT()
-    } catch (e) {
-      return { type: 'Fail', code: -2, message: e.message }
-    }
-  }
-  if (!api) {
-    return { type: 'Fail', code: -1, message: config }
-  }
+
   try {
     const response = await api.sendMessage(prompt, options)
     // eslint-disable-next-line no-console
-    console.log('sendMessage:', response)
-    return { type: 'Success', payload: response }
+    console.info('sendMessage:', response)
+    return { type: 'success', payload: transformMessage(response) }
   } catch (e) {
-    const code = e.statusCode
     console.error(e)
-    return { type: 'Fail', code, message: e.message }
+    const code = e.statusCode
+    progressResponse ??= {
+      role: 'assistant',
+      createTime: Date.now(),
+    } as ChatGPTMessage
+    progressResponse.type = 'error'
+    progressResponse.errorMessage = e.statusText || e.message
+    return {
+      type: 'error',
+      code,
+      message: e.statusText || e.message,
+      payload: progressResponse,
+    }
+  }
+}
+
+function transformMessage(
+  res: ChatMessage,
+): ChatGPTMessage & { original?: ChatMessage } {
+  return {
+    id: res.id,
+    text: res.text,
+    role: res.role,
+    parentMessageId: res.parentMessageId,
+    conversationId: res.conversationId,
+    createTime: res.detail?.created || Date.now(),
+    rendered: renderMarkdown(res.text),
+    errorMessage: '',
+    type: 'success',
+    original: res,
   }
 }
 
