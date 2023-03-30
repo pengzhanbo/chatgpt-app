@@ -6,11 +6,12 @@ import { useChatApi } from '~/composables/chatApi'
 import { useChatMessage } from '~/composables/chatMessage'
 import { useChatRecord } from '~/composables/chatRecord'
 import { useScroll } from '~/composables/scroll'
-import { generateId } from '~/utils'
 
 const dialog = useDialog()
 const router = useRouter()
 const route = useRoute()
+const { t } = useI18n()
+
 const { appConfig, initAppConfig } = useAppConfig()
 
 const chatId = computed(() => route.params.id as string)
@@ -26,25 +27,22 @@ const {
   addAssistantEmptyMessage,
   updateAssistantMessage,
   addUserMessage,
-  deleteChatMessage,
 } = useChatMessage(chatId)
 
 const { scrollRef, scrollToBottom, scrollToBottomIfAtBottom } = useScroll()
 
 watch(
   chatId,
-  async (chatId) => {
+  async () => {
     await loadChatMessage()
     await loadChatRecord()
+    messageText.value = ''
   },
   { immediate: true },
 )
 
 const loading = ref(false)
 let assistantWaiting: number | undefined
-let senderId: string | number | undefined
-
-const { t } = useI18n()
 
 const onMessage = async (message: string) => {
   if (!message || message === '') return
@@ -70,12 +68,10 @@ const onMessage = async (message: string) => {
   scrollToBottom()
   // 创建一个新的消息容器，但置空，等待服务器消息流填充内容
   assistantWaiting = addAssistantEmptyMessage()
-  senderId = generateId()
-  const response = await sendMessage(
-    message,
-    { parentMessageId, conversationId },
-    senderId,
-  )
+  const response = await sendMessage(message, {
+    parentMessageId,
+    conversationId,
+  })
   if (response.type === 'success') {
     await updateAssistantMessage(assistantWaiting, response.payload, true)
     messageText.value = ''
@@ -101,8 +97,8 @@ const onMessage = async (message: string) => {
 /**
  * 当发送消息后，AI模拟正在输入的效果，连续返回响应报文
  */
-onMessageProgress(async (response, _senderId) => {
-  if (typeof assistantWaiting !== 'undefined' && _senderId === senderId) {
+onMessageProgress(async (response) => {
+  if (typeof assistantWaiting !== 'undefined') {
     await updateAssistantMessage(assistantWaiting, response)
     scrollToBottomIfAtBottom()
   }
