@@ -18,9 +18,11 @@ const theme = computed(() => (isDark.value ? darkTheme : undefined))
     :theme="theme"
   >
     <NDialogProvider>
-      <Layout>
-        <RouterView />
-      </Layout>
+      <NMessageProvider>
+        <Layout>
+          <RouterView />
+        </Layout>
+      </NMessageProvider>
     </NDialogProvider>
   </NConfigProvider>
 </template>

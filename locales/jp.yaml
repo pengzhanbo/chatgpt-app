@@ -1,0 +1,91 @@
+navbar:
+  chatGPT: ChatGPT
+  translate: 翻訳/润色
+  setting: 設定
+
+preference:
+  light: ライト
+  dark: ダーク
+  system: システムに従う
+
+apiModelOptions:
+  official: 公式API
+  unofficial: 非公式プロキシAPI
+
+setting:
+  apiModel: API呼び出し
+  apiKey: api key
+  accessToken: AccessToken
+  model: モデル
+  timeout: タイムアウト
+  language: 言語
+  theme: テーマモード
+  httpProxy: HTTPプロキシ
+  socksProxyHost: Socksアドレス
+  socksProxyPort: Socksポート
+  btnSubmit: 保存
+  placeholder:
+    apiKey: openai api keyを入力してください
+    accessToken: openai access tokenを入力してください
+    timeout: 応答の最長待機時間
+    httpProxy: http、httpsがサポートされています
+    socksProxyHost: socksアドレスを入力してください
+    socksProxyPort: socksポートを入力してください
+  subTitle:
+    regular: 通常
+    agent: 代理
+    chatgpt: ChatGPT
+
+chat:
+  textarea:
+    sendTips: Ctrl + Enterで送信
+  memory:
+    enabled: メモリモード（オン）
+    disabled: メモリモード（オフ）
+    content: メモリーモードでは、メッセージを送信すると現在のチャット履歴が含まれます。
+
+translate:
+  translate: 翻訳
+  tips: 翻訳する言語が同じ場合、元のテキストが修正されます！
+  copy: コピー
+  copied: コピーされました！
+  placeholder: 翻訳する内容を入力してください
+
+error:
+  message:
+    401: 不正なAPIキーが提供されました
+    403: サーバーがアクセスを拒否しました。しばらくしてから再度お試しください。
+    429: リクエスト数が多すぎます
+    502: 不正なゲートウェイ
+    503: サーバーがビジー状態です。もうしばらくお待ちください。
+    504: ゲートウェイタイムアウト
+    500: サーバーがビジー状態です。もうしばらくお待ちください。
+
+dialog:
+  appConfig:
+    check:
+      title: api keyまたはaccess tokenが設定されていません
+      submit: 設定に行く
+  deleteRecord:
+    title: 会話履歴を削除しますか？
+    content: 現在の会話履歴を削除しますか？
+    submit: 削除
+    cancel: キャンセル
+  clearMessage:
+    title: チャット履歴を消去しますか？
+    content: すべてのチャット履歴を消去しますか？
+    submit: 確認
+    cancel: キャンセル
+
+languages:
+  auto: 自動選択
+  zh-CN: 簡体字中国語
+  zh-TW: 繁体字中国語
+  en: 英語
+  yue: 広東語
+  wyw: 文言文
+  ru: ロシア語
+  fr: フランス語
+  de: ドイツ語
+  in: インド
+  jp: 日本語

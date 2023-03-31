@@ -1,4 +1,13 @@
-import { dateEnUS, dateZhCN, enUS, zhCN } from 'naive-ui'
+import {
+  dateEnUS,
+  dateJaJP,
+  dateZhCN,
+  dateZhTW,
+  enUS,
+  jaJP,
+  zhCN,
+  zhTW,
+} from 'naive-ui'
 import { useI18n } from 'vue-i18n'
 
 const cache: Record<string, any> = {
@@ -9,6 +18,14 @@ const cache: Record<string, any> = {
   'en-US': {
     locale: enUS,
     dateLocale: dateEnUS,
+  },
+  'zh-TW': {
+    locale: zhTW,
+    dateLocale: dateZhTW,
+  },
+  'jp': {
+    locale: jaJP,
+    dateLocale: dateJaJP,
   },
 }
 

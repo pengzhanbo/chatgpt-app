@@ -35,6 +35,7 @@ const localeDate = computed(() => {
         <div
           v-if="message.rendered"
           class="markdown-body"
+          :class="[message.role]"
           v-html="message.rendered"
         ></div>
         <div v-if="message.errorMessage">
@@ -105,5 +106,9 @@ const localeDate = computed(() => {
   right: -12px;
   left: unset;
   @apply border-r-transparent border-l-green-400 dark:border-l-green-900;
+}
+
+.markdown-body.user :deep(p) {
+  @apply mb-0;
 }
 </style>

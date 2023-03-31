@@ -20,7 +20,9 @@ export const systemMessageMap = {
 
 export const localeOptions = [
   { label: '简体中文', value: 'zh-CN' },
+  { label: '繁体中文', value: 'zh-TW' },
   { label: 'English', value: 'en-US' },
+  { label: '日本語', value: 'jp' },
 ]
 
 export const preferenceOptions = [
@@ -43,3 +45,17 @@ export const chatMessageError: Record<number, string> = {
   503: 'error.message.503',
   504: 'error.message.504',
 }
+
+export const languageOptions = [
+  { label: 'languages.auto', value: 'auto' },
+  { label: 'languages.zh-CN', value: 'zh-CN' },
+  { label: 'languages.zh-TW', value: 'zh-TW' },
+  { label: 'languages.en', value: 'en' },
+  { label: 'languages.yue', value: 'yue' },
+  { label: 'languages.wyw', value: 'wyw' },
+  { label: 'languages.ru', value: 'ru' },
+  { label: 'languages.fr', value: 'fr' },
+  { label: 'languages.de', value: 'de' },
+  { label: 'languages.in', value: 'in' },
+  { label: 'languages.jp', value: 'jp' },
+] as const

@@ -38,7 +38,7 @@ export function useCopyCode() {
   })
 }
 
-async function copyToClipboard(text: string) {
+export async function copyToClipboard(text: string) {
   try {
     return navigator.clipboard.writeText(text)
   } catch {

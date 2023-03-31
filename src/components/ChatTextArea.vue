@@ -72,7 +72,8 @@ const onMessage = () => {
   @apply w-full flex-1 m-0 px-5 py-3 bg-transparent;
   @apply overflow-auto dark:text-gray-400;
   @apply outline-transparent;
-  @apply resize-none focus:outline-none;
+  @apply resize-none focus:outline-none leading-7;
+  font-size: 15px;
 }
 .chat-textarea-footer {
   @apply flex flex-shrink-0 items-end px-5 pb-2 pt-1;

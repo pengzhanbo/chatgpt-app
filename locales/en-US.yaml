@@ -44,6 +44,13 @@ chat:
     disabled: Memory Mode (disabled)
     content: In memory mode, sending a message carries the current chat history
 
+translate:
+  translate: Translate
+  tips: If the selected translation language is the same, the original text will be polished!
+  copy: Copy
+  copied: Copy successful!
+  placeholder: Please input the content to be translated.
+
 error:
   message:
     401: Incorrect API key provided
@@ -69,3 +76,16 @@ dialog:
     content: Do you want to clear all chats?
     submit: Confirm
     cancel: Cancel
+
+languages:
+  auto: Automatic selection
+  zh-CN: Simplified Chinese
+  zh-TW: Traditional Chinese
+  en: English
+  yue: Cantonese
+  wyw: Classical Chinese
+  ru: Russian
+  fr: French
+  de: German
+  in: Hindi
+  jp: Japanese

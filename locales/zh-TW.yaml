@@ -1,0 +1,91 @@
+navbar:
+  chatGPT: ChatGPT
+  translate: 翻譯/潤色
+  setting: 設置
+
+preference:
+  light: 淺色
+  dark: 深色
+  system: 跟隨系統
+
+apiModelOptions:
+  official: 官方API
+  unofficial: 非官方代理API
+
+setting:
+  apiModel: API調用
+  apiKey: api key
+  accessToken: AccessToken
+  model: 模型
+  timeout: 超時時間
+  language: 語言
+  theme: 主題模式
+  httpProxy: HTTP代理
+  socksProxyHost: Socks地址
+  socksProxyPort: Socks端口
+  btnSubmit: 保存
+  placeholder:
+    apiKey: 請輸入 openai api key
+    accessToken: 請輸入 openai access token
+    timeout: 響應最長等待時間
+    httpProxy: 支持 http、https
+    socksProxyHost: 請輸入 socks 地址
+    socksProxyPort: 請輸入 socks 端口
+  subTitle:
+    regular: 常規
+    agent: 代理
+    chatgpt: ChatGPT
+
+chat:
+  textarea:
+    sendTips: Ctrl + Enter 發送
+  memory:
+    enabled: 記憶模式（已啟用）
+    disabled: 記憶模式（已關閉）
+    content: 記憶模式下，發送消息會攜帶當前聊天記錄
+
+translate:
+  translate: 翻譯
+  tips: 如果選擇翻譯的語言相同，則會對原文進行潤色！
+  copy: 複製
+  copied: 複製成功！
+  placeholder: 請輸入待翻譯內容
+
+error:
+  message:
+    401: 提供錯誤的API密鑰
+    403: 伺服器拒絕訪問，請稍後再試
+    429: 請求次數過多
+    502: 錯誤的網關
+    503: 伺服器繁忙，請稍後再試
+    504: 網關超時
+    500: 伺服器繁忙，請稍後再試
+
+dialog:
+  appConfig:
+    check:
+      title: 還未配置 api key 或 access token
+      submit: 去配置
+  deleteRecord:
+    title: 刪除會話記錄
+    content: 是否刪除當前會話記錄？
+    submit: 刪除
+    cancel: 取消
+  clearMessage:
+    title: 清空聊天記錄
+    content: 是否清空所有聊天記錄？
+    submit: 確認
+    cancel: 取消
+
+languages:
+  auto: 自動選擇
+  zh-CN: 簡體中文
+  zh-TW: 繁體中文
+  en: 英語
+  yue: 粵語
+  wyw: 文言文
+  ru: 俄語
+  fr: 法語
+  de: 德語
+  in: 印度
+  jp: 日語

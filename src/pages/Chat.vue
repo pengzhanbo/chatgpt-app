@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { type SendMessageOptions } from 'chatgpt'
-import { Pane, Splitpanes } from 'splitpanes'
+import { Splitpanes } from 'splitpanes'
 import { chatMessageError } from '~/common/constants'
 import 'splitpanes/dist/splitpanes.css'
 
@@ -10,7 +10,9 @@ const router = useRouter()
 const route = useRoute()
 const { t } = useI18n()
 
-const chatId = computed(() => route.params.id as string)
+const chatId = computed<string>(() =>
+  route.name === 'chat' ? (route.params.id as string) : '',
+)
 const messageText = ref('')
 
 const { sendMessage, onMessageProgress } = useChatApi()
@@ -141,6 +143,10 @@ const clearMessageList = () => {
     },
   })
 }
+
+onMounted(() => {
+  scrollToBottom()
+})
 </script>
 
 <template>

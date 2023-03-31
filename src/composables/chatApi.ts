@@ -8,7 +8,7 @@ export function useChatApi(systemMessage?: MaybeRef<string>) {
   let senderId!: string
   const sendMessage = async (
     prompt: string,
-    options: SendMessageOptions & { conversationId?: string },
+    options: SendMessageOptions & { conversationId?: string } = {},
   ): Promise<SendMessageResponse> => {
     senderId = generateId()
     if (systemMessageRef.value) {

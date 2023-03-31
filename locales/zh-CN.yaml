@@ -44,6 +44,13 @@ chat:
     disabled: 记忆模式（已关闭）
     content: 记忆模式下，发送消息会携带当前聊天记录
 
+translate:
+  translate: 翻译
+  tips: 如果选择翻译的语言相同，则会对原文进行润色！
+  copy: 复制
+  copied: 复制成功！
+  placeholder: 请输出待翻译内容
+
 error:
   message:
     401: 提供错误的API密钥
@@ -69,3 +76,16 @@ dialog:
     content: 是否清空所有聊天记录？
     submit: 确认
     cancel: 取消
+
+languages:
+  auto: 自动选择
+  zh-CN: 简体中文
+  zh-TW: 繁体中文
+  en: 英语
+  yue: 粤语
+  wyw: 文言文
+  ru: 俄语
+  fr: 法语
+  de: 德语
+  in: 印度
+  jp: 日语
