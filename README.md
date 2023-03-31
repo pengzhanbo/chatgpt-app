@@ -33,7 +33,8 @@ The basic functions have been implemented.
 - [x] Proxy 代理 http/https/socks
 - [x] Multilingual 多语言
 - [x] Switch Theme Mode 主题模式切换
-- [ ] Response error handling 响应错误处理
+- [x] Response error handling 响应错误处理
+- [x] 翻译页面
 - [ ] Message retry 消息重试
 - [ ] more...
 

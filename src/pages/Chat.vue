@@ -62,12 +62,15 @@ const toggleMemoryMode = async () => {
 }
 
 async function checkChatRecord(title: string) {
+  if (title.length > 50) {
+    title = `${title.slice(0, 50)}...`
+  }
   if (!chatId.value) {
     // 如果当前页面没有 chatId,则说明是新建状态，
     // 直接根据用户输入生成一个新的记录
     const record = createChatRecord({ title })
     await addChatRecord(record)
-    await router.replace({ name: 'chat', params: { id: record.id } })
+    router.replace({ name: 'chat', params: { id: record.id } })
   } else {
     // 以最新用户发送的消息作为记录的标题
     await updateChatRecord({ id: chatId.value, title })
