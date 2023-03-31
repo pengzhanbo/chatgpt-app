@@ -11,6 +11,13 @@ export const chatGPTModelOptions = [
   'gpt-4-32k-0314',
 ]
 
+export const systemMessageMap = {
+  translate:
+    'You are a translation engine that can only translate text and cannot interpret it.',
+  polish:
+    "You are a text embellisher, you can only embellish the text, don't interpret it.",
+}
+
 export const localeOptions = [
   { label: '简体中文', value: 'zh-CN' },
   { label: 'English', value: 'en-US' },

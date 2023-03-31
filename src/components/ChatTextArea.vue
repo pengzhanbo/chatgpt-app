@@ -1,4 +1,6 @@
 <script lang="ts" setup>
+import { Pane } from 'splitpanes'
+
 const props = defineProps({
   loading: {
     type: Boolean,
@@ -32,7 +34,7 @@ const onMessage = () => {
 </script>
 
 <template>
-  <div class="chat-textarea">
+  <Pane class="chat-textarea" size="22" min-size="14" max-size="50">
     <textarea
       v-model="message"
       class="textarea"
@@ -57,7 +59,7 @@ const onMessage = () => {
         </NButton>
       </div>
     </div>
-  </div>
+  </Pane>
 </template>
 
 <style scoped>

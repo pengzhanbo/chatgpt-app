@@ -1,16 +1,18 @@
+import type { MaybeRef } from '@vueuse/core'
 import type { ChatMessage, SendMessageOptions } from 'chatgpt'
 import { ipcRenderer } from '~/common/electron'
 import { generateId } from '~/utils'
 
-export function useChatApi(systemMessage?: string) {
+export function useChatApi(systemMessage?: MaybeRef<string>) {
+  const systemMessageRef = resolveRef(systemMessage)
   let senderId!: string
   const sendMessage = async (
     prompt: string,
     options: SendMessageOptions & { conversationId?: string },
   ): Promise<SendMessageResponse> => {
     senderId = generateId()
-    if (systemMessage) {
-      options.systemMessage = systemMessage
+    if (systemMessageRef.value) {
+      options.systemMessage = systemMessageRef.value
     }
     return await ipcRenderer.invoke(
       'chatGPT:sendMessage',

@@ -1,5 +1,6 @@
 <script lang="ts" setup>
 import { type ChatMessage } from 'chatgpt'
+import { Pane } from 'splitpanes'
 
 defineProps({
   list: {
@@ -10,9 +11,9 @@ defineProps({
 </script>
 
 <template>
-  <div class="chat-message-list">
+  <Pane class="chat-message-list">
     <ChatMessage v-for="item in list" :key="item.id" :message="item" />
-  </div>
+  </Pane>
 </template>
 
 <style scoped>

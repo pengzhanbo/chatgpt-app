@@ -1,6 +1,8 @@
 <script lang="ts" setup>
 import { type SendMessageOptions } from 'chatgpt'
+import { Pane, Splitpanes } from 'splitpanes'
 import { chatMessageError } from '~/common/constants'
+import 'splitpanes/dist/splitpanes.css'
 
 checkAppConfig()
 
@@ -35,8 +37,8 @@ const { scrollRef, scrollToBottom, scrollToBottomIfAtBottom } = useScroll()
 watch(
   chatId,
   async () => {
-    await loadChatMessage()
     await loadChatRecord()
+    await loadChatMessage()
     messageText.value = ''
   },
   { immediate: true },
@@ -62,10 +64,10 @@ async function checkChatRecord(title: string) {
     // 直接根据用户输入生成一个新的记录
     const record = createChatRecord({ title })
     await addChatRecord(record)
-    router.replace({ name: 'chat', params: { id: record.id } })
+    await router.replace({ name: 'chat', params: { id: record.id } })
   } else {
     // 以最新用户发送的消息作为记录的标题
-    updateChatRecord({ id: chatId.value, title })
+    await updateChatRecord({ id: chatId.value, title })
   }
 }
 
@@ -144,7 +146,7 @@ const clearMessageList = () => {
 <template>
   <div class="chatgpt-wrapper flex flex-1 h-full">
     <ChatSidebar />
-    <div class="chatgpt-container flex-1 flex flex-col">
+    <Splitpanes class="chatgpt-container flex-1 flex flex-col" horizontal>
       <ChatMessageList
         :ref="(c: any) => (scrollRef = c?.$el)"
         :list="messageList"
@@ -180,7 +182,7 @@ const clearMessageList = () => {
           </NPopover>
         </div>
       </ChatTextArea>
-    </div>
+    </Splitpanes>
   </div>
 </template>
 

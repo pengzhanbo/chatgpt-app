@@ -38,6 +38,7 @@
     "OPENAI",
     "Pinia",
     "shiki",
+    "splitpanes",
     "traptitech"
   ]
 }

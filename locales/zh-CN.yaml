@@ -1,5 +1,6 @@
 navbar:
   chatGPT: ChatGPT
+  translate: 翻译/润色
   setting: 设置
 
 preference:

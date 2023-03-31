@@ -16,12 +16,12 @@ const updateHistoryRoutes = () => {
   historyRoutes.value[route.name!] = { params: toRaw(route.params) }
 }
 
-const goChat = () => {
+const goto = (name: string) => {
   updateHistoryRoutes()
   const params = historyRoutes.value.chat
     ? historyRoutes.value.chat.params
     : undefined
-  router.push({ name: 'chat', params })
+  router.push({ name, params })
 }
 
 const goSetting = () => {
@@ -42,13 +42,25 @@ const popoverStyles = {
       <div
         class="icon"
         :class="{ active: routeName === 'chat' }"
-        @click="goChat"
+        @click="goto('chat')"
       >
         <NPopover :style="popoverStyles" placement="bottom" :delay="300">
           <template #trigger>
             <NIcon :size="iconSize"><OpenAIIcon /></NIcon>
           </template>
           <span class="text-xs">{{ t('navbar.chatGPT') }}</span>
+        </NPopover>
+      </div>
+      <div
+        class="icon"
+        :class="{ active: routeName === 'translate' }"
+        @click="goto('translate')"
+      >
+        <NPopover :style="popoverStyles" placement="bottom" :delay="300">
+          <template #trigger>
+            <NIcon :size="iconSize"><LocalesIcon /></NIcon>
+          </template>
+          <span class="text-xs">{{ t('navbar.translate') }}</span>
         </NPopover>
       </div>
     </div>

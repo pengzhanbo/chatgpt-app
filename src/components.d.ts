@@ -24,6 +24,7 @@ declare module '@vue/runtime-core' {
     InfoIcon: typeof import('./components/icons/InfoIcon.vue')['default']
     Layout: typeof import('./components/Layout.vue')['default']
     LightIcon: typeof import('./components/icons/LightIcon.vue')['default']
+    LocalesIcon: typeof import('./components/icons/localesIcon.vue')['default']
     MemoryIcon: typeof import('./components/icons/MemoryIcon.vue')['default']
     MessageIcon: typeof import('./components/icons/MessageIcon.vue')['default']
     ModeIcon: typeof import('./components/icons/ModeIcon.vue')['default']

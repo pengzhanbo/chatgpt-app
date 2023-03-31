@@ -10,7 +10,7 @@ const newChatRecord = async () => {
 </script>
 
 <template>
-  <div class="chat-sidebar">
+  <div class="chat-sidebar" size="23" min-size="10" max-size="23">
     <div class="chat-sidebar-container">
       <ChatSidebarItem
         v-for="record in recordList"
