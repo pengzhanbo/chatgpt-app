@@ -1,4 +1,5 @@
 import mdKatex from '@traptitech/markdown-it-katex'
+import { ipcMain } from 'electron'
 import MarkdownIt from 'markdown-it'
 import linkAttr from 'markdown-it-link-attributes'
 import shiki from 'shiki'
@@ -15,6 +16,9 @@ mdi.use(mdKatex, {
 })
 
 export async function setupMarkdown() {
+  ipcMain.handle('markdown:render', (_, code: string) => {
+    return mdi.render(code)
+  })
   const highlighter = await shiki.getHighlighter({
     theme: 'material-theme-palenight',
   })

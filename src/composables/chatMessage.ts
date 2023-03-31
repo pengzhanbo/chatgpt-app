@@ -2,6 +2,7 @@ import type { MaybeRef } from '@vueuse/core'
 import type { ChatMessage } from 'chatgpt'
 import { escape } from 'html-escaper'
 import { storeToRefs } from 'pinia'
+import { markdownRender } from './markdown'
 import { generateId } from '~/utils'
 
 export function useChatMessage(id: MaybeRef<string>) {
@@ -20,7 +21,8 @@ export function useChatMessage(id: MaybeRef<string>) {
   }
 
   async function addUserMessage(text: string) {
-    messageStore.addUserMessage(generateId(), text, transformUserMessage(text))
+    const rendered = await markdownRender(text)
+    messageStore.addUserMessage(generateId(), text, rendered)
     await updateHistory()
     return messageList.value[messageList.value.length - 1]
   }
@@ -74,7 +76,7 @@ export function useChatMessage(id: MaybeRef<string>) {
   }
 }
 
-function transformUserMessage(text: string): string {
+export function transformUserMessage(text: string): string {
   return escape(text)
     .replace(/^\n+|\n+$/g, '')
     .split(/\n+/)

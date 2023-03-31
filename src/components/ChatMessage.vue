@@ -107,8 +107,4 @@ const localeDate = computed(() => {
   left: unset;
   @apply border-r-transparent border-l-green-400 dark:border-l-green-900;
 }
-
-.markdown-body.user :deep(p) {
-  @apply mb-0;
-}
 </style>

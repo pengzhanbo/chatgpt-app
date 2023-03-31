@@ -42,6 +42,7 @@ watch(
     await loadChatRecord()
     await loadChatMessage()
     messageText.value = ''
+    if (scrollRef.value) scrollToBottom()
   },
   { immediate: true },
 )
