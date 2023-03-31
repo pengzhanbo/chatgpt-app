@@ -49,7 +49,7 @@ translate:
   tips: 如果选择翻译的语言相同，则会对原文进行润色！
   copy: 复制
   copied: 复制成功！
-  placeholder: 请输出待翻译内容
+  placeholder: 请输入待翻译内容
 
 error:
   message:

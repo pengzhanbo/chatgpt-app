@@ -45,9 +45,14 @@ export function useTranslate() {
     let message!: string
 
     if (type.value === 'translate') {
-      message = `translate from ${realLang[source] || source} to ${
-        realLang[target] || target
-      }`
+      if (source === 'auto') {
+        message = `Translate to ${realLang[target] || target}`
+      } else {
+        message = `Translate from ${realLang[source] || source} to ${
+          realLang[target] || target
+        }`
+      }
+
       if (target === 'yue') message = '翻译成粤语'
       if (target === 'wyw') message = '翻译成文言文'
       if (['wyw', 'zh-CN', 'zh-TW'].includes(sourceLang.value)) {

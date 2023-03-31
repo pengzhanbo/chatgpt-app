@@ -49,7 +49,7 @@ translate:
   tips: 翻訳する言語が同じ場合、元のテキストが修正されます！
   copy: コピー
   copied: コピーされました！
-  placeholder: 翻訳する内容を入力してください
+  placeholder: 翻訳するテキストを入力してください。
 
 error:
   message:
