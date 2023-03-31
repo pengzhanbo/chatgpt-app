@@ -151,7 +151,7 @@ function transformMessage(
     role: res.role,
     parentMessageId: res.parentMessageId,
     conversationId: res.conversationId,
-    createTime: res.detail?.created || Date.now(),
+    createTime: Date.now(),
     rendered: renderMarkdown(res.text),
     errorMessage: '',
     type: 'success',

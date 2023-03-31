@@ -1,10 +1,17 @@
 <script lang="ts" setup>
 import { type ChatMessage } from 'chatgpt'
+import format from 'date-fns/format'
 const props = defineProps({
   message: {
     type: Object as PropType<ChatGPTMessage & { original?: ChatMessage }>,
     default: () => ({}),
   },
+})
+const localeDate = computed(() => {
+  if (props.message.createTime) {
+    return format(props.message.createTime, 'yyyy-MM-dd hh:mm:ss')
+  }
+  return ''
 })
 </script>
 
@@ -16,13 +23,14 @@ const props = defineProps({
       reverse: message.role === 'user',
     }"
   >
-    <NAvatar v-if="message.role === 'user'" color="transparent">
-      <NIcon><UserIcon /></NIcon>
-    </NAvatar>
-    <NAvatar v-else color="rgb(16, 163, 127)">
-      <NIcon><OpenAIIcon /></NIcon>
-    </NAvatar>
+    <div v-if="message.role === 'user'" class="avatar user">
+      <NIcon size="30"><UserIcon /></NIcon>
+    </div>
+    <div v-else class="avatar assistant">
+      <NIcon size="30"><OpenAIIcon /></NIcon>
+    </div>
     <div class="message-container">
+      <p class="createTime">{{ localeDate }}</p>
       <div class="message-content">
         <div
           v-if="message.rendered"
@@ -59,6 +67,28 @@ const props = defineProps({
   height: 0;
   border: solid 6px transparent;
   @apply border-r-light-50 dark:border-r-dark-500;
+}
+
+.avatar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 4px;
+}
+
+.avatar.user {
+  @apply bg-light-100 dark:bg-gray-800;
+}
+
+.avatar.assistant {
+  background-color: rgb(16, 163, 127);
+  color: #eee;
+}
+
+.createTime {
+  @apply text-gray-500 text-xs pb-1;
 }
 
 .chat-message.reverse {

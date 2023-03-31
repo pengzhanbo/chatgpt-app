@@ -36,6 +36,7 @@ const onMessage = () => {
     <textarea
       v-model="message"
       class="textarea"
+      :disabled="loading"
       @keypress.ctrl.enter.exact.prevent="onMessage"
     />
     <div class="chat-textarea-footer">

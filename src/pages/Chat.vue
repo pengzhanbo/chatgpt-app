@@ -73,19 +73,24 @@ const loading = ref(false)
 let assistantWaiting: number | undefined
 
 const onMessage = async (message: string) => {
-  if (!message || message === '') return
+  message = message
+    .trim()
+    .replace(/^\n+|\n+$/g, '')
+    .trim()
+  if (message === '') return
 
   await checkChatRecord(message)
 
   loading.value = true
 
   await addUserMessage(message)
+
+  const options: SendMessageOptions = memoryMode.value ? getLastContext() : {}
+
   // 用户发送的消息，直接将列表滚动到底部
   scrollToBottom()
   // 创建一个新的消息容器，但置空，等待服务器消息流填充内容
   assistantWaiting = addAssistantEmptyMessage()
-
-  const options: SendMessageOptions = memoryMode.value ? getLastContext() : {}
 
   const response = await sendMessage(message, options)
 
@@ -117,6 +122,7 @@ const onMessage = async (message: string) => {
 onMessageProgress(async (response) => {
   if (typeof assistantWaiting !== 'undefined') {
     await updateAssistantMessage(assistantWaiting, response)
+    messageText.value = ''
     scrollToBottomIfAtBottom()
   }
 })
