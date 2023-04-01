@@ -1,6 +1,7 @@
 <script lang="ts" setup>
 import { type SendMessageOptions } from 'chatgpt'
 import { Splitpanes } from 'splitpanes'
+import { actToOptions } from '~/common/actTo'
 import { chatMessageError } from '~/common/constants'
 import 'splitpanes/dist/splitpanes.css'
 
@@ -80,7 +81,7 @@ async function checkChatRecord(title: string) {
 const loading = ref(false)
 let assistantWaiting: number | undefined
 
-const onMessage = async (message: string) => {
+const onMessage = async (message: string, forceUnMemoryMode = false) => {
   message = message
     .trim()
     .replace(/^\n+|\n+$/g, '')
@@ -93,7 +94,11 @@ const onMessage = async (message: string) => {
 
   await addUserMessage(message)
 
-  const options: SendMessageOptions = memoryMode.value ? getLastContext() : {}
+  const options: SendMessageOptions = forceUnMemoryMode
+    ? {}
+    : memoryMode.value
+    ? getLastContext()
+    : {}
 
   // 用户发送的消息，直接将列表滚动到底部
   scrollToBottom()
@@ -134,6 +139,13 @@ onMessageProgress(async (response) => {
     scrollToBottomIfAtBottom()
   }
 })
+
+const actTo = ref<string>('')
+const actToChange = async () => {
+  if (actTo.value === '') return
+  messageText.value = actTo.value
+  await onMessage(messageText.value, true)
+}
 
 const dialog = useDialog()
 const clearMessageList = () => {
@@ -190,6 +202,13 @@ onMounted(() => {
               /></NIcon>
             </template>
           </NPopover>
+          <div class="flex-1 mr-5">
+            <NSelect
+              v-model:value="actTo"
+              :options="actToOptions"
+              @update:value="actToChange"
+            />
+          </div>
         </div>
       </ChatTextArea>
     </Splitpanes>

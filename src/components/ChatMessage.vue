@@ -9,7 +9,7 @@ const props = defineProps({
 })
 const localeDate = computed(() => {
   if (props.message.createTime) {
-    return format(props.message.createTime, 'yyyy-MM-dd hh:mm:ss')
+    return format(props.message.createTime, 'yyyy-MM-dd HH:mm:ss')
   }
   return ''
 })
