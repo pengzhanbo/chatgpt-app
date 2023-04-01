@@ -16,7 +16,7 @@ export function useTranslate() {
   const storage = useLocalStorage<{
     target: LanguageUnion
   }>('translate', {
-    target: 'auto',
+    target: 'zh-CN',
   })
   const targetLang = ref<LanguageUnion>(storage.value.target)
 

@@ -47,7 +47,7 @@ export const chatMessageError: Record<number, string> = {
 }
 
 export const languageOptions = [
-  { label: 'languages.auto', value: 'auto' },
+  // { label: 'languages.auto', value: 'auto' },
   { label: 'languages.zh-CN', value: 'zh-CN' },
   { label: 'languages.zh-TW', value: 'zh-TW' },
   { label: 'languages.en', value: 'en' },

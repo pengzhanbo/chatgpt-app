@@ -76,7 +76,7 @@ const onCopy = async () => {
           >
         </div>
       </div>
-      <div class="flex-1 flex justify-end pr-4">
+      <div class="flex-1 flex justify-end pr-5">
         <NButton @click="onCopy">{{ t('translate.copy') }}</NButton>
       </div>
     </div>
