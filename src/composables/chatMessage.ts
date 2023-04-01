@@ -76,7 +76,7 @@ export function useChatMessage(id: MaybeRef<string>) {
   }
 }
 
-export function transformUserMessage(text: string): string {
+export function transformMessage(text: string): string {
   return escape(text)
     .replace(/^\n+|\n+$/g, '')
     .split(/\n+/)

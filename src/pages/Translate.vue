@@ -1,6 +1,7 @@
 <script lang="ts" setup>
 import { Pane, Splitpanes } from 'splitpanes'
 import { chatMessageError, languageOptions } from '~/common/constants'
+import { transformMessage } from '~/composables/chatMessage'
 import { copyToClipboard } from '~/composables/copyCode'
 import type { TranslateType } from '~/composables/translate'
 const languageList = [...languageOptions]
@@ -16,6 +17,8 @@ const result = ref<ChatGPTMessage>({
   role: 'assistant',
   createTime: 0,
 })
+
+const rendered = computed(() => transformMessage(result.value.text))
 
 const onTranslate = async (current: TranslateType) => {
   if (!text.value) return
@@ -92,11 +95,7 @@ const onCopy = async () => {
       </Pane>
       <Pane class="translate-target" min-size="10">
         <div class="translated-content">
-          <div
-            v-if="result.rendered"
-            class="markdown-body"
-            v-html="result.rendered"
-          ></div>
+          <div v-if="rendered" class="markdown-body" v-html="rendered"></div>
           <div v-if="result.errorMessage">
             <NAlert type="error">{{ result.errorMessage }}</NAlert>
           </div>
@@ -130,5 +129,9 @@ const onCopy = async () => {
 .translated-content {
   @apply w-full h-full  m-0 px-5 py-3 rounded-md;
   @apply bg-light-600 dark:bg-dark-800;
+}
+
+.translate-content .markdown-body :deep(p) {
+  @apply mb-0;
 }
 </style>
