@@ -53,6 +53,7 @@ export async function updateChatGPT(config?: AppConfig) {
     const options = {
       accessToken: config.accessToken,
       model,
+      debug: process.env.NODE_ENV === 'development',
     }
     cache.apiModel = 'ChatGPTUnofficialProxyAPI'
     setupProxy(options as unknown as ChatGPTAPIOptions, config)
@@ -61,6 +62,7 @@ export async function updateChatGPT(config?: AppConfig) {
     const options: ChatGPTAPIOptions = {
       apiKey,
       completionParams: { model },
+      debug: process.env.NODE_ENV === 'development',
     }
 
     if (model.toLowerCase().includes('gpt-4')) {
@@ -80,7 +82,7 @@ export async function updateChatGPT(config?: AppConfig) {
 
 export async function sendMessage(
   prompt: string,
-  options: SendMessageOptions & { conversationId?: string },
+  options: SendMessageOptions & { conversationId?: string } = {},
   senderId: number,
 ): Promise<SendMessageResponse> {
   const config = await getAppConfig()

@@ -46,7 +46,7 @@ chat:
 
 translate:
   translate: Translate
-  tips: If the selected translation language is the same, the original text will be polished!
+  polish: Polish
   copy: Copy
   copied: Copy successful!
   placeholder: Please input the content to be translated.

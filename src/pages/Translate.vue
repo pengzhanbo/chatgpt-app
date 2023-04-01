@@ -2,10 +2,10 @@
 import { Pane, Splitpanes } from 'splitpanes'
 import { chatMessageError, languageOptions } from '~/common/constants'
 import { copyToClipboard } from '~/composables/copyCode'
+import type { TranslateType } from '~/composables/translate'
 const languageList = [...languageOptions]
 const { t } = useI18n()
-const { sourceLang, targetLang, translateText, onMessageProgress } =
-  useTranslate()
+const { type, targetLang, translateText, onMessageProgress } = useTranslate()
 const loading = ref(false)
 const text = ref('')
 const result = ref<ChatGPTMessage>({
@@ -17,8 +17,9 @@ const result = ref<ChatGPTMessage>({
   createTime: 0,
 })
 
-const onTranslate = async () => {
+const onTranslate = async (current: TranslateType) => {
   if (!text.value) return
+  type.value = current
   loading.value = true
   const response = await translateText(text.value)
   if (response.type === 'success') {
@@ -52,12 +53,6 @@ const onCopy = async () => {
     <div class="flex items-end">
       <div class="flex items-center w-96 pl-4">
         <NSelect
-          v-model:value="sourceLang"
-          :options="languageList"
-          :render-label="({ label }) => t(label)"
-        />
-        <NIcon class="mx-2 text-gray-400" size="24"><ArrowRightIcon /></NIcon>
-        <NSelect
           v-model:value="targetLang"
           :options="languageList"
           :render-label="({ label }) => t(label)"
@@ -67,8 +62,17 @@ const onCopy = async () => {
             type="primary"
             :loading="loading"
             :disabled="loading"
-            @click="onTranslate"
+            @click="onTranslate('translate')"
             >{{ t('translate.translate') }}</NButton
+          >
+        </div>
+        <div class="ml-4">
+          <NButton
+            type="primary"
+            :loading="loading"
+            :disabled="loading"
+            @click="onTranslate('polish')"
+            >{{ t('translate.polish') }}</NButton
           >
         </div>
       </div>
@@ -76,7 +80,6 @@ const onCopy = async () => {
         <NButton @click="onCopy">{{ t('translate.copy') }}</NButton>
       </div>
     </div>
-    <div class="pl-4 text-gray-400 text-xs">{{ t('translate.tips') }}</div>
     <Splitpanes class="translate-content">
       <Pane class="translate-source" size="50" min-size="10">
         <textarea
@@ -84,7 +87,7 @@ const onCopy = async () => {
           class="textarea"
           :disabled="loading"
           :placeholder="t('translate.placeholder')"
-          @keypress.ctrl.enter.exact.prevent="onTranslate"
+          @keypress.ctrl.enter.exact.prevent="onTranslate('translate')"
         ></textarea>
       </Pane>
       <Pane class="translate-target" min-size="10">

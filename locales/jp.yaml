@@ -46,7 +46,7 @@ chat:
 
 translate:
   translate: 翻訳
-  tips: 翻訳する言語が同じ場合、元のテキストが修正されます！
+  polish: ついたて
   copy: コピー
   copied: コピーされました！
   placeholder: 翻訳するテキストを入力してください。

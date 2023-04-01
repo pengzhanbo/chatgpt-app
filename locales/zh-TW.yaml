@@ -46,7 +46,7 @@ chat:
 
 translate:
   translate: 翻譯
-  tips: 如果選擇翻譯的語言相同，則會對原文進行潤色！
+  polish: 潤色
   copy: 複製
   copied: 複製成功！
   placeholder: 請輸入待翻譯內容

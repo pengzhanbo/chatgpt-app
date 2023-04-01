@@ -13,9 +13,9 @@ export const chatGPTModelOptions = [
 
 export const systemMessageMap = {
   translate:
-    'You are a translation engine that can only translate text and cannot interpret it.',
+    'I want you to act as a translation engine that can only translate text. I will communicate with you in any language. You need to detect and translate it, I will tell you the target language in the {language} format at the beginning. Keep the original meaning unchanged, and only use the translated content to answer me. Do not include {language} Cannot interpret it.',
   polish:
-    "You are a text embellisher, you can only embellish the text, don't interpret it.",
+    "You are a text embellisher and can only embellish text. I will communicate with you in any language, and you need to detect it and optimize it in the same language. Do not change the original meaning, make it more optimized and literary, and only use the corrected content to answer me. Don't interpret it.",
 }
 
 export const localeOptions = [
