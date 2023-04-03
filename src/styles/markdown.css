@@ -292,7 +292,7 @@
 
 /* inline code */
 .markdown-body :not(pre, h1, h2, h3, h4, h5, h6) > code {
-  @apply text-xs
+  @apply text-xs;
 }
 
 .markdown-body :not(pre) > code {
