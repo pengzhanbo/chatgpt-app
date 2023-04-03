@@ -17,119 +17,6 @@
   @apply w-full break-words;
 }
 
-.markdown-body .shiki {
-  @apply w-full overflow-auto px-5 py-3 rounded-md m-0;
-}
-
-.markdown-body [class*="language-"] {
-  @apply relative mb-4;
-}
-
-.markdown-body code,
-.markdown-body pre {
-  font-size: 1em;
-  font-family: var(--font-family-mono);
-}
-
-
-.markdown-body [class*="language-"]::before {
-  content: attr(data-lang);
-  @apply absolute right-2 top-2 text-gray-400;
-}
-
-.markdown-body [class*="language-"] pre,
-.markdown-body [class*="language-"] code {
-  /*rtl:ignore*/
-  direction: ltr;
-  /*rtl:ignore*/
-  text-align: left;
-  white-space: pre;
-  word-spacing: normal;
-  word-break: normal;
-  word-wrap: normal;
-  -moz-tab-size: 4;
-  -o-tab-size: 4;
-  tab-size: 4;
-  -webkit-hyphens: none;
-  -moz-hyphens: none;
-  -ms-hyphens: none;
-  hyphens: none;
-}
-
-.markdown-body [class*="language-"] .copy-code {
-  @apply absolute right-2 top-2 text-gray-50 opacity-0 z-3;
-  @apply transition-all cursor-pointer block bg-gray-700;
-  @apply justify-center items-center;
-  width: 40px;
-  height: 40px;
-  border-radius: 4px;
-  background-image: var(--icon-copy);
-  background-position: 50%;
-  background-size: 20px;
-  background-repeat: no-repeat;
-}
-
-.markdown-body [class*="language-"]:hover .copy-code {
-  @apply opacity-100;
-}
-.markdown-body [class*="language-"] .copy-code:hover {
-  @apply bg-gray-600;
-}
-
-
-.markdown-body [class*="language-"] .copy-code.copied,
-.markdown-body [class*="language-"] .copy-code:hover.copied {
-  background-image: var(--icon-copied);
-  border-radius: 0 4px 4px 0;
-  @apply bg-gray-600;
-}
-
-.markdown-body [class*='language-'] .copy-code.copied::before,
-.markdown-body [class*='language-'] .copy-code:hover.copied::before {
-  position: relative;
-  /*rtl:ignore*/
-  left: -64px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  /*rtl:ignore*/
-  border-radius: 4px 0 0 4px;
-  width: 64px;
-  height: 40px;
-  text-align: center;
-  font-size: 12px;
-  font-weight: 500;
-  white-space: nowrap;
-  content: 'Copied';
-  @apply text-green-400 bg-gray-600;
-}
-
-/* inline code */
-.markdown-body :not(pre, h1, h2, h3, h4, h5, h6) > code {
-  @apply text-xs
-}
-
-.markdown-body :not(pre) > code {
-  border-radius: 4px;
-  padding: 3px 6px;
-  @apply text-gray-700 bg-light-500 transition-colors;
-  @apply dark:text-gray-200 dark:bg-dark-100;
-}
-
-.markdown-body h1 > code,
-.markdown-body h2 > code,
-.markdown-body h3 > code {
-  font-size: 0.9em;
-}
-
-.markdown-body a > code {
-  @apply text-blue-800 transition-colors;
-}
-
-.markdown-body a:hover > code {
-  @apply text-blue-900;
-}
-
 .markdown-body blockquote {
   @apply my-4 border-l-2 border-l-gray-400;
 }
@@ -287,6 +174,24 @@
   @apply border-b border-b-light-800 dark:border-b-dark-800;
 }
 
+.markdown-body .katexmath-container {
+  @apply max-w-full overflow-auto;
+}
+
+.markdown-body .shiki {
+  @apply w-full overflow-auto pr-5 px-10 py-3 rounded-md m-0;
+}
+
+.markdown-body [class*="language-"] {
+  @apply relative mb-4;
+}
+
+.markdown-body code,
+.markdown-body pre {
+  font-size: 1em;
+  font-family: var(--font-family-mono);
+}
+
 .markdown-body pre {
   margin-top: 0;
   margin-bottom: 0;
@@ -294,6 +199,119 @@
   word-wrap: normal;
 }
 
-.markdown-body .katexmath-container {
-  @apply max-w-full overflow-auto;
+
+.markdown-body [class*="language-"]::before {
+  content: attr(data-lang);
+  @apply absolute right-2 top-2 text-gray-400 opacity-100 transition-colors;
+}
+
+.markdown-body [class*="language-"]:hover::before {
+  @apply opacity-0;
+}
+
+.markdown-body [class*="language-"] pre,
+.markdown-body [class*="language-"] code {
+  /*rtl:ignore*/
+  direction: ltr;
+  /*rtl:ignore*/
+  text-align: left;
+  white-space: pre;
+  word-spacing: normal;
+  word-break: normal;
+  word-wrap: normal;
+  -moz-tab-size: 4;
+  -o-tab-size: 4;
+  tab-size: 4;
+  -webkit-hyphens: none;
+  -moz-hyphens: none;
+  -ms-hyphens: none;
+  hyphens: none;
+}
+
+.markdown-body [class*="language-"] .line-numbers {
+  counter-reset: line-number;
+  font-size: 1em;
+  background-color: #292D3E;
+  @apply absolute top-0 left-0 bottom-0 border-r border-r-gray-600 pt-4 w-8;
+  @apply text-center pt-3 text-gray-500 transition-colors;
+  @apply rounded-l-md;
+}
+
+.markdown-body [class*="language-"] .line-numbers .line-number::before {
+  counter-increment: line-number;
+  content: counter(line-number);
+}
+
+.markdown-body [class*="language-"] .copy-code {
+  @apply absolute right-2 top-2 text-gray-50 opacity-0 z-3;
+  @apply transition-all cursor-pointer block bg-gray-700;
+  @apply justify-center items-center;
+  width: 40px;
+  height: 40px;
+  border-radius: 4px;
+  background-image: var(--icon-copy);
+  background-position: 50%;
+  background-size: 20px;
+  background-repeat: no-repeat;
+}
+
+.markdown-body [class*="language-"]:hover .copy-code {
+  @apply opacity-100;
+}
+.markdown-body [class*="language-"] .copy-code:hover {
+  @apply bg-gray-600;
+}
+
+
+.markdown-body [class*="language-"] .copy-code.copied,
+.markdown-body [class*="language-"] .copy-code:hover.copied {
+  background-image: var(--icon-copied);
+  border-radius: 0 4px 4px 0;
+  @apply bg-gray-600;
+}
+
+.markdown-body [class*='language-'] .copy-code.copied::before,
+.markdown-body [class*='language-'] .copy-code:hover.copied::before {
+  position: relative;
+  /*rtl:ignore*/
+  left: -64px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /*rtl:ignore*/
+  border-radius: 4px 0 0 4px;
+  width: 64px;
+  height: 40px;
+  text-align: center;
+  font-size: 12px;
+  font-weight: 500;
+  white-space: nowrap;
+  content: 'Copied';
+  @apply text-green-400 bg-gray-600;
+}
+
+/* inline code */
+.markdown-body :not(pre, h1, h2, h3, h4, h5, h6) > code {
+  @apply text-xs
+}
+
+.markdown-body :not(pre) > code {
+  border-radius: 4px;
+  padding: 3px 6px;
+  @apply text-gray-700 bg-light-500 transition-colors;
+  @apply dark:text-gray-200 dark:bg-dark-100;
+}
+
+.markdown-body h1 > code,
+.markdown-body h2 > code,
+.markdown-body h3 > code {
+  font-size: 0.9em;
+}
+
+.markdown-body a > code {
+  @apply text-blue-800 transition-colors;
+}
+
+.markdown-body a:hover > code {
+  @apply text-blue-900;
 }
