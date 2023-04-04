@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { type ChatMessage } from 'chatgpt'
+import { type ChatMessage } from '@pengzhanbo/chatgpt'
 import format from 'date-fns/format'
 const props = defineProps({
   message: {

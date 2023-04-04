@@ -88,11 +88,7 @@ export default defineConfig(({ command }) => {
             }
           },
           vite: {
-            plugins: [
-              esmodule(['chatgpt', 'node-fetch']),
-              wasm(),
-              topLevelAwait(),
-            ],
+            plugins: [esmodule(['node-fetch']), wasm(), topLevelAwait()],
             build: {
               sourcemap,
               minify: isBuild,

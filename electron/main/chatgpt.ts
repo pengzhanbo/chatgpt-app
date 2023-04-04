@@ -2,8 +2,8 @@ import type {
   ChatGPTAPIOptions,
   ChatMessage,
   SendMessageOptions,
-} from 'chatgpt'
-import { ChatGPTAPI, ChatGPTUnofficialProxyAPI } from 'chatgpt'
+} from '@pengzhanbo/chatgpt'
+import { ChatGPTAPI, ChatGPTUnofficialProxyAPI } from '@pengzhanbo/chatgpt'
 import { ipcMain } from 'electron'
 import { HttpsProxyAgent } from 'https-proxy-agent'
 import fetch from 'node-fetch'

@@ -1,4 +1,4 @@
-import { type ChatMessage } from 'chatgpt'
+import { type ChatMessage } from '@pengzhanbo/chatgpt'
 import { defineStore } from 'pinia'
 
 export interface ChatMessageStore {

@@ -1,5 +1,5 @@
+import type { ChatMessage, SendMessageOptions } from '@pengzhanbo/chatgpt'
 import type { MaybeRef } from '@vueuse/core'
-import type { ChatMessage, SendMessageOptions } from 'chatgpt'
 import { ipcRenderer } from '~/common/electron'
 import { generateId } from '~/utils'
 

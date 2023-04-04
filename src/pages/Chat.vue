@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { type SendMessageOptions } from 'chatgpt'
+import { type SendMessageOptions } from '@pengzhanbo/chatgpt'
 import { Splitpanes } from 'splitpanes'
 import { actToOptions } from '~/common/actTo'
 import { chatMessageError } from '~/common/constants'

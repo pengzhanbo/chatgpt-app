@@ -1,5 +1,5 @@
+import type { ChatMessage } from '@pengzhanbo/chatgpt'
 import type { MaybeRef } from '@vueuse/core'
-import type { ChatMessage } from 'chatgpt'
 import { escape } from 'html-escaper'
 import { storeToRefs } from 'pinia'
 import { markdownRender } from './markdown'
