@@ -36,7 +36,7 @@ The basic functions have been implemented.
 - [x] Response error handling 响应错误处理
 - [x] 翻译页面
 - [ ] Message retry 消息重试
-- [ ] more...
+- [ ] More...
 
 ## Development
 
