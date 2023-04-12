@@ -12,8 +12,7 @@ defineProps({
   },
 })
 
-const {t} = useI18n()
-
+const { t } = useI18n()
 </script>
 
 <template>
@@ -22,7 +21,7 @@ const {t} = useI18n()
       <ChatMessage v-for="item in list" :key="item.id" :message="item" />
     </div>
     <Transition name="fade">
-      <div v-show="loading" class="chat-loading">正在输入中...</div>
+      <div v-show="loading" class="chat-loading">{{ t('chat.inputting') }}</div>
     </Transition>
   </Pane>
 </template>
