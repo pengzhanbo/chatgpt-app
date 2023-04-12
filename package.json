@@ -4,6 +4,12 @@
   "version": "0.0.1",
   "type": "module",
   "packageManager": "pnpm@8.2.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/pengzhanbo/chatgpt-app"
+  },
+  "license": "MIT",
+  "author": "pengzhanbo <q942450674@outlook.com> (https://github.com/pengzhanbo)",
   "scripts": {
     "dev": "vite",
     "build": "vue-tsc --noEmit && vite build",
