@@ -1,37 +1,31 @@
-import { invoke } from '~/common/electron'
+import { Store } from '~/modules/tauri-store/store'
 
-export interface BatchOperation {
-  type: 'put' | 'get' | 'del'
-  key: string
-  value?: any
-}
+export const db = new Store('./chatgpt.db')
 
-const CHAT_GPT = 'chat_GPT'
-const CHAT_GPT_HISTORY = 'history'
+export const historyDB = new Store('./chat-history.db')
 
-export function useDB(dbName: string, subName?: string) {
-  const name = `db:${dbName}${subName ? `:${subName}` : ''}`
+export const useDB = () => db
 
-  const get = <T = any>(key: string): Promise<T> => invoke(`${name}:get`, key)
+export const useChatHistoryDB = () => historyDB
 
-  const put = (key: string, value: any): Promise<void> =>
-    invoke(`${name}:put`, key, toRaw(value))
-
-  const del = (key: string): Promise<void> => invoke(`${name}:del`, key)
-
-  const batch = async (operations: BatchOperation[]): Promise<void> => {
-    operations = operations.map((operation) => {
-      if (operation.type === 'put' && operation.value)
-        operation.value = toRaw(operation.value)
-      return operation
-    })
-    await invoke(`${name}:batch`, operations)
+export async function setupDB() {
+  if (await initAppConfig()) {
+    await db.save()
   }
 
-  const clear = (): Promise<void> => invoke(`${name}:clear`)
-
-  return { get, put, del, batch, clear }
+  // await historyDB.save()
 }
 
-export const useChatDB = () => useDB(CHAT_GPT)
-export const useChatHistoryDB = () => useDB(CHAT_GPT, CHAT_GPT_HISTORY)
+async function initAppConfig() {
+  const has = await db.has('app_setting')
+  if (!has) {
+    await db.set<AppConfig>('app_setting', {
+      apiBaseUrl: 'https://api.openai.com',
+      apiKey: '',
+      chatModel: 'gpt-3.5-turbo',
+      theme: 'system',
+      locale: 'zh-CN',
+    })
+  }
+  return !has
+}

@@ -1,6 +1,6 @@
 import type { App } from 'vue'
 import { installI18n } from './i18n'
-import { installNaiveUI } from './naiveui'
+import { installNaiveUI } from './naive-ui'
 
 export const setupModules = (app: App, appConfig: AppConfig) => {
   installNaiveUI()

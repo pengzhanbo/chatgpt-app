@@ -46,7 +46,9 @@ const popoverStyles = {
       >
         <NPopover :style="popoverStyles" placement="bottom" :delay="300">
           <template #trigger>
-            <NIcon :size="iconSize"><OpenAIIcon /></NIcon>
+            <NIcon :size="iconSize">
+              <OpenAIIcon />
+            </NIcon>
           </template>
           <span class="text-xs">{{ t('navbar.chatGPT') }}</span>
         </NPopover>
@@ -58,7 +60,9 @@ const popoverStyles = {
       >
         <NPopover :style="popoverStyles" placement="bottom" :delay="300">
           <template #trigger>
-            <NIcon :size="iconSize"><LocalesIcon /></NIcon>
+            <NIcon :size="iconSize">
+              <LocalesIcon />
+            </NIcon>
           </template>
           <span class="text-xs">{{ t('navbar.translate') }}</span>
         </NPopover>
@@ -73,7 +77,9 @@ const popoverStyles = {
       >
         <NPopover :style="popoverStyles" :delay="300">
           <template #trigger>
-            <NIcon :size="iconSize"><SettingIcon /></NIcon>
+            <NIcon :size="iconSize">
+              <SettingIcon />
+            </NIcon>
           </template>
           <span class="text-xs">{{ t('navbar.setting') }}</span>
         </NPopover>
@@ -84,18 +90,20 @@ const popoverStyles = {
 
 <style scoped>
 .navbar {
-  @apply flex flex-col flex-shrink-0 w-17 pt-8 bg-light-600 dark:bg-dark-800;
+  @apply flex flex-col flex-shrink-0 w-17 pt-8 bg-light-600 dark: bg-dark-800;
 }
+
 .icon {
-  @apply text-center py-3 cursor-pointer text-gray-500 dark:text-gray-600;
-  @apply hover:text-gray-800 hover:dark:text-gray-300 transition-colors;
+  @apply text-center py-3 cursor-pointer text-gray-500 dark: text-gray-600;
+  @apply hover: text-gray-800 hover:dark:text-gray-300 transition-colors;
 }
+
 .icon.active {
-  @apply text-gray-800 dark:text-gray-300 relative;
+  @apply text-gray-800 dark: text-gray-300 relative;
 }
 
 .icon.active::before {
   content: '';
-  @apply inline-block absolute top-2 bottom-2 left-0 w-0.5 bg-gray-700 dark:bg-gray-400;
+  @apply inline-block absolute top-2 bottom-2 left-0 w-0.5 bg-gray-700 dark: bg-gray-400;
 }
 </style>

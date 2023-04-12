@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { NConfigProvider, darkTheme } from 'naive-ui'
+import { setupDarkMode } from './composables/colorTheme'
 import { useCopyCode } from './composables/copyCode'
-import { setupDarkMode } from './composables/darkMode'
 import { setupLocale } from './composables/locale'
 
 useCopyCode()

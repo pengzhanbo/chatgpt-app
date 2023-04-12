@@ -1,9 +1,7 @@
 <script lang="ts" setup>
-import { type SendMessageOptions } from '@pengzhanbo/chatgpt'
 import { Splitpanes } from 'splitpanes'
 import { actToOptions } from '~/common/actTo'
-import { chatMessageError } from '~/common/constants'
-import 'splitpanes/dist/splitpanes.css'
+import { sendMessage } from '~/composables/sendMessage'
 
 checkAppConfig()
 
@@ -16,7 +14,6 @@ const chatId = computed<string>(() =>
 )
 const messageText = ref('')
 
-const { sendMessage, onMessageProgress } = useChatApi()
 const {
   recordList,
   createChatRecord,
@@ -31,11 +28,11 @@ const {
   addAssistantEmptyMessage,
   updateAssistantMessage,
   addUserMessage,
-  getLastContext,
   clearChatMessage,
 } = useChatMessage(chatId)
 
-const { scrollRef, scrollToBottom, scrollToBottomIfAtBottom } = useScroll()
+const { scrollRef, scrollToBottom, scrollToBottomIfAtBottom } =
+  useScrollControl()
 
 watch(
   chatId,
@@ -94,51 +91,32 @@ const onMessage = async (message: string, forceUnMemoryMode = false) => {
 
   await addUserMessage(message)
 
-  const options: SendMessageOptions = forceUnMemoryMode
-    ? {}
-    : memoryMode.value
-    ? getLastContext()
-    : {}
-
   // 用户发送的消息，直接将列表滚动到底部
   scrollToBottom()
   // 创建一个新的消息容器，但置空，等待服务器消息流填充内容
   assistantWaiting = addAssistantEmptyMessage()
 
-  const response = await sendMessage(message, options)
+  const response = await sendMessage({
+    stream: true,
+    prompt: message,
+    historyId:
+      memoryMode.value && !forceUnMemoryMode ? chatId.value : undefined,
+    onMessage(response) {
+      updateAssistantMessage(assistantWaiting!, response)
+      messageText.value = ''
+      scrollToBottomIfAtBottom()
+    },
+  })
+  await updateAssistantMessage(assistantWaiting, response, true)
 
   if (response.type === 'success') {
-    await updateAssistantMessage(assistantWaiting, response.payload, true)
     messageText.value = ''
-  } else {
-    await updateAssistantMessage(
-      assistantWaiting,
-      {
-        ...response.payload,
-        errorMessage:
-          response.code in chatMessageError
-            ? t(chatMessageError[response.code])
-            : response.payload.errorMessage || response.message,
-      },
-      true,
-    )
   }
 
   assistantWaiting = undefined
   loading.value = false
   scrollToBottomIfAtBottom()
 }
-
-/**
- * 当发送消息后，AI模拟正在输入的效果，连续返回响应报文
- */
-onMessageProgress(async (response) => {
-  if (typeof assistantWaiting !== 'undefined') {
-    await updateAssistantMessage(assistantWaiting, response)
-    messageText.value = ''
-    scrollToBottomIfAtBottom()
-  }
-})
 
 const actTo = ref<string>('')
 const actToChange = async () => {
@@ -183,8 +161,8 @@ onMounted(() => {
             {{ t('dialog.clearMessage.title') }}
             <template #trigger>
               <NIcon class="icon" size="24" @click="clearMessageList">
-                <DeleteIcon
-              /></NIcon>
+                <DeleteIcon />
+              </NIcon>
             </template>
           </NPopover>
           <NPopover>
@@ -198,8 +176,9 @@ onMounted(() => {
                 :class="{ active: memoryMode }"
                 size="18"
                 @click="toggleMemoryMode"
-                ><MemoryIcon
-              /></NIcon>
+              >
+                <MemoryIcon />
+              </NIcon>
             </template>
           </NPopover>
           <div class="flex-1 mr-5">
@@ -217,11 +196,13 @@ onMounted(() => {
 
 <style scoped>
 .chatgpt-container {
-  @apply bg-light-600 dark:bg-dark-900 pb-2;
+  @apply bg-light-600 dark: bg-dark-900 pb-2;
 }
+
 .icon {
-  @apply mr-4 text-gray-500 cursor-pointer hover:text-gray-700 transition-colors;
+  @apply mr-4 text-gray-500 cursor-pointer hover: text-gray-700 transition-colors;
 }
+
 .icon.active {
   @apply text-green-500;
 }

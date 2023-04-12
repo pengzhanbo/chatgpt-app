@@ -1,8 +1,7 @@
-import { type ChatMessage } from '@pengzhanbo/chatgpt'
 import { defineStore } from 'pinia'
 
 export interface ChatMessageStore {
-  messageList: (ChatGPTMessage & { original?: ChatMessage })[]
+  messageList: ChatGPTMessage[]
 }
 
 export const useChatMessageStore = defineStore('chat-message', {
@@ -34,10 +33,7 @@ export const useChatMessageStore = defineStore('chat-message', {
       } as ChatGPTMessage)
       return this.messageList.length - 1
     },
-    updateAssistantMessage(
-      sendId: number,
-      message: Partial<ChatGPTMessage & { original: ChatMessage }>,
-    ) {
+    updateAssistantMessage(sendId: number, message: Partial<ChatGPTMessage>) {
       this.messageList[sendId] = {
         ...this.messageList[sendId],
         ...message,

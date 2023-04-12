@@ -1,32 +1,4 @@
 {
-  "typescript.tsdk": "node_modules/typescript/lib",
-  "typescript.tsc.autoDetect": "off",
-  "json.schemas": [
-    {
-      "fileMatch": ["/*electron-builder.json5", "/*electron-builder.json"],
-      "url": "https://json.schemastore.org/electron-builder"
-    }
-  ],
-  "i18n-ally.sourceLanguage": "zh-CN",
-  "i18n-ally.localesPaths": "locales",
-  "i18n-ally.keystyle": "nested",
-  "i18n-ally.sortKeys": true,
-  "i18n-ally.displayLanguage": "zh-CN",
-  "prettier.enable": false,
-  "editor.codeActionsOnSave": {
-    "source.fixAll.eslint": true
-  },
-  "editor.formatOnSave": false,
-  "css.lint.unknownAtRules": "ignore",
-  "less.lint.unknownAtRules": "ignore",
-  "scss.lint.unknownAtRules": "ignore",
-  "css.validate": false,
-  "scss.validate": false,
-  "stylelint.validate": [
-    "css",
-    "less",
-    "postcss"
-  ],
   "cSpell.words": [
     "chatgpt",
     "ChatGPTAPI",
@@ -39,6 +11,23 @@
     "Pinia",
     "shiki",
     "splitpanes",
-    "traptitech"
-  ]
+    "traptitech",
+    "windi"
+  ],
+  "rust-analyzer.linkedProjects": ["./src-tauri/Cargo.toml"],
+  "i18n-ally.sourceLanguage": "zh-CN",
+  "i18n-ally.localesPaths": "locales",
+  "i18n-ally.keystyle": "nested",
+  "i18n-ally.sortKeys": true,
+  "i18n-ally.displayLanguage": "zh-CN",
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true
+  },
+  "editor.formatOnSave": false,
+  "css.lint.unknownAtRules": "ignore",
+  "less.lint.unknownAtRules": "ignore",
+  "scss.lint.unknownAtRules": "ignore",
+  "css.validate": false,
+  "scss.validate": false,
+  "typescript.tsdk": "node_modules/typescript/lib"
 }

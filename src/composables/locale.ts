@@ -9,6 +9,7 @@ import {
   zhTW,
 } from 'naive-ui'
 import { useI18n } from 'vue-i18n'
+import { useAppConfig } from './appConfig'
 
 const cache: Record<string, any> = {
   'zh-CN': {
@@ -50,7 +51,7 @@ export function setupLocale() {
 
   watch(locale, async (currentLocale) => {
     if (currentLocale !== appConfig.value?.locale) {
-      await setConfig({ locale: currentLocale })
+      await setConfig({ locale: currentLocale as Locales })
     }
   })
 

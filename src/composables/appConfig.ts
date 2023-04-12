@@ -1,14 +1,17 @@
-const db = useChatDB()
+import { useDB } from './db'
+
+const db = useDB()
 
 const appConfig = ref<AppConfig>()
 
 const getConfig = async (): Promise<AppConfig> => {
   if (appConfig.value) return appConfig.value
-  return await db.get('app_setting')
+  return (await db.get<AppConfig>('app_setting')) as AppConfig
 }
 
 const updateConfig = async (): Promise<void> => {
-  await db.put('app_setting', appConfig.value)
+  await db.set('app_setting', appConfig.value)
+  await db.save()
 }
 
 const setConfig = async (config: Partial<AppConfig>): Promise<void> => {
@@ -20,6 +23,7 @@ const setConfig = async (config: Partial<AppConfig>): Promise<void> => {
 }
 
 let waiting: Promise<AppConfig> | null = null
+
 async function initAppConfig() {
   if (waiting) return waiting
   waiting = getConfig()
@@ -41,7 +45,7 @@ export function checkAppConfig() {
   onBeforeMount(async () => {
     await initAppConfig()
     const goSetting = () => router.push({ name: 'setting' })
-    !appConfig.value?.openAIApiKey &&
+    !appConfig.value?.apiKey &&
       dialog.warning({
         title: t('dialog.appConfig.check.title'),
         positiveText: t('dialog.appConfig.check.submit'),

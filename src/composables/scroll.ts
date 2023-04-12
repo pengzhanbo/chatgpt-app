@@ -9,7 +9,7 @@ interface ScrollReturn {
   scrollToBottomIfAtBottom: () => Promise<void>
 }
 
-export function useScroll(): ScrollReturn {
+export function useScrollControl(): ScrollReturn {
   const scrollRef = ref<ScrollElement>(null)
 
   const scrollToBottom = async () => {

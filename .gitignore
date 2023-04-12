@@ -10,13 +10,10 @@ lerna-debug.log*
 node_modules
 dist
 dist-ssr
-dist-electron
-release
+!public/shiki/dist
 *.local
-_cache
 
 # Editor directories and files
-.vscode/.debug.env
 .idea
 .DS_Store
 *.suo
@@ -24,8 +21,3 @@ _cache
 *.njsproj
 *.sln
 *.sw?
-
-lockfile
-package-lock.json
-pnpm-lock.yaml
-yarn.lock

@@ -1,8 +1,6 @@
-import type { ChatMessage } from '@pengzhanbo/chatgpt'
 import type { MaybeRef } from '@vueuse/core'
-import { escape } from 'html-escaper'
 import { storeToRefs } from 'pinia'
-import { markdownRender } from './markdown'
+import { renderMarkdown } from './markdown'
 import { generateId } from '~/utils'
 
 export function useChatMessage(id: MaybeRef<string>) {
@@ -12,30 +10,31 @@ export function useChatMessage(id: MaybeRef<string>) {
   const { messageList } = storeToRefs(messageStore)
 
   async function loadChatMessage() {
-    const rawList = await history.get(chatId.value)
+    const rawList = await history.get<ChatGPTMessage[]>(chatId.value)
     messageStore.initMessageList(rawList || [])
   }
 
   async function updateHistory() {
-    await history.put(chatId.value, toRaw(messageList.value))
-  }
-
-  async function addUserMessage(text: string) {
-    const rendered = await markdownRender(text)
-    messageStore.addUserMessage(generateId(), text, rendered)
-    await updateHistory()
-    return messageList.value[messageList.value.length - 1]
+    await history.set(chatId.value, toRaw(messageList.value))
+    await history.save()
   }
 
   async function updateAssistantMessage(
     sendId: number,
-    message: MaybeRef<Partial<ChatGPTMessage & { original?: ChatMessage }>>,
+    message: MaybeRef<Partial<ChatGPTMessage>>,
     updateDB = false,
   ) {
     const raw = resolveUnref(message)
     messageStore.updateAssistantMessage(sendId, raw)
     updateDB && (await updateHistory())
     return messageList.value[sendId]
+  }
+
+  async function addUserMessage(text: string) {
+    const rendered = renderMarkdown(text)
+    messageStore.addUserMessage(generateId(), text, rendered)
+    await updateHistory()
+    return messageList.value[messageList.value.length - 1]
   }
 
   function addAssistantEmptyMessage() {
@@ -49,19 +48,8 @@ export function useChatMessage(id: MaybeRef<string>) {
   }
 
   async function clearChatMessage(id: string, clearStore = false) {
-    await history.del(id || chatId.value)
+    await history.delete(id || chatId.value)
     clearStore && messageStore.initMessageList([])
-  }
-
-  function getLastContext() {
-    const assistantList = messageList.value.filter(
-      (item) => item.role === 'assistant',
-    )
-    const lastContext = assistantList[assistantList.length - 1]
-    const parentMessageId = lastContext?.parentMessageId
-    const conversationId = lastContext?.conversationId
-
-    return { parentMessageId, conversationId }
   }
 
   return {
@@ -72,14 +60,5 @@ export function useChatMessage(id: MaybeRef<string>) {
     updateAssistantMessage,
     deleteChatMessage,
     clearChatMessage,
-    getLastContext,
   }
-}
-
-export function transformMessage(text: string): string {
-  return escape(text)
-    .replace(/^\n+|\n+$/g, '')
-    .split(/\n+/)
-    .map((str) => `<p>${str}</p>`)
-    .join('')
 }

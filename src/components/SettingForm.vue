@@ -1,6 +1,5 @@
 <script lang="ts" setup>
 import {
-  apiModelOptions,
   chatGPTModelOptions as chatGPTModelOptionsRaw,
   localeOptions,
   preferenceOptions,
@@ -15,9 +14,8 @@ const { t, locale } = useI18n()
 const { appConfig, updateConfig } = useAppConfig()
 const isDark = useDarkMode()
 
-const preferenceChange = async (preference: AppConfig['preference']) => {
+const preferenceChange = async () => {
   updateHtmlDarkClass(isDark)
-  await updateNativeTheme(preference)
 }
 const localeChange = (lang: string) => {
   locale.value = lang
@@ -30,30 +28,10 @@ const onSubmit = async () => {
 <template>
   <NForm label-width="100" label-placement="left" :model="appConfig">
     <NH5>{{ t('setting.subTitle.chatgpt') }}</NH5>
-    <NFormItem :label="t('setting.apiModel')" path="apiModel">
-      <NSelect
-        v-model:value="appConfig!.apiModel"
-        :options="apiModelOptions"
-        :render-label="({ label }) => t(label)"
-      >
-      </NSelect>
-    </NFormItem>
-    <NFormItem
-      v-if="appConfig?.apiModel === 'ChatGPTAPI'"
-      :label="t('setting.apiKey')"
-      path="openAIApiKey"
-    >
+    <NFormItem :label="t('setting.apiKey')" path="apiKey">
       <NInput
-        v-model:value="appConfig!.openAIApiKey"
+        v-model:value="appConfig!.apiKey"
         :placeholder="t('setting.placeholder.apiKey')"
-        show-password-on="mousedown"
-        type="password"
-      ></NInput>
-    </NFormItem>
-    <NFormItem v-else :label="t('setting.accessToken')" path="accessToken">
-      <NInput
-        v-model:value="appConfig!.accessToken"
-        :placeholder="t('setting.placeholder.accessToken')"
         show-password-on="mousedown"
         type="password"
       ></NInput>
@@ -63,34 +41,6 @@ const onSubmit = async () => {
         v-model:value="appConfig!.chatModel"
         :options="chatGPTModelOptions"
       ></NSelect>
-    </NFormItem>
-    <NFormItem :label="t('setting.timeout')" path="timeout">
-      <NInputNumber
-        v-model:value="appConfig!.timeout"
-        :placeholder="t('setting.placeholder.timeout')"
-        :show-button="false"
-      >
-        <template #suffix> ms </template>
-      </NInputNumber>
-    </NFormItem>
-    <NH5>{{ t('setting.subTitle.agent') }}</NH5>
-    <NFormItem :label="t('setting.httpProxy')" path="httpProxy">
-      <NInput
-        v-model:value="appConfig!.httpProxy"
-        :placeholder="t('setting.placeholder.httpProxy')"
-      ></NInput>
-    </NFormItem>
-    <NFormItem :label="t('setting.socksProxyHost')" path="socksProxyHost">
-      <NInput
-        v-model:value="appConfig!.socksProxyHost"
-        :placeholder="t('setting.placeholder.socksProxyHost')"
-      ></NInput>
-    </NFormItem>
-    <NFormItem :label="t('setting.socksProxyPort')" path="socksProxyPort">
-      <NInput
-        v-model:value="appConfig!.socksProxyPort"
-        :placeholder="t('setting.placeholder.socksProxyPort')"
-      ></NInput>
     </NFormItem>
     <NH5>{{ t('setting.subTitle.regular') }}</NH5>
     <NFormItem :label="t('setting.language')" path="locale">
@@ -109,10 +59,10 @@ const onSubmit = async () => {
         </NRadioGroup>
       </NSpace>
     </NFormItem>
-    <NFormItem :label="t('setting.theme')" path="preference">
+    <NFormItem :label="t('setting.theme')" path="theme">
       <NSpace vertical>
         <NRadioGroup
-          v-model:value="appConfig!.preference"
+          v-model:value="appConfig!.theme"
           @update:value="preferenceChange"
         >
           <NRadioButton
@@ -121,7 +71,9 @@ const onSubmit = async () => {
             :value="value"
           >
             <div class="flex items-center">
-              <NIcon><Component :is="icon" /></NIcon>
+              <NIcon>
+                <Component :is="icon" />
+              </NIcon>
               <span class="ml-1">{{ t(label) }}</span>
             </div>
           </NRadioButton>

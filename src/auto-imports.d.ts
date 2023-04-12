@@ -24,7 +24,8 @@ declare global {
   const createSharedComposable: typeof import('@vueuse/core')['createSharedComposable']
   const createUnrefFn: typeof import('@vueuse/core')['createUnrefFn']
   const customRef: typeof import('vue')['customRef']
-  const darkModeSymbol: typeof import('./composables/darkMode')['darkModeSymbol']
+  const darkModeSymbol: typeof import('./composables/colorTheme')['darkModeSymbol']
+  const db: typeof import('./composables/db')['db']
   const debouncedRef: typeof import('@vueuse/core')['debouncedRef']
   const debouncedWatch: typeof import('@vueuse/core')['debouncedWatch']
   const defineAsyncComponent: typeof import('vue')['defineAsyncComponent']
@@ -35,6 +36,7 @@ declare global {
   const getCurrentInstance: typeof import('vue')['getCurrentInstance']
   const getCurrentScope: typeof import('vue')['getCurrentScope']
   const h: typeof import('vue')['h']
+  const historyDB: typeof import('./composables/db')['historyDB']
   const ignorableWatch: typeof import('@vueuse/core')['ignorableWatch']
   const inject: typeof import('vue')['inject']
   const isDefined: typeof import('@vueuse/core')['isDefined']
@@ -44,7 +46,7 @@ declare global {
   const isRef: typeof import('vue')['isRef']
   const makeDestructurable: typeof import('@vueuse/core')['makeDestructurable']
   const markRaw: typeof import('vue')['markRaw']
-  const markdownRender: typeof import('./composables/markdown')['markdownRender']
+  const mdi: typeof import('./composables/markdown')['mdi']
   const nextTick: typeof import('vue')['nextTick']
   const onActivated: typeof import('vue')['onActivated']
   const onBeforeMount: typeof import('vue')['onBeforeMount']
@@ -80,11 +82,16 @@ declare global {
   const refDefault: typeof import('@vueuse/core')['refDefault']
   const refThrottled: typeof import('@vueuse/core')['refThrottled']
   const refWithControl: typeof import('@vueuse/core')['refWithControl']
+  const renderMarkdown: typeof import('./composables/markdown')['renderMarkdown']
+  const renderText: typeof import('./composables/markdown')['renderText']
   const resolveComponent: typeof import('vue')['resolveComponent']
   const resolveRef: typeof import('@vueuse/core')['resolveRef']
   const resolveUnref: typeof import('@vueuse/core')['resolveUnref']
-  const setupDarkMode: typeof import('./composables/darkMode')['setupDarkMode']
+  const sendMessage: typeof import('./composables/sendMessage')['sendMessage']
+  const setupDB: typeof import('./composables/db')['setupDB']
+  const setupDarkMode: typeof import('./composables/colorTheme')['setupDarkMode']
   const setupLocale: typeof import('./composables/locale')['setupLocale']
+  const setupMarkdown: typeof import('./composables/markdown')['setupMarkdown']
   const setupPinia: typeof import('./store/store')['setupPinia']
   const shallowReactive: typeof import('vue')['shallowReactive']
   const shallowReadonly: typeof import('vue')['shallowReadonly']
@@ -99,7 +106,6 @@ declare global {
   const toReactive: typeof import('@vueuse/core')['toReactive']
   const toRef: typeof import('vue')['toRef']
   const toRefs: typeof import('vue')['toRefs']
-  const transformMessage: typeof import('./composables/chatMessage')['transformMessage']
   const triggerRef: typeof import('vue')['triggerRef']
   const tryOnBeforeMount: typeof import('@vueuse/core')['tryOnBeforeMount']
   const tryOnBeforeUnmount: typeof import('@vueuse/core')['tryOnBeforeUnmount']
@@ -109,8 +115,7 @@ declare global {
   const unref: typeof import('vue')['unref']
   const unrefElement: typeof import('@vueuse/core')['unrefElement']
   const until: typeof import('@vueuse/core')['until']
-  const updateHtmlDarkClass: typeof import('./composables/darkMode')['updateHtmlDarkClass']
-  const updateNativeTheme: typeof import('./composables/darkMode')['updateNativeTheme']
+  const updateHtmlDarkClass: typeof import('./composables/colorTheme')['updateHtmlDarkClass']
   const useActiveElement: typeof import('@vueuse/core')['useActiveElement']
   const useAppConfig: typeof import('./composables/appConfig')['useAppConfig']
   const useArrayEvery: typeof import('@vueuse/core')['useArrayEvery']
@@ -133,8 +138,6 @@ declare global {
   const useBroadcastChannel: typeof import('@vueuse/core')['useBroadcastChannel']
   const useBrowserLocation: typeof import('@vueuse/core')['useBrowserLocation']
   const useCached: typeof import('@vueuse/core')['useCached']
-  const useChatApi: typeof import('./composables/chatApi')['useChatApi']
-  const useChatDB: typeof import('./composables/db')['useChatDB']
   const useChatHistoryDB: typeof import('./composables/db')['useChatHistoryDB']
   const useChatMessage: typeof import('./composables/chatMessage')['useChatMessage']
   const useChatMessageStore: typeof import('./store/modules/chatMessage')['useChatMessageStore']
@@ -153,7 +156,7 @@ declare global {
   const useCycleList: typeof import('@vueuse/core')['useCycleList']
   const useDB: typeof import('./composables/db')['useDB']
   const useDark: typeof import('@vueuse/core')['useDark']
-  const useDarkMode: typeof import('./composables/darkMode')['useDarkMode']
+  const useDarkMode: typeof import('./composables/colorTheme')['useDarkMode']
   const useDateFormat: typeof import('@vueuse/core')['useDateFormat']
   const useDebounce: typeof import('@vueuse/core')['useDebounce']
   const useDebounceFn: typeof import('@vueuse/core')['useDebounceFn']
@@ -237,7 +240,8 @@ declare global {
   const useScreenOrientation: typeof import('@vueuse/core')['useScreenOrientation']
   const useScreenSafeArea: typeof import('@vueuse/core')['useScreenSafeArea']
   const useScriptTag: typeof import('@vueuse/core')['useScriptTag']
-  const useScroll: typeof import('./composables/scroll')['useScroll']
+  const useScroll: typeof import('@vueuse/core')['useScroll']
+  const useScrollControl: typeof import('./composables/scroll')['useScrollControl']
   const useScrollLock: typeof import('@vueuse/core')['useScrollLock']
   const useSessionStorage: typeof import('@vueuse/core')['useSessionStorage']
   const useShare: typeof import('@vueuse/core')['useShare']
@@ -327,7 +331,8 @@ declare module 'vue' {
     readonly createSharedComposable: UnwrapRef<typeof import('@vueuse/core')['createSharedComposable']>
     readonly createUnrefFn: UnwrapRef<typeof import('@vueuse/core')['createUnrefFn']>
     readonly customRef: UnwrapRef<typeof import('vue')['customRef']>
-    readonly darkModeSymbol: UnwrapRef<typeof import('./composables/darkMode')['darkModeSymbol']>
+    readonly darkModeSymbol: UnwrapRef<typeof import('./composables/colorTheme')['darkModeSymbol']>
+    readonly db: UnwrapRef<typeof import('./composables/db')['db']>
     readonly debouncedRef: UnwrapRef<typeof import('@vueuse/core')['debouncedRef']>
     readonly debouncedWatch: UnwrapRef<typeof import('@vueuse/core')['debouncedWatch']>
     readonly defineAsyncComponent: UnwrapRef<typeof import('vue')['defineAsyncComponent']>
@@ -338,6 +343,7 @@ declare module 'vue' {
     readonly getCurrentInstance: UnwrapRef<typeof import('vue')['getCurrentInstance']>
     readonly getCurrentScope: UnwrapRef<typeof import('vue')['getCurrentScope']>
     readonly h: UnwrapRef<typeof import('vue')['h']>
+    readonly historyDB: UnwrapRef<typeof import('./composables/db')['historyDB']>
     readonly ignorableWatch: UnwrapRef<typeof import('@vueuse/core')['ignorableWatch']>
     readonly inject: UnwrapRef<typeof import('vue')['inject']>
     readonly isDefined: UnwrapRef<typeof import('@vueuse/core')['isDefined']>
@@ -347,7 +353,7 @@ declare module 'vue' {
     readonly isRef: UnwrapRef<typeof import('vue')['isRef']>
     readonly makeDestructurable: UnwrapRef<typeof import('@vueuse/core')['makeDestructurable']>
     readonly markRaw: UnwrapRef<typeof import('vue')['markRaw']>
-    readonly markdownRender: UnwrapRef<typeof import('./composables/markdown')['markdownRender']>
+    readonly mdi: UnwrapRef<typeof import('./composables/markdown')['mdi']>
     readonly nextTick: UnwrapRef<typeof import('vue')['nextTick']>
     readonly onActivated: UnwrapRef<typeof import('vue')['onActivated']>
     readonly onBeforeMount: UnwrapRef<typeof import('vue')['onBeforeMount']>
@@ -383,11 +389,16 @@ declare module 'vue' {
     readonly refDefault: UnwrapRef<typeof import('@vueuse/core')['refDefault']>
     readonly refThrottled: UnwrapRef<typeof import('@vueuse/core')['refThrottled']>
     readonly refWithControl: UnwrapRef<typeof import('@vueuse/core')['refWithControl']>
+    readonly renderMarkdown: UnwrapRef<typeof import('./composables/markdown')['renderMarkdown']>
+    readonly renderText: UnwrapRef<typeof import('./composables/markdown')['renderText']>
     readonly resolveComponent: UnwrapRef<typeof import('vue')['resolveComponent']>
     readonly resolveRef: UnwrapRef<typeof import('@vueuse/core')['resolveRef']>
     readonly resolveUnref: UnwrapRef<typeof import('@vueuse/core')['resolveUnref']>
-    readonly setupDarkMode: UnwrapRef<typeof import('./composables/darkMode')['setupDarkMode']>
+    readonly sendMessage: UnwrapRef<typeof import('./composables/sendMessage')['sendMessage']>
+    readonly setupDB: UnwrapRef<typeof import('./composables/db')['setupDB']>
+    readonly setupDarkMode: UnwrapRef<typeof import('./composables/colorTheme')['setupDarkMode']>
     readonly setupLocale: UnwrapRef<typeof import('./composables/locale')['setupLocale']>
+    readonly setupMarkdown: UnwrapRef<typeof import('./composables/markdown')['setupMarkdown']>
     readonly setupPinia: UnwrapRef<typeof import('./store/store')['setupPinia']>
     readonly shallowReactive: UnwrapRef<typeof import('vue')['shallowReactive']>
     readonly shallowReadonly: UnwrapRef<typeof import('vue')['shallowReadonly']>
@@ -402,7 +413,6 @@ declare module 'vue' {
     readonly toReactive: UnwrapRef<typeof import('@vueuse/core')['toReactive']>
     readonly toRef: UnwrapRef<typeof import('vue')['toRef']>
     readonly toRefs: UnwrapRef<typeof import('vue')['toRefs']>
-    readonly transformMessage: UnwrapRef<typeof import('./composables/chatMessage')['transformMessage']>
     readonly triggerRef: UnwrapRef<typeof import('vue')['triggerRef']>
     readonly tryOnBeforeMount: UnwrapRef<typeof import('@vueuse/core')['tryOnBeforeMount']>
     readonly tryOnBeforeUnmount: UnwrapRef<typeof import('@vueuse/core')['tryOnBeforeUnmount']>
@@ -412,8 +422,7 @@ declare module 'vue' {
     readonly unref: UnwrapRef<typeof import('vue')['unref']>
     readonly unrefElement: UnwrapRef<typeof import('@vueuse/core')['unrefElement']>
     readonly until: UnwrapRef<typeof import('@vueuse/core')['until']>
-    readonly updateHtmlDarkClass: UnwrapRef<typeof import('./composables/darkMode')['updateHtmlDarkClass']>
-    readonly updateNativeTheme: UnwrapRef<typeof import('./composables/darkMode')['updateNativeTheme']>
+    readonly updateHtmlDarkClass: UnwrapRef<typeof import('./composables/colorTheme')['updateHtmlDarkClass']>
     readonly useActiveElement: UnwrapRef<typeof import('@vueuse/core')['useActiveElement']>
     readonly useAppConfig: UnwrapRef<typeof import('./composables/appConfig')['useAppConfig']>
     readonly useArrayEvery: UnwrapRef<typeof import('@vueuse/core')['useArrayEvery']>
@@ -436,8 +445,6 @@ declare module 'vue' {
     readonly useBroadcastChannel: UnwrapRef<typeof import('@vueuse/core')['useBroadcastChannel']>
     readonly useBrowserLocation: UnwrapRef<typeof import('@vueuse/core')['useBrowserLocation']>
     readonly useCached: UnwrapRef<typeof import('@vueuse/core')['useCached']>
-    readonly useChatApi: UnwrapRef<typeof import('./composables/chatApi')['useChatApi']>
-    readonly useChatDB: UnwrapRef<typeof import('./composables/db')['useChatDB']>
     readonly useChatHistoryDB: UnwrapRef<typeof import('./composables/db')['useChatHistoryDB']>
     readonly useChatMessage: UnwrapRef<typeof import('./composables/chatMessage')['useChatMessage']>
     readonly useChatMessageStore: UnwrapRef<typeof import('./store/modules/chatMessage')['useChatMessageStore']>
@@ -456,7 +463,7 @@ declare module 'vue' {
     readonly useCycleList: UnwrapRef<typeof import('@vueuse/core')['useCycleList']>
     readonly useDB: UnwrapRef<typeof import('./composables/db')['useDB']>
     readonly useDark: UnwrapRef<typeof import('@vueuse/core')['useDark']>
-    readonly useDarkMode: UnwrapRef<typeof import('./composables/darkMode')['useDarkMode']>
+    readonly useDarkMode: UnwrapRef<typeof import('./composables/colorTheme')['useDarkMode']>
     readonly useDateFormat: UnwrapRef<typeof import('@vueuse/core')['useDateFormat']>
     readonly useDebounce: UnwrapRef<typeof import('@vueuse/core')['useDebounce']>
     readonly useDebounceFn: UnwrapRef<typeof import('@vueuse/core')['useDebounceFn']>
@@ -540,7 +547,8 @@ declare module 'vue' {
     readonly useScreenOrientation: UnwrapRef<typeof import('@vueuse/core')['useScreenOrientation']>
     readonly useScreenSafeArea: UnwrapRef<typeof import('@vueuse/core')['useScreenSafeArea']>
     readonly useScriptTag: UnwrapRef<typeof import('@vueuse/core')['useScriptTag']>
-    readonly useScroll: UnwrapRef<typeof import('./composables/scroll')['useScroll']>
+    readonly useScroll: UnwrapRef<typeof import('@vueuse/core')['useScroll']>
+    readonly useScrollControl: UnwrapRef<typeof import('./composables/scroll')['useScrollControl']>
     readonly useScrollLock: UnwrapRef<typeof import('@vueuse/core')['useScrollLock']>
     readonly useSessionStorage: UnwrapRef<typeof import('@vueuse/core')['useSessionStorage']>
     readonly useShare: UnwrapRef<typeof import('@vueuse/core')['useShare']>

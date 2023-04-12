@@ -32,7 +32,7 @@ export function useCopyCode() {
           el.blur()
           timeoutIdMap.delete(el)
         }, 2000)
-        timeoutIdMap.set(el, timeoutId)
+        timeoutIdMap.set(el, timeoutId as unknown as number)
       })
     }
   })

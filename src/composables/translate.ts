@@ -1,4 +1,5 @@
-import { useChatApi } from './chatApi'
+import type { SendMessageOptions } from './sendMessage'
+import { sendMessage } from './sendMessage'
 import type { languageOptions } from '~/common/constants'
 import { systemMessageMap } from '~/common/constants'
 
@@ -26,9 +27,10 @@ export function useTranslate() {
 
   const systemMessage = computed(() => systemMessageMap[type.value])
 
-  const { sendMessage, onMessageProgress } = useChatApi(systemMessage)
-
-  const translateText = async (text: string) => {
+  const translateText = async (
+    text: string,
+    onMessage: SendMessageOptions['onMessage'],
+  ) => {
     const target = targetLang.value
     let message =
       type.value === 'translate'
@@ -41,13 +43,18 @@ export function useTranslate() {
       .trim()
       .replace(/[\n\t\r]+/g, '\n')
     message = `${message}\n\n${text}`
-    return await sendMessage(message, { systemMessage: systemMessage.value })
+    return await sendMessage({
+      prompt: message,
+      stream: false,
+      systemMessage: systemMessage.value,
+      renderType: 'text',
+      onMessage,
+    })
   }
 
   return {
     targetLang,
     type,
     translateText,
-    onMessageProgress,
   }
 }

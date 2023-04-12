@@ -1,12 +1,13 @@
 <script lang="ts" setup>
 import { Pane, Splitpanes } from 'splitpanes'
 import { chatMessageError, languageOptions } from '~/common/constants'
-import { transformMessage } from '~/composables/chatMessage'
 import { copyToClipboard } from '~/composables/copyCode'
+import { renderText } from '~/composables/markdown'
+import { useTranslate } from '~/composables/translate'
 import type { TranslateType } from '~/composables/translate'
 const languageList = [...languageOptions]
 const { t } = useI18n()
-const { type, targetLang, translateText, onMessageProgress } = useTranslate()
+const { type, targetLang, translateText } = useTranslate()
 const loading = ref(false)
 const text = ref('')
 const result = ref<ChatGPTMessage>({
@@ -18,30 +19,26 @@ const result = ref<ChatGPTMessage>({
   createTime: 0,
 })
 
-const rendered = computed(() => transformMessage(result.value.text))
+const rendered = computed(() => result.value.rendered)
 
 const onTranslate = async (current: TranslateType) => {
   if (!text.value) return
   type.value = current
+  result.value.rendered = ''
   loading.value = true
-  const response = await translateText(text.value)
-  if (response.type === 'success') {
-    result.value = response.payload
-  } else {
-    result.value = {
-      ...(response.payload as ChatGPTMessage),
-      errorMessage:
-        response.code in chatMessageError
-          ? t(chatMessageError[response.code])
-          : response.payload.errorMessage || response.message,
-    }
-  }
+  const response = await translateText(text.value, (res) => {
+    result.value = res
+  })
+
+  result.value = response
+  result.value.errorMessage =
+    response.errorCode && response.errorCode in chatMessageError
+      ? t(chatMessageError[response.errorCode])
+      : response.errorMessage
+
   loading.value = false
 }
 
-onMessageProgress((response) => {
-  result.value = response
-})
 const message = useMessage()
 
 const onCopy = async () => {
@@ -63,7 +60,7 @@ const onCopy = async () => {
         <div class="ml-4">
           <NButton
             type="primary"
-            :loading="loading"
+            :loading="type === 'translate' ? loading : false"
             :disabled="loading"
             @click="onTranslate('translate')"
             >{{ t('translate.translate') }}</NButton
@@ -72,7 +69,7 @@ const onCopy = async () => {
         <div class="ml-4">
           <NButton
             type="primary"
-            :loading="loading"
+            :loading="type === 'polish' ? loading : false"
             :disabled="loading"
             @click="onTranslate('polish')"
             >{{ t('translate.polish') }}</NButton
@@ -109,6 +106,7 @@ const onCopy = async () => {
 .translate-container {
   @apply flex flex-1 flex-col pt-5;
 }
+
 .translate-content {
   @apply flex flex-1 h-full py-5 overflow-auto;
 }
@@ -119,16 +117,16 @@ const onCopy = async () => {
 }
 
 .translate-source .textarea {
-  @apply w-full h-full  m-0 px-5 py-3 rounded-md;
-  @apply overflow-auto dark:text-gray-400;
-  @apply outline-transparent bg-light-600 dark:bg-dark-800;
-  @apply resize-none focus:outline-none leading-7;
+  @apply w-full h-full m-0 px-5 py-3 rounded-md;
+  @apply overflow-auto dark: text-gray-400;
+  @apply outline-transparent bg-light-600 dark: bg-dark-800;
+  @apply resize-none focus: outline-none leading-7;
   font-size: 15px;
 }
 
 .translated-content {
-  @apply w-full h-full  m-0 px-5 py-3 rounded-md;
-  @apply bg-light-600 dark:bg-dark-800;
+  @apply w-full h-full m-0 px-5 py-3 rounded-md;
+  @apply bg-light-600 dark: bg-dark-800;
 }
 
 .translate-content .markdown-body :deep(p) {

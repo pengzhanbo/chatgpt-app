@@ -23,11 +23,3 @@ body,
   -moz-osx-font-smoothing: grayscale;
   overflow: auto;
 }
-
-.region {
-  -webkit-app-region: drag;
-}
-
-.no-region {
-  -webkit-app-region: no-drag;
-}

@@ -1,10 +1,9 @@
 <script lang="ts" setup>
-import { type ChatMessage } from '@pengzhanbo/chatgpt'
 import { Pane } from 'splitpanes'
 
 defineProps({
   list: {
-    type: Array as PropType<ChatMessage[]>,
+    type: Array as PropType<ChatGPTMessage[]>,
     default: () => [],
   },
 })

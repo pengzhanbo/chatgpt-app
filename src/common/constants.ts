@@ -59,3 +59,21 @@ export const languageOptions = [
   { label: 'languages.in', value: 'in' },
   { label: 'languages.jp', value: 'jp' },
 ] as const
+
+export const codeLanguageAlias = {
+  bash: 'sh',
+  shell: 'sh',
+  zsh: 'sh',
+  csharp: 'cs',
+  fsharp: 'fs',
+  dockerfile: 'docker',
+  javascript: 'js',
+  typescript: 'ts',
+  kotlin: 'kt',
+  markdown: 'md',
+  python: 'py',
+  ruby: 'rb',
+  rust: 'rs',
+  stylus: 'styl',
+  yaml: 'yml',
+}
