@@ -90,6 +90,7 @@ const onMessage = async (message: string, forceUnMemoryMode = false) => {
   loading.value = true
 
   await addUserMessage(message)
+  messageText.value = ''
 
   // 用户发送的消息，直接将列表滚动到底部
   scrollToBottom()
@@ -103,15 +104,10 @@ const onMessage = async (message: string, forceUnMemoryMode = false) => {
       memoryMode.value && !forceUnMemoryMode ? chatId.value : undefined,
     onMessage(response) {
       updateAssistantMessage(assistantWaiting!, response)
-      messageText.value = ''
       scrollToBottomIfAtBottom()
     },
   })
   await updateAssistantMessage(assistantWaiting, response, true)
-
-  if (response.type === 'success') {
-    messageText.value = ''
-  }
 
   assistantWaiting = undefined
   loading.value = false
@@ -148,8 +144,9 @@ onMounted(() => {
     <ChatSidebar />
     <Splitpanes class="chatgpt-container flex-1 flex flex-col" horizontal>
       <ChatMessageList
-        :ref="(c: any) => (scrollRef = c?.$el)"
+        :ref="(c: any) => (scrollRef = c?.$el.children[0])"
         :list="messageList"
+        :loading="loading"
       />
       <ChatTextArea
         v-model="messageText"

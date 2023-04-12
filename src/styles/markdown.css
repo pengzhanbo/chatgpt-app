@@ -232,8 +232,8 @@
   counter-reset: line-number;
   font-size: 1em;
   background-color: #292D3E;
-  @apply absolute top-0 left-0 bottom-0 border-r border-r-gray-600 pt-4 w-8;
-  @apply text-center pt-3 text-gray-500 transition-colors;
+  @apply absolute top-0 left-0 bottom-0 border-r border-r-gray-900 pt-4 w-8;
+  @apply text-right pt-3 pr-1 text-gray-500 transition-colors;
   @apply rounded-l-md;
 }
 

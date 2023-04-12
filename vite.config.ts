@@ -4,7 +4,7 @@ import vue from '@vitejs/plugin-vue'
 import AutoImport from 'unplugin-auto-import/vite'
 import { NaiveUiResolver } from 'unplugin-vue-components/resolvers'
 import Components from 'unplugin-vue-components/vite'
-import { defineConfig } from 'vite'
+import { defineConfig, splitVendorChunkPlugin } from 'vite'
 import WindiCSS from 'vite-plugin-windicss'
 
 // https://vitejs.dev/config/
@@ -31,6 +31,7 @@ export default defineConfig(async () => ({
         'vue',
         'vue-router',
         'vue-i18n',
+        'pinia',
         '@vueuse/core',
         {
           'naive-ui': [
@@ -51,6 +52,7 @@ export default defineConfig(async () => ({
       include: [/\.vue$/, /\.vue\?vue/],
       dts: 'src/components.d.ts',
     }),
+    splitVendorChunkPlugin(),
   ],
 
   // Vite options tailored for Tauri development and only applied in `tauri dev` or `tauri build`

@@ -50,7 +50,7 @@ const onMessage = () => {
         <NButton
           type="primary"
           size="small"
-          :loading="loading"
+          :disabled="loading"
           @click="onMessage"
         >
           <template #icon>

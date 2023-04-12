@@ -22,11 +22,14 @@ const localeDate = computed(() => {
       reverse: message.role === 'user',
     }"
   >
-    <div v-if="message.role === 'user'" class="avatar user">
-      <NIcon size="30"><UserIcon /></NIcon>
-    </div>
-    <div v-else class="avatar assistant">
-      <NIcon size="30"><OpenAIIcon /></NIcon>
+    <div
+      class="avatar"
+      :class="[message.role === 'user' ? 'user' : 'assistant']"
+    >
+      <NIcon size="30">
+        <UserIcon v-if="message.role === 'user'" />
+        <OpenAIIcon v-else />
+      </NIcon>
     </div>
     <div class="message-container">
       <p class="createTime">{{ localeDate }}</p>

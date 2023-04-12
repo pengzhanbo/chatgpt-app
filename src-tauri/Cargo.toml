@@ -15,8 +15,7 @@ tauri-build = { version = "1.2.1", features = [] }
 [dependencies]
 anyhow = "1.0.70"
 log = "0.4.17"
-dark-light = "1.0.0"
-tauri = { version = "1.2.4", features = ["app-all", "devtools", "fs-create-dir", "fs-exists", "fs-read-dir", "fs-read-file", "fs-remove-dir", "fs-remove-file", "fs-write-file", "global-shortcut", "global-shortcut-all", "http-all", "path-all", "process-all", "shell-open-api", "window-all"] }
+tauri = { version = "1.2.4", features = ["app-all", "devtools", "fs-create-dir", "fs-exists", "fs-read-dir", "fs-read-file", "fs-remove-dir", "fs-remove-file", "fs-write-file", "global-shortcut", "global-shortcut-all", "http-all", "path-all", "process-all", "shell-open", "shell-open-api", "window-all"] }
 serde = { version = "1.0", features = ["derive"] }
 serde_json = "1.0"
 tauri-plugin-store = { git = "https://github.com/tauri-apps/plugins-workspace", branch = "dev" }

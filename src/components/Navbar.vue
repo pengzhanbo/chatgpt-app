@@ -1,5 +1,8 @@
 <script lang="ts" setup>
+import { invoke } from '@tauri-apps/api'
 import type { RouteLocationNormalizedLoaded } from 'vue-router'
+
+const onDrag = async () => await invoke('drag_window')
 
 const { t } = useI18n()
 const router = useRouter()
@@ -38,7 +41,11 @@ const popoverStyles = {
 
 <template>
   <div class="navbar">
-    <div class="navbar-content flex flex-col">
+    <div
+      class="navbar-content flex flex-col"
+      @mousedown.self="onDrag"
+      @touchstart.self="onDrag"
+    >
       <div
         class="icon"
         :class="{ active: routeName === 'chat' }"
@@ -68,7 +75,11 @@ const popoverStyles = {
         </NPopover>
       </div>
     </div>
-    <div class="region flex-1"></div>
+    <div
+      class="flex-1"
+      @mousedown.self="onDrag"
+      @touchstart.self="onDrag"
+    ></div>
     <div class="navbar-footer flex flex-col">
       <div
         class="icon"

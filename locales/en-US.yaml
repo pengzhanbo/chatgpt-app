@@ -43,6 +43,7 @@ chat:
     enabled: Memory mode (enabled)
     disabled: Memory Mode (disabled)
     content: In memory mode, sending a message carries the current chat history
+  inputting: Typing...
 
 translate:
   translate: Translate

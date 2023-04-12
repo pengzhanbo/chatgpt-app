@@ -30,8 +30,9 @@ export function buildRequest({
   let item: ChatMessage | undefined
   // eslint-disable-next-line no-cond-assign
   while ((item = bodyMessages.pop())) {
-    numToken += estimateTokens(item.content)
-    if (numToken > MAX_REQUEST_TOKEN) break
+    const tokens = estimateTokens(item.content)
+    if (numToken + tokens > MAX_REQUEST_TOKEN) break
+    numToken += tokens
     messages.unshift(item)
   }
   messages.unshift(headMessage)
