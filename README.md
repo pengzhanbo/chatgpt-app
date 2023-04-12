@@ -1,16 +1,54 @@
-# Tauri + Vue 3 + TypeScript
+# ChatGPT APP
 
-This template should help get you started developing with Vue 3 and TypeScript in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
+ChatGPT Desktop Application
 
-## Recommended IDE Setup
+ChatGPT 桌面应用
 
-- [VS Code](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) + [Tauri](https://marketplace.visualstudio.com/items?itemName=tauri-apps.tauri-vscode) + [rust-analyzer](https://marketplace.visualstudio.com/items?itemName=rust-lang.rust-analyzer)
+![](docs/app-1.png)
 
-## Type Support For `.vue` Imports in TS
+![](docs/app-2.png)
 
-Since TypeScript cannot handle type information for `.vue` imports, they are shimmed to be a generic Vue component type by default. In most cases this is fine if you don't really care about component prop types outside of templates. However, if you wish to get actual prop types in `.vue` imports (for example to get props validation when using manual `h(...)` calls), you can enable Volar's Take Over mode by following these steps:
+![](docs/app-3.png)
 
-1. Run `Extensions: Show Built-in Extensions` from VS Code's command palette, look for `TypeScript and JavaScript Language Features`, then right click and select `Disable (Workspace)`. By default, Take Over mode will enable itself if the default TypeScript extension is disabled.
-2. Reload the VS Code window by running `Developer: Reload Window` from the command palette.
+## Explanation 说明
 
-You can learn more about Take Over mode [here](https://github.com/johnsoncodehk/volar/discussions/471).
+- This project is based on the MIT license and is only for open source communication and learning purposes.
+- All data is only saved locally.
+- The current desktop application has not yet provided an official installation package.
+
+- 本项目基于 MIT协议，仅作为开源交流学习使用。
+- 所有数据均只保存于本地。
+- 当前桌面应用还未提供正式的安装包。
+
+
+
+## TODO
+
+The basic functions have been implemented.
+
+当前已实现基本功能。
+
+- [x] Chat conversation  聊天对话
+- [x] Message format beautification 消息格式美化
+- [x] Proxy 代理 http/https/socks
+- [x] Multilingual 多语言
+- [x] Switch Theme Mode 主题模式切换
+- [x] Response error handling 响应错误处理
+- [x] 翻译页面
+- [ ] Message retry 消息重试
+- [ ] More...
+
+## Development
+
+```sh
+# Install安装
+pnpm i
+# Start development 启动开发
+pnpm tauri dev
+```
+
+### 技术选型
+
+- 构建工具：vite
+- vue & vue-router & pinia
+- tauri
