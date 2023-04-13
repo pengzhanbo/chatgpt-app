@@ -12,17 +12,41 @@ defineProps({
   },
 })
 
-const { t } = useI18n()
+// const { t } = useI18n()
+
+const el = ref<HTMLElement | null>(null)
+const showToBottom = ref(false)
+
+const onScroll = () => {
+  showToBottom.value =
+    !!el.value &&
+    el.value.scrollTop + el.value.offsetHeight <=
+      el.value.scrollHeight - el.value.offsetHeight / 2
+}
+
+const scrollToBottom = () => {
+  el.value?.scrollTo({
+    top: el.value.scrollHeight,
+    behavior: 'smooth',
+  })
+}
+
+onMounted(() => onScroll())
 </script>
 
 <template>
   <Pane class="chat-message-list-container">
-    <div class="chat-message-list">
+    <div ref="el" class="chat-message-list" @scroll="onScroll">
       <ChatMessage v-for="item in list" :key="item.id" :message="item" />
     </div>
     <Transition name="fade">
-      <div v-show="loading" class="chat-loading">{{ t('chat.inputting') }}</div>
+      <div v-show="showToBottom" class="to-bottom" @click="scrollToBottom">
+        <NIcon size="20"><ArrowBottomIcon /></NIcon>
+      </div>
     </Transition>
+    <!-- <Transition name="fade">
+      <div v-show="loading" class="chat-loading">{{ t('chat.inputting') }}</div>
+    </Transition> -->
   </Pane>
 </template>
 
@@ -39,9 +63,15 @@ const { t } = useI18n()
   @apply dark:bg-dark-800 dark:text-gray-400 dark:shadow-dark-400;
 }
 
+.to-bottom {
+  @apply absolute bottom-3 right-4 flex items-center justify-center w-8 h-8 rounded-1;
+  @apply bg-light-50 shadow shadow-gray-300 cursor-pointer text-gray-600 opacity-100;
+  @apply dark:bg-dark-400 dark:shadow-dark-900 text-gray-500;
+}
+
 .fade-enter-active,
 .fade-leave-active {
-  transition: opacity 2s ease;
+  transition: opacity 0.5s ease;
 }
 
 .fade-enter-from,

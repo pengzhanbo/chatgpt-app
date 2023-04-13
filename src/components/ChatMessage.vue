@@ -6,6 +6,7 @@ const props = defineProps({
     default: () => ({}),
   },
 })
+const { t } = useI18n()
 const localeDate = computed(() => {
   if (props.message.createTime) {
     return format(props.message.createTime, 'yyyy-MM-dd HH:mm:ss')
@@ -16,7 +17,6 @@ const localeDate = computed(() => {
 
 <template>
   <div
-    v-show="message.rendered || message.errorMessage"
     class="chat-message"
     :class="{
       reverse: message.role === 'user',
@@ -33,15 +33,27 @@ const localeDate = computed(() => {
     </div>
     <div class="message-container">
       <p class="createTime">{{ localeDate }}</p>
-      <div class="message-content">
+      <div
+        v-if="message.rendered || message.errorMessage"
+        class="message-content"
+      >
         <div
           v-if="message.rendered"
           class="markdown-body"
           :class="[message.role]"
           v-html="message.rendered"
         ></div>
-        <div v-if="message.errorMessage">
+        <div v-if="message.errorMessage" class="flex items-center">
           <NAlert type="error">{{ message.errorMessage }}</NAlert>
+          <div class="ml-3 cursor-pointer">
+            <NIcon size="16"><RetryIcon /></NIcon>
+          </div>
+        </div>
+      </div>
+      <div v-else class="message-content">
+        <div class="flex items-center">
+          <NSpin size="small" />
+          <span class="ml-4">{{ t('chat.waiting') }}</span>
         </div>
       </div>
     </div>

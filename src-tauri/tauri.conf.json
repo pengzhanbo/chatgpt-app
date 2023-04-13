@@ -33,7 +33,7 @@
         "readFile": true,
         "removeDir": true,
         "removeFile": true,
-        "scope": ["$HOME/.chatgpt-app/**", "$APPDATA/**"],
+        "scope": ["$APPDATA/**"],
         "writeFile": true
       },
       "shell": {

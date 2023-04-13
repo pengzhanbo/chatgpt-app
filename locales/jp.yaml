@@ -44,6 +44,7 @@ chat:
     disabled: メモリモード（オフ）
     content: メモリーモードでは、メッセージを送信すると現在のチャット履歴が含まれます。
   inputting: 入力中です...
+  waiting: 考え中です...
 
 translate:
   translate: 翻訳

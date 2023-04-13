@@ -76,7 +76,6 @@ async function checkChatRecord(title: string) {
 }
 
 const loading = ref(false)
-let assistantWaiting: number | undefined
 
 const onMessage = async (message: string, forceUnMemoryMode = false) => {
   message = message
@@ -95,7 +94,7 @@ const onMessage = async (message: string, forceUnMemoryMode = false) => {
   // 用户发送的消息，直接将列表滚动到底部
   scrollToBottom()
   // 创建一个新的消息容器，但置空，等待服务器消息流填充内容
-  assistantWaiting = addAssistantEmptyMessage()
+  const assistantWaiting = addAssistantEmptyMessage()
 
   const response = await sendMessage({
     stream: true,
@@ -109,7 +108,6 @@ const onMessage = async (message: string, forceUnMemoryMode = false) => {
   })
   await updateAssistantMessage(assistantWaiting, response, true)
 
-  assistantWaiting = undefined
   loading.value = false
   scrollToBottomIfAtBottom()
 }
@@ -179,11 +177,11 @@ onMounted(() => {
             </template>
           </NPopover>
           <div class="flex-1 mr-5">
-            <NSelect
+            <!-- <NSelect
               v-model:value="actTo"
               :options="actToOptions"
               @update:value="actToChange"
-            />
+            /> -->
           </div>
         </div>
       </ChatTextArea>

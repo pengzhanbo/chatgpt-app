@@ -44,6 +44,7 @@ chat:
     disabled: 記憶模式（已關閉）
     content: 記憶模式下，發送消息會攜帶當前聊天記錄
   inputting: 正在輸入中...
+  waiting: 正在思考中...
 
 translate:
   translate: 翻譯

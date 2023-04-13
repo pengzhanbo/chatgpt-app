@@ -44,6 +44,7 @@ chat:
     disabled: Memory Mode (disabled)
     content: In memory mode, sending a message carries the current chat history
   inputting: Typing...
+  waiting: Be thinking about...
 
 translate:
   translate: Translate
