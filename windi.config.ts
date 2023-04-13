@@ -7,6 +7,6 @@ export default defineConfig({
   alias: {},
   extract: {
     include: ['src/**/*.{vue,html,jsx,tsx}'],
-    exclude: ['node_modules', '.git', 'electron', 'dist-electron', 'public'],
+    exclude: ['node_modules', '.git', 'src-tauri', 'public'],
   },
 })
