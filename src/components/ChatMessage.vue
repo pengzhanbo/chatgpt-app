@@ -1,18 +1,52 @@
 <script lang="ts" setup>
 import format from 'date-fns/format'
-const props = defineProps({
-  message: {
-    type: Object as PropType<ChatGPTMessage>,
-    default: () => ({}),
-  },
-})
+const props = defineProps<{
+  message: ChatGPTMessage
+  index: number
+  chatId?: string
+}>()
+
 const { t } = useI18n()
-const localeDate = computed(() => {
-  if (props.message.createTime) {
-    return format(props.message.createTime, 'yyyy-MM-dd HH:mm:ss')
+
+const totalRetry = computed(() => {
+  if (props.message?.retryList?.length) {
+    return props.message.retryList.length + 1
   }
-  return ''
+  return 1
 })
+const retryIndex = ref(totalRetry.value)
+
+watch(
+  totalRetry,
+  (nowTotal, oldTotal) => {
+    if (retryIndex.value === oldTotal) {
+      retryIndex.value = nowTotal
+    }
+  },
+  { immediate: true },
+)
+const currentMessage = computed(() => {
+  if (retryIndex.value === totalRetry.value) {
+    return props.message
+  } else {
+    return props.message.retryList?.[retryIndex.value - 1] || props.message
+  }
+})
+
+const onChooseRetry = (num: 1 | -1) => {
+  let current = retryIndex.value + num
+  if (current < 1) current = 1
+  if (current > totalRetry.value) current = totalRetry.value
+  retryIndex.value = current
+}
+
+const localeDate = computed(() =>
+  currentMessage.value?.createTime
+    ? format(currentMessage.value.createTime, 'yyyy-MM-dd HH:mm:ss')
+    : '',
+)
+const rendered = computed(() => currentMessage.value?.rendered)
+const errorMessage = computed(() => currentMessage.value?.errorMessage)
 </script>
 
 <template>
@@ -22,39 +56,52 @@ const localeDate = computed(() => {
       reverse: message.role === 'user',
     }"
   >
-    <div
-      class="avatar"
-      :class="[message.role === 'user' ? 'user' : 'assistant']"
-    >
-      <NIcon size="30">
-        <UserIcon v-if="message.role === 'user'" />
-        <OpenAIIcon v-else />
-      </NIcon>
+    <div class="w-10">
+      <ChatAvatar :role="message.role" />
+      <div
+        v-if="message.role === 'assistant' && message.retryList?.length"
+        class="retry-content"
+      >
+        <NIcon class="icon" size="16" @click="onChooseRetry(-1)"
+          ><ArrowLeftIcon
+        /></NIcon>
+        <span class="content">{{ retryIndex }}/{{ totalRetry }}</span>
+        <NIcon class="icon" size="16" @click="onChooseRetry(1)"
+          ><ArrowRightIcon
+        /></NIcon>
+      </div>
     </div>
     <div class="message-container">
       <p class="createTime">{{ localeDate }}</p>
       <div
-        v-if="message.rendered || message.errorMessage"
-        class="message-content"
+        class="flex"
+        :class="{
+          'flex-row-reverse': message.role === 'user',
+        }"
       >
-        <div
-          v-if="message.rendered"
-          class="markdown-body"
-          :class="[message.role]"
-          v-html="message.rendered"
-        ></div>
-        <div v-if="message.errorMessage" class="flex items-center">
-          <NAlert type="error">{{ message.errorMessage }}</NAlert>
-          <div class="ml-3 cursor-pointer">
-            <NIcon size="16"><RetryIcon /></NIcon>
+        <div v-if="rendered || errorMessage" class="message-content">
+          <div
+            v-if="rendered"
+            class="markdown-body"
+            :class="[message.role]"
+            v-html="rendered"
+          ></div>
+          <div v-if="errorMessage" class="flex items-center">
+            <NAlert type="error">{{ errorMessage }}</NAlert>
           </div>
         </div>
-      </div>
-      <div v-else class="message-content">
-        <div class="flex items-center">
-          <NSpin size="small" />
-          <span class="ml-4">{{ t('chat.waiting') }}</span>
+        <div v-else class="message-content">
+          <div class="flex items-center">
+            <NSpin size="small" />
+            <span class="ml-4">{{ t('chat.waiting') }}</span>
+          </div>
         </div>
+        <ChatMessageControl
+          v-if="retryIndex === totalRetry"
+          :message="message"
+          :index="index"
+          :chat-id="chatId"
+        />
       </div>
     </div>
   </div>
@@ -63,6 +110,17 @@ const localeDate = computed(() => {
 <style scoped>
 .chat-message {
   @apply flex items-start mb-5;
+}
+
+.retry-content {
+  @apply flex justify-center items-center -mx-2 pt-1;
+  @apply text-gray-500;
+}
+.retry-content .content {
+  font-size: 12px;
+}
+.retry-content .icon {
+  @apply cursor-pointer hover:text-gray-800;
 }
 .message-container {
   @apply flex-1 mx-3 w-0;
@@ -74,32 +132,11 @@ const localeDate = computed(() => {
 
 .message-content::before {
   content: '';
-  display: inline-block;
-  position: absolute;
   top: 5px;
   left: -12px;
-  width: 0;
-  height: 0;
   border: solid 6px transparent;
   @apply border-r-light-50 dark:border-r-dark-500;
-}
-
-.avatar {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 40px;
-  height: 40px;
-  border-radius: 4px;
-}
-
-.avatar.user {
-  @apply bg-light-100 dark:bg-gray-800;
-}
-
-.avatar.assistant {
-  background-color: rgb(16, 163, 127);
-  color: #eee;
+  @apply inline-block absolute w-0 h-0;
 }
 
 .createTime {

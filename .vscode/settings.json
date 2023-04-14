@@ -19,6 +19,14 @@
     ".vscode",
   ],
   "rust-analyzer.linkedProjects": [
+    "./src-tauri/Cargo.toml",
+    "./src-tauri/Cargo.toml",
+    "./src-tauri/Cargo.toml",
+    "./src-tauri/Cargo.toml",
+    "./src-tauri/Cargo.toml",
+    "./src-tauri/Cargo.toml",
+    "./src-tauri/Cargo.toml",
+    "./src-tauri/Cargo.toml",
     "./src-tauri/Cargo.toml"
   ],
   "i18n-ally.sourceLanguage": "zh-CN",

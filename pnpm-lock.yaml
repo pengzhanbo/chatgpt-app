@@ -28,6 +28,9 @@ dependencies:
   katex:
     specifier: ^0.16.4
     version: 0.16.4
+  lodash:
+    specifier: ^4.17.21
+    version: 4.17.21
   markdown-it:
     specifier: ^13.0.1
     version: 13.0.1
@@ -111,6 +114,9 @@ devDependencies:
   vite:
     specifier: ^4.2.1
     version: 4.2.1(@types/node@18.15.11)
+  vite-plugin-chunk-split:
+    specifier: ^0.4.7
+    version: 0.4.7(vite@4.2.1)
   vite-plugin-windicss:
     specifier: ^1.8.10
     version: 1.8.10(vite@4.2.1)
@@ -1713,6 +1719,10 @@ packages:
       which-typed-array: 1.1.9
     dev: true
 
+  /es-module-lexer@1.2.1:
+    resolution: {integrity: sha512-9978wrXM50Y4rTMmW5kXIC09ZdXQZqkE4mxhwkd8VbzsGkXGPgV4zWuqQJgCEzYngdo2dYDa0l8xhX4fkSwJSg==}
+    dev: true
+
   /es-set-tostringtag@2.0.1:
     resolution: {integrity: sha512-g3OMbtlwY3QewlqAiMLI47KywjWZoEytKr8pf6iTC8uJq5bIAH52Z9pnQ8pVL6whrCto53JZDuUIsifGeLorTg==}
     engines: {node: '>= 0.4'}
@@ -2837,6 +2847,13 @@ packages:
     dependencies:
       sourcemap-codec: 1.4.8
 
+  /magic-string@0.26.7:
+    resolution: {integrity: sha512-hX9XH3ziStPoPhJxLq1syWuZMxbDvGNbVchfrdCtanC7D13888bMFow61x8axrx+GfHLtVeAx2kxL7tTGRl+Ow==}
+    engines: {node: '>=12'}
+    dependencies:
+      sourcemap-codec: 1.4.8
+    dev: true
+
   /magic-string@0.27.0:
     resolution: {integrity: sha512-8UnnX2PeRAPZuN12svgR9j7M1uWMovg/CEnIwIG0LFkXSJJe4PdfUGiTGl8V9bsBHFUtfVINcSyYxd7q+kx9fA==}
     engines: {node: '>=12'}
@@ -3747,6 +3764,16 @@ packages:
       evtd: 0.2.4
       vue: 3.2.47
     dev: false
+
+  /vite-plugin-chunk-split@0.4.7(vite@4.2.1):
+    resolution: {integrity: sha512-BGPMTxlC6Z+VNY1t/51F1ablkt4UQqdEPvAmCKRBsEPIpKAlW3sioQwK4klS14ievsGNaeALAKdko7n3oPJ8BQ==}
+    peerDependencies:
+      vite: ^3.1.0
+    dependencies:
+      es-module-lexer: 1.2.1
+      magic-string: 0.26.7
+      vite: 4.2.1(@types/node@18.15.11)
+    dev: true
 
   /vite-plugin-windicss@1.8.10(vite@4.2.1):
     resolution: {integrity: sha512-scywsuzo46lcTBohspmF0WiwhWEte6p+OUVrX4yr7VMRvLHMHVfLtJReyD5pppjijG7YOwVsZn7XBWWZtF658Q==}

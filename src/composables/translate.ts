@@ -46,6 +46,7 @@ export function useTranslate() {
     return await sendMessage({
       prompt: message,
       stream: false,
+      memory: false,
       systemMessage: systemMessage.value,
       renderType: 'text',
       onMessage,

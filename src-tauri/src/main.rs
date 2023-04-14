@@ -1,10 +1,8 @@
 // Prevents additional console window on Windows in release, DO NOT REMOVE!!
 #![cfg_attr(not(debug_assertions), windows_subsystem = "windows")]
 
-// use config::AppConfig;
-// use tauri_plugin_log::LogTarget;
-
-// mod utils;
+mod utils;
+mod cmd;
 
 use tauri::{AppHandle, Manager};
 
@@ -14,7 +12,6 @@ fn drag_window(app: AppHandle) {
 }
 
 fn main() {
-  // AppConfig::read().write();
 
   let context = tauri::generate_context!();
 
@@ -22,15 +19,12 @@ fn main() {
 
   builder = builder
     .plugin(tauri_plugin_store::Builder::default().build());
-    // .plugin(tauri_plugin_log::Builder::default().targets([
-    //   LogTarget::LogDir,
-    //   LogTarget::Stdout,
-    //   LogTarget::Webview,
-    // ]).build());
 
   builder = builder
     .invoke_handler(tauri::generate_handler![
-      drag_window
+      drag_window,
+      cmd::parse_prompt,
+      cmd::sync_prompts,
     ]);
 
   builder

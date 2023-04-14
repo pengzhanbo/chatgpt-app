@@ -27,25 +27,27 @@ export function useChatRecord() {
     return raw as ChatRecord
   }
 
+  async function update() {
+    await chatDB.set('chat_record_list', toRaw(recordList.value))
+    await chatDB.save()
+  }
+
   async function addChatRecord(record: MaybeRef<ChatRecord>) {
     const raw = resolveUnref(record)
     if (recordList.value.some((item) => item.id === raw.id)) return
     recordStore.addChatRecord(raw)
-    await chatDB.set('chat_record_list', toRaw(recordList.value))
-    await chatDB.save()
+    await update()
   }
 
   async function updateChatRecord(record: MaybeRef<Partial<ChatRecord>>) {
     const raw = resolveUnref(record)
     recordStore.updateChatRecord(raw)
-    await chatDB.set('chat_record_list', toRaw(recordList.value))
-    await chatDB.save()
+    await update()
   }
 
   async function deleteChatRecord(id: string) {
     recordStore.deleteChatRecord(id)
-    await chatDB.set('chat_record_list', toRaw(recordList.value))
-    await chatDB.save()
+    await update()
   }
 
   return {

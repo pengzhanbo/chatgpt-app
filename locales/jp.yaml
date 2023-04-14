@@ -73,11 +73,21 @@ dialog:
     content: 現在の会話履歴を削除しますか？
     submit: 削除
     cancel: キャンセル
+  deleteMessage:
+    title: チャットメッセージを削除します
+    content: 現在のチャットメッセージを削除しますか？
+    submit: 削除
+    cancel: キャンセル
   clearMessage:
     title: チャット履歴を消去しますか？
     content: すべてのチャット履歴を消去しますか？
     submit: 確認
     cancel: キャンセル
+
+chatControl:
+  retry: 再審
+  copy: コピー
+  delete: 削除
 
 languages:
   auto: 自動選択

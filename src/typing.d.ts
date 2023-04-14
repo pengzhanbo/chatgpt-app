@@ -29,6 +29,7 @@ interface ChatRecord {
 }
 
 interface ChatGPTMessage {
+  sendId: string
   id: string
   role: Role
   text: string

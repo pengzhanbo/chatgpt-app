@@ -10,7 +10,7 @@ const { t } = useI18n()
 const { type, targetLang, translateText } = useTranslate()
 const loading = ref(false)
 const text = ref('')
-const result = ref<ChatGPTMessage>({
+const result = ref<Omit<ChatGPTMessage, 'sendId'>>({
   id: '',
   type: 'success',
   text: '',

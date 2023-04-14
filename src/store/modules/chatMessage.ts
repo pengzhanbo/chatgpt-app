@@ -1,4 +1,5 @@
 import { defineStore } from 'pinia'
+import { generateId } from '~/utils'
 
 export interface ChatMessageStore {
   messageList: ChatGPTMessage[]
@@ -16,6 +17,7 @@ export const useChatMessageStore = defineStore('chat-message', {
     },
     addUserMessage(id: string, text: string, rendered: string) {
       this.messageList.push({
+        sendId: id,
         id,
         text,
         rendered,
@@ -26,6 +28,8 @@ export const useChatMessageStore = defineStore('chat-message', {
     },
     addAssistantEmptyMessage() {
       this.messageList.push({
+        sendId: generateId(),
+        id: '',
         role: 'assistant',
         type: 'success',
         text: '',

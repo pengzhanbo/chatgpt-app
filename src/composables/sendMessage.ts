@@ -10,6 +10,7 @@ import {
 export interface SendMessageOptions {
   prompt?: string
   stream?: boolean
+  memory: boolean
   historyId?: string
   systemMessage?: string
   retryIndex?: number
@@ -21,13 +22,14 @@ export interface SendMessageOptions {
 export async function sendMessage({
   prompt = '',
   stream = false,
+  memory = true,
   historyId,
   retryIndex,
   abortSignal,
   systemMessage,
   renderType = 'md',
   onMessage,
-}: SendMessageOptions): Promise<ChatGPTMessage> {
+}: SendMessageOptions): Promise<Omit<ChatGPTMessage, 'sendId'>> {
   const { appConfig } = useAppConfig()
   const messages: ChatMessage[] = []
 
@@ -44,20 +46,21 @@ export async function sendMessage({
         prompt = list[retryIndex].text
         list = list.slice(0, retryIndex)
       } else {
-        const lastUserIndex = list.findLastIndex(
-          (_) => _.role === 'user',
-          retryIndex,
-        )
+        const lastUserIndex = list
+          .slice(0, retryIndex)
+          .findLastIndex((_) => _.role === 'user')
         prompt = list[lastUserIndex].text
         list = list.slice(0, lastUserIndex)
       }
     }
 
-    let item: ChatGPTMessage | undefined
-    // eslint-disable-next-line no-cond-assign
-    while ((item = list.pop())) {
-      const { role, text } = item
-      messages.unshift({ role, content: text })
+    if (memory) {
+      let item: ChatGPTMessage | undefined
+      // eslint-disable-next-line no-cond-assign
+      while ((item = list.pop())) {
+        const { role, text } = item
+        messages.unshift({ role, content: text })
+      }
     }
   }
 

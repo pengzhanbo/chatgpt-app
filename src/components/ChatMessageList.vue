@@ -1,18 +1,16 @@
 <script lang="ts" setup>
 import { Pane } from 'splitpanes'
 
-defineProps({
-  list: {
-    type: Array as PropType<ChatGPTMessage[]>,
-    default: () => [],
+withDefaults(
+  defineProps<{
+    list: ChatGPTMessage[]
+    loading: boolean
+    chatId?: string
+  }>(),
+  {
+    list: () => [],
   },
-  loading: {
-    type: Boolean,
-    default: false,
-  },
-})
-
-// const { t } = useI18n()
+)
 
 const el = ref<HTMLElement | null>(null)
 const showToBottom = ref(false)
@@ -23,30 +21,31 @@ const onScroll = () => {
     el.value.scrollTop + el.value.offsetHeight <=
       el.value.scrollHeight - el.value.offsetHeight / 2
 }
-
 const scrollToBottom = () => {
   el.value?.scrollTo({
     top: el.value.scrollHeight,
     behavior: 'smooth',
   })
 }
-
 onMounted(() => onScroll())
 </script>
 
 <template>
   <Pane class="chat-message-list-container">
     <div ref="el" class="chat-message-list" @scroll="onScroll">
-      <ChatMessage v-for="item in list" :key="item.id" :message="item" />
+      <ChatMessage
+        v-for="(item, index) in list"
+        :key="item.sendId"
+        :message="item"
+        :chat-id="chatId"
+        :index="index"
+      />
     </div>
     <Transition name="fade">
       <div v-show="showToBottom" class="to-bottom" @click="scrollToBottom">
         <NIcon size="20"><ArrowBottomIcon /></NIcon>
       </div>
     </Transition>
-    <!-- <Transition name="fade">
-      <div v-show="loading" class="chat-loading">{{ t('chat.inputting') }}</div>
-    </Transition> -->
   </Pane>
 </template>
 

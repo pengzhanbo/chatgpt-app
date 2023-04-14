@@ -1,10 +1,7 @@
 <script lang="ts" setup>
-const props = defineProps({
-  record: {
-    type: Object as PropType<ChatRecord>,
-    default: () => ({}),
-  },
-})
+const props = defineProps<{
+  record: ChatRecord
+}>()
 
 const route = useRoute()
 const router = useRouter()
@@ -26,7 +23,7 @@ const deleteRecord = async () => {
     negativeText: t('dialog.deleteRecord.cancel'),
     onPositiveClick: async () => {
       await deleteChatRecord(props.record.id)
-      await clearChatMessage(props.record.id)
+      await clearChatMessage(props.record.id, true)
       const first = recordList.value[0]
       if (first) {
         router.push({ name: 'chat', params: { id: first.id } })

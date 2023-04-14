@@ -73,11 +73,21 @@ dialog:
     content: 是否刪除當前會話記錄？
     submit: 刪除
     cancel: 取消
+  deleteMessage:
+    title: 删除当前聊天信息
+    content: 是否删除當前聊天信息？
+    submit: 删除
+    cancel: 取消
   clearMessage:
     title: 清空聊天記錄
     content: 是否清空所有聊天記錄？
     submit: 確認
     cancel: 取消
+
+chatControl:
+  retry: 重试
+  copy: 複製
+  delete: 删除
 
 languages:
   auto: 自動選擇

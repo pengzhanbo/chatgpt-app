@@ -9,9 +9,13 @@ export function useChatMessage(id: MaybeRef<string>) {
   const messageStore = useChatMessageStore()
   const { messageList } = storeToRefs(messageStore)
 
-  async function loadChatMessage() {
-    const rawList = await history.get<ChatGPTMessage[]>(chatId.value)
-    messageStore.initMessageList(rawList || [])
+  async function loadChatMessage(id: string) {
+    if (id) {
+      const rawList = await history.get<ChatGPTMessage[]>(id)
+      messageStore.initMessageList(rawList || [])
+    } else {
+      messageStore.initMessageList([])
+    }
   }
 
   async function updateHistory() {

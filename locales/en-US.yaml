@@ -73,11 +73,21 @@ dialog:
     content: Do you want to delete the current session records?
     submit: Delete
     cancel: Cancel
+  deleteMessage:
+    title: Delete chat message
+    content: Do you want to delete current chat ?
+    submit: Delete
+    cancel: Cancel
   clearMessage:
     title: Clear chat history
     content: Do you want to clear all chats?
     submit: Confirm
     cancel: Cancel
+
+chatControl:
+  retry: Retry
+  copy: Copy
+  delete: Delete
 
 languages:
   auto: Automatic selection

@@ -1,6 +1,5 @@
 <script lang="ts" setup>
 import { Splitpanes } from 'splitpanes'
-import { actToOptions } from '~/common/actTo'
 import { sendMessage } from '~/composables/sendMessage'
 
 checkAppConfig()
@@ -36,11 +35,11 @@ const { scrollRef, scrollToBottom, scrollToBottomIfAtBottom } =
 
 watch(
   chatId,
-  async () => {
+  async (chatId) => {
     await loadChatRecord()
-    await loadChatMessage()
+    await loadChatMessage(chatId)
     messageText.value = ''
-    if (scrollRef.value) scrollToBottom()
+    scrollToBottom()
   },
   { immediate: true },
 )
@@ -68,7 +67,7 @@ async function checkChatRecord(title: string) {
     // 直接根据用户输入生成一个新的记录
     const record = createChatRecord({ title })
     await addChatRecord(record)
-    router.replace({ name: 'chat', params: { id: record.id } })
+    await router.replace({ name: 'chat', params: { id: record.id } })
   } else {
     // 以最新用户发送的消息作为记录的标题
     await updateChatRecord({ id: chatId.value, title })
@@ -99,8 +98,8 @@ const onMessage = async (message: string, forceUnMemoryMode = false) => {
   const response = await sendMessage({
     stream: true,
     prompt: message,
-    historyId:
-      memoryMode.value && !forceUnMemoryMode ? chatId.value : undefined,
+    memory: forceUnMemoryMode ? false : memoryMode.value,
+    historyId: chatId.value,
     onMessage(response) {
       updateAssistantMessage(assistantWaiting!, response)
       scrollToBottomIfAtBottom()
@@ -144,6 +143,7 @@ onMounted(() => {
       <ChatMessageList
         :ref="(c: any) => (scrollRef = c?.$el.children[0])"
         :list="messageList"
+        :chat-id="chatId"
         :loading="loading"
       />
       <ChatTextArea
