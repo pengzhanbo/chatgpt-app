@@ -3,6 +3,11 @@ navbar:
   translate: Translate/polish
   setting: Setting
 
+sidebar:
+  addChat: Add New Chat
+  editChat: Edit Chat
+  submit: Confirm
+
 preference:
   light: Light
   dark: Dark
@@ -88,6 +93,7 @@ chatControl:
   retry: Retry
   copy: Copy
   delete: Delete
+  edit: Edit
 
 languages:
   auto: Automatic selection

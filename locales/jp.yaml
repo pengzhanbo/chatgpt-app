@@ -3,6 +3,11 @@ navbar:
   translate: 翻訳/润色
   setting: 設定
 
+sidebar:
+  addChat: 新設チャット
+  editChat: 編集チャット
+  submit: 確認
+
 preference:
   light: ライト
   dark: ダーク
@@ -88,6 +93,7 @@ chatControl:
   retry: 再審
   copy: コピー
   delete: 削除
+  edit: 編集
 
 languages:
   auto: 自動選択

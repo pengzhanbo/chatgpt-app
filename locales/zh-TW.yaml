@@ -3,6 +3,11 @@ navbar:
   translate: 翻譯/潤色
   setting: 設置
 
+sidebar:
+  addChat: 新建聊天
+  editChat: 編輯聊天
+  submit: 確認
+
 preference:
   light: 淺色
   dark: 深色
@@ -88,6 +93,7 @@ chatControl:
   retry: 重试
   copy: 複製
   delete: 删除
+  edit: 編輯
 
 languages:
   auto: 自動選擇
