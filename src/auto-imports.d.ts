@@ -23,7 +23,9 @@ declare global {
   const createInjectionState: typeof import('@vueuse/core')['createInjectionState']
   const createPinia: typeof import('pinia')['createPinia']
   const createReactiveFn: typeof import('@vueuse/core')['createReactiveFn']
+  const createReusableTemplate: typeof import('@vueuse/core')['createReusableTemplate']
   const createSharedComposable: typeof import('@vueuse/core')['createSharedComposable']
+  const createTemplatePromise: typeof import('@vueuse/core')['createTemplatePromise']
   const createUnrefFn: typeof import('@vueuse/core')['createUnrefFn']
   const customRef: typeof import('vue')['customRef']
   const darkModeSymbol: typeof import('./composables/colorTheme')['darkModeSymbol']
@@ -130,12 +132,15 @@ declare global {
   const until: typeof import('@vueuse/core')['until']
   const updateHtmlDarkClass: typeof import('./composables/colorTheme')['updateHtmlDarkClass']
   const useActiveElement: typeof import('@vueuse/core')['useActiveElement']
+  const useAnimate: typeof import('@vueuse/core')['useAnimate']
   const useAppConfig: typeof import('./composables/appConfig')['useAppConfig']
+  const useArrayDifference: typeof import('@vueuse/core')['useArrayDifference']
   const useArrayEvery: typeof import('@vueuse/core')['useArrayEvery']
   const useArrayFilter: typeof import('@vueuse/core')['useArrayFilter']
   const useArrayFind: typeof import('@vueuse/core')['useArrayFind']
   const useArrayFindIndex: typeof import('@vueuse/core')['useArrayFindIndex']
   const useArrayFindLast: typeof import('@vueuse/core')['useArrayFindLast']
+  const useArrayIncludes: typeof import('@vueuse/core')['useArrayIncludes']
   const useArrayJoin: typeof import('@vueuse/core')['useArrayJoin']
   const useArrayMap: typeof import('@vueuse/core')['useArrayMap']
   const useArrayReduce: typeof import('@vueuse/core')['useArrayReduce']
@@ -235,6 +240,8 @@ declare global {
   const useOnline: typeof import('@vueuse/core')['useOnline']
   const usePageLeave: typeof import('@vueuse/core')['usePageLeave']
   const useParallax: typeof import('@vueuse/core')['useParallax']
+  const useParentElement: typeof import('@vueuse/core')['useParentElement']
+  const usePerformanceObserver: typeof import('@vueuse/core')['usePerformanceObserver']
   const usePermission: typeof import('@vueuse/core')['usePermission']
   const usePointer: typeof import('@vueuse/core')['usePointer']
   const usePointerLock: typeof import('@vueuse/core')['usePointerLock']
@@ -306,8 +313,10 @@ declare global {
   const watchArray: typeof import('@vueuse/core')['watchArray']
   const watchAtMost: typeof import('@vueuse/core')['watchAtMost']
   const watchDebounced: typeof import('@vueuse/core')['watchDebounced']
+  const watchDeep: typeof import('@vueuse/core')['watchDeep']
   const watchEffect: typeof import('vue')['watchEffect']
   const watchIgnorable: typeof import('@vueuse/core')['watchIgnorable']
+  const watchImmediate: typeof import('@vueuse/core')['watchImmediate']
   const watchOnce: typeof import('@vueuse/core')['watchOnce']
   const watchPausable: typeof import('@vueuse/core')['watchPausable']
   const watchPostEffect: typeof import('vue')['watchPostEffect']
@@ -345,7 +354,9 @@ declare module 'vue' {
     readonly createInjectionState: UnwrapRef<typeof import('@vueuse/core')['createInjectionState']>
     readonly createPinia: UnwrapRef<typeof import('pinia')['createPinia']>
     readonly createReactiveFn: UnwrapRef<typeof import('@vueuse/core')['createReactiveFn']>
+    readonly createReusableTemplate: UnwrapRef<typeof import('@vueuse/core')['createReusableTemplate']>
     readonly createSharedComposable: UnwrapRef<typeof import('@vueuse/core')['createSharedComposable']>
+    readonly createTemplatePromise: UnwrapRef<typeof import('@vueuse/core')['createTemplatePromise']>
     readonly createUnrefFn: UnwrapRef<typeof import('@vueuse/core')['createUnrefFn']>
     readonly customRef: UnwrapRef<typeof import('vue')['customRef']>
     readonly darkModeSymbol: UnwrapRef<typeof import('./composables/colorTheme')['darkModeSymbol']>
@@ -452,12 +463,15 @@ declare module 'vue' {
     readonly until: UnwrapRef<typeof import('@vueuse/core')['until']>
     readonly updateHtmlDarkClass: UnwrapRef<typeof import('./composables/colorTheme')['updateHtmlDarkClass']>
     readonly useActiveElement: UnwrapRef<typeof import('@vueuse/core')['useActiveElement']>
+    readonly useAnimate: UnwrapRef<typeof import('@vueuse/core')['useAnimate']>
     readonly useAppConfig: UnwrapRef<typeof import('./composables/appConfig')['useAppConfig']>
+    readonly useArrayDifference: UnwrapRef<typeof import('@vueuse/core')['useArrayDifference']>
     readonly useArrayEvery: UnwrapRef<typeof import('@vueuse/core')['useArrayEvery']>
     readonly useArrayFilter: UnwrapRef<typeof import('@vueuse/core')['useArrayFilter']>
     readonly useArrayFind: UnwrapRef<typeof import('@vueuse/core')['useArrayFind']>
     readonly useArrayFindIndex: UnwrapRef<typeof import('@vueuse/core')['useArrayFindIndex']>
     readonly useArrayFindLast: UnwrapRef<typeof import('@vueuse/core')['useArrayFindLast']>
+    readonly useArrayIncludes: UnwrapRef<typeof import('@vueuse/core')['useArrayIncludes']>
     readonly useArrayJoin: UnwrapRef<typeof import('@vueuse/core')['useArrayJoin']>
     readonly useArrayMap: UnwrapRef<typeof import('@vueuse/core')['useArrayMap']>
     readonly useArrayReduce: UnwrapRef<typeof import('@vueuse/core')['useArrayReduce']>
@@ -557,6 +571,8 @@ declare module 'vue' {
     readonly useOnline: UnwrapRef<typeof import('@vueuse/core')['useOnline']>
     readonly usePageLeave: UnwrapRef<typeof import('@vueuse/core')['usePageLeave']>
     readonly useParallax: UnwrapRef<typeof import('@vueuse/core')['useParallax']>
+    readonly useParentElement: UnwrapRef<typeof import('@vueuse/core')['useParentElement']>
+    readonly usePerformanceObserver: UnwrapRef<typeof import('@vueuse/core')['usePerformanceObserver']>
     readonly usePermission: UnwrapRef<typeof import('@vueuse/core')['usePermission']>
     readonly usePointer: UnwrapRef<typeof import('@vueuse/core')['usePointer']>
     readonly usePointerLock: UnwrapRef<typeof import('@vueuse/core')['usePointerLock']>
@@ -628,8 +644,10 @@ declare module 'vue' {
     readonly watchArray: UnwrapRef<typeof import('@vueuse/core')['watchArray']>
     readonly watchAtMost: UnwrapRef<typeof import('@vueuse/core')['watchAtMost']>
     readonly watchDebounced: UnwrapRef<typeof import('@vueuse/core')['watchDebounced']>
+    readonly watchDeep: UnwrapRef<typeof import('@vueuse/core')['watchDeep']>
     readonly watchEffect: UnwrapRef<typeof import('vue')['watchEffect']>
     readonly watchIgnorable: UnwrapRef<typeof import('@vueuse/core')['watchIgnorable']>
+    readonly watchImmediate: UnwrapRef<typeof import('@vueuse/core')['watchImmediate']>
     readonly watchOnce: UnwrapRef<typeof import('@vueuse/core')['watchOnce']>
     readonly watchPausable: UnwrapRef<typeof import('@vueuse/core')['watchPausable']>
     readonly watchPostEffect: UnwrapRef<typeof import('vue')['watchPostEffect']>
