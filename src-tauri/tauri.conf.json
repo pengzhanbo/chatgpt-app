@@ -46,6 +46,9 @@
       "http": {
         "all": true
       },
+      "os": {
+        "all": true
+      },
       "process": {
         "all": true,
         "exit": true,
