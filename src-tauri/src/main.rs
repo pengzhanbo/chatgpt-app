@@ -1,7 +1,6 @@
 // Prevents additional console window on Windows in release, DO NOT REMOVE!!
 #![cfg_attr(not(debug_assertions), windows_subsystem = "windows")]
 
-mod utils;
 mod cmd;
 
 use tauri::{AppHandle, Manager};
@@ -24,7 +23,6 @@ fn main() {
     .invoke_handler(tauri::generate_handler![
       drag_window,
       cmd::parse_prompt,
-      cmd::sync_prompts,
     ]);
 
   builder
