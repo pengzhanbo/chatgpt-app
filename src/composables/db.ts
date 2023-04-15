@@ -4,9 +4,13 @@ export const db = new Store('./chatgpt.db')
 
 export const historyDB = new Store('./chat-history.db')
 
+export const promptDB = new Store('./chat-prompt.db')
+
 export const useDB = () => db
 
 export const useChatHistoryDB = () => historyDB
+
+export const usePromptDB = () => promptDB
 
 export async function setupDB() {
   if (await initAppConfig()) {

@@ -9,6 +9,7 @@ export {}
 
 declare module '@vue/runtime-core' {
   export interface GlobalComponents {
+    ActorIcon: typeof import('./components/icons/ActorIcon.vue')['default']
     AddIcon: typeof import('./components/icons/AddIcon.vue')['default']
     ArrowBackIcon: typeof import('./components/icons/ArrowBackIcon.vue')['default']
     ArrowBottomIcon: typeof import('./components/icons/ArrowBottomIcon.vue')['default']
@@ -26,6 +27,7 @@ declare module '@vue/runtime-core' {
     CopyIcon: typeof import('./components/icons/CopyIcon.vue')['default']
     DarkIcon: typeof import('./components/icons/DarkIcon.vue')['default']
     DeleteIcon: typeof import('./components/icons/DeleteIcon.vue')['default']
+    EditIcon: typeof import('./components/icons/EditIcon.vue')['default']
     InfoIcon: typeof import('./components/icons/InfoIcon.vue')['default']
     Layout: typeof import('./components/Layout.vue')['default']
     LightIcon: typeof import('./components/icons/LightIcon.vue')['default']
@@ -47,6 +49,7 @@ declare module '@vue/runtime-core' {
     NIcon: typeof import('naive-ui')['NIcon']
     NInput: typeof import('naive-ui')['NInput']
     NMessageProvider: typeof import('naive-ui')['NMessageProvider']
+    NModal: typeof import('naive-ui')['NModal']
     NPopover: typeof import('naive-ui')['NPopover']
     NRadioButton: typeof import('naive-ui')['NRadioButton']
     NRadioGroup: typeof import('naive-ui')['NRadioGroup']

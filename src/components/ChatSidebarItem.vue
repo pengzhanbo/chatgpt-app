@@ -1,6 +1,10 @@
 <script lang="ts" setup>
+import { sidebarOptions } from '~/common/constants'
 const props = defineProps<{
   record: ChatRecord
+}>()
+const emit = defineEmits<{
+  (event: 'on-edit', record: ChatRecord): void
 }>()
 
 const route = useRoute()
@@ -33,11 +37,16 @@ const deleteRecord = async () => {
     },
   })
 }
+
+const onSelect = async (key: 'edit' | 'delete') => {
+  if (key === 'edit') emit('on-edit', props.record)
+  if (key === 'delete') await deleteRecord()
+}
 </script>
 
 <template>
   <div
-    class="chat-sidebar-item group"
+    class="chat-sidebar-item"
     :class="{
       active: record.id === chatId,
     }"
@@ -46,9 +55,16 @@ const deleteRecord = async () => {
       <NIcon size="16"><MessageIcon /></NIcon>
       <NEllipsis class="ml-3 flex-1 w-0">{{ record.title }}</NEllipsis>
     </div>
-    <NIcon class="del-icon" size="20" @click="deleteRecord">
-      <DeleteIcon />
-    </NIcon>
+    <NDropdown
+      :options="sidebarOptions"
+      size="small"
+      :render-label="({ label }) => t(label as string)"
+      @select="onSelect"
+    >
+      <NIcon class="icon" size="20">
+        <MoreIcon />
+      </NIcon>
+    </NDropdown>
   </div>
 </template>
 
@@ -64,7 +80,7 @@ const deleteRecord = async () => {
 .chat-sidebar-item:last-of-type {
   @apply border-none;
 }
-.del-icon {
-  @apply mr-2 text-gray-500 opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer;
+.icon {
+  @apply mr-1 text-gray-500 cursor-pointer;
 }
 </style>

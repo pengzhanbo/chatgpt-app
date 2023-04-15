@@ -30,6 +30,7 @@ export async function setupMarkdown() {
   mdi.options.highlight = (code, lang) => {
     const shortLang =
       codeLanguageAlias[lang as keyof typeof codeLanguageAlias] || lang
+    if (lang === 'svg') lang = 'html'
     const content = highlighter.codeToHtml(code, { lang })
     const lines = content.split('\n').slice(0, -1)
     const lineNumbersCode = lines

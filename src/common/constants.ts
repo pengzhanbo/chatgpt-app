@@ -3,6 +3,7 @@ import type { Component } from 'vue'
 import CopyIcon from '~/components/icons/CopyIcon.vue'
 import DarkIcon from '~/components/icons/DarkIcon.vue'
 import DeleteIcon from '~/components/icons/DeleteIcon.vue'
+import EditIcon from '~/components/icons/EditIcon.vue'
 import LightIcon from '~/components/icons/LightIcon.vue'
 import ModeIcon from '~/components/icons/ModeIcon.vue'
 import RetryIcon from '~/components/icons/RetryIcon.vue'
@@ -73,6 +74,11 @@ const renderIcon = (icon: Component) => () =>
 export const messageControlOptions = [
   { key: 'copy', label: 'chatControl.copy', icon: renderIcon(CopyIcon) },
   { key: 'retry', label: 'chatControl.retry', icon: renderIcon(RetryIcon) },
+  { key: 'delete', label: 'chatControl.delete', icon: renderIcon(DeleteIcon) },
+]
+
+export const sidebarOptions = [
+  { key: 'edit', label: 'chatControl.edit', icon: renderIcon(EditIcon) },
   { key: 'delete', label: 'chatControl.delete', icon: renderIcon(DeleteIcon) },
 ]
 

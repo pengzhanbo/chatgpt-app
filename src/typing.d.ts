@@ -25,7 +25,10 @@ interface ChatRecord {
   createTime: number
   lastTime: number
   title: string
+  pinTitle: boolean
   memoryMode: boolean
+  act: string
+  prompt?: string
 }
 
 interface ChatGPTMessage {

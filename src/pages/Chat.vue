@@ -18,6 +18,7 @@ const {
   createChatRecord,
   addChatRecord,
   loadChatRecord,
+  getChatRecordById,
   updateChatRecord,
 } = useChatRecord()
 
@@ -43,6 +44,8 @@ watch(
   },
   { immediate: true },
 )
+
+const currentRecord = computed(() => getChatRecordById(chatId.value))
 
 const memoryMode = computed<boolean>(() => {
   if (chatId.value) {
@@ -100,6 +103,7 @@ const onMessage = async (message: string, forceUnMemoryMode = false) => {
     prompt: message,
     memory: forceUnMemoryMode ? false : memoryMode.value,
     historyId: chatId.value,
+    systemMessage: currentRecord.value?.prompt || '',
     onMessage(response) {
       updateAssistantMessage(assistantWaiting!, response)
       scrollToBottomIfAtBottom()
@@ -176,13 +180,15 @@ onMounted(() => {
               </NIcon>
             </template>
           </NPopover>
-          <div class="flex-1 mr-5">
-            <!-- <NSelect
-              v-model:value="actTo"
-              :options="actToOptions"
-              @update:value="actToChange"
-            /> -->
-          </div>
+          <NPopover v-if="currentRecord?.act" :width="400">
+            <p class="break-words leading-7">{{ currentRecord?.prompt }}</p>
+            <template #trigger>
+              <div class="flex justify-start items-center mr-5 cursor-default">
+                <NIcon size="18"><ActorIcon /></NIcon>
+                <span class="ml-2 text-gray-500">{{ currentRecord.act }}</span>
+              </div>
+            </template>
+          </NPopover>
         </div>
       </ChatTextArea>
     </Splitpanes>

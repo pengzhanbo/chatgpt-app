@@ -19,11 +19,13 @@ export const useChatRecordStore = defineStore('chat-record', {
     },
     updateChatRecord(record: Partial<ChatRecord>) {
       record.lastTime = Date.now()
-      const { id, ...other } = record
+      const { id, title, ...other } = record
       const index = this.recordList.findIndex((item) => item.id === id)
       if (index !== -1) {
+        const raw = this.recordList[index]
         this.recordList[index] = {
-          ...this.recordList[index],
+          ...raw,
+          title: raw.pinTitle ? raw.title : title || raw.title,
           ...other,
         }
       }

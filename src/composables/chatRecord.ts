@@ -23,6 +23,9 @@ export function useChatRecord() {
     raw.createTime ??= Date.now()
     raw.lastTime ??= raw.createTime
     raw.title ??= 'New Chat'
+    raw.pinTitle ??= false
+    raw.act ??= 'Default'
+    raw.prompt ??= ''
     raw.memoryMode ??= true
     return raw as ChatRecord
   }
@@ -50,10 +53,15 @@ export function useChatRecord() {
     await update()
   }
 
+  function getChatRecordById(id: string) {
+    return recordList.value.find((item) => item.id === id)
+  }
+
   return {
     recordList,
     loadChatRecord,
     createChatRecord,
+    getChatRecordById,
     addChatRecord,
     updateChatRecord,
     deleteChatRecord,
