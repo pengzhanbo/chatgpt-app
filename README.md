@@ -4,12 +4,6 @@ ChatGPT Desktop Application
 
 ChatGPT 桌面应用
 
-![](docs/app-1.png)
-
-![](docs/app-2.png)
-
-![](docs/app-3.png)
-
 ## Explanation 说明
 
 - This project is based on the MIT license and is only for open source communication and learning purposes.
@@ -52,3 +46,15 @@ pnpm tauri dev
 - 构建工具：vite
 - vue & vue-router & pinia
 - tauri
+
+## Preview
+
+![](docs/app-1.png)
+
+![](docs/app-2.png)
+
+![](docs/app-3.png)
+
+![](docs/app-4.png)
+
+![](docs/app-5.png)
