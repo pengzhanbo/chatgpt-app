@@ -5,7 +5,6 @@ import AutoImport from 'unplugin-auto-import/vite'
 import { NaiveUiResolver } from 'unplugin-vue-components/resolvers'
 import Components from 'unplugin-vue-components/vite'
 import { defineConfig } from 'vite'
-import { chunkSplitPlugin } from 'vite-plugin-chunk-split'
 import WindiCSS from 'vite-plugin-windicss'
 
 // https://vitejs.dev/config/
@@ -52,29 +51,6 @@ export default defineConfig(async () => ({
       extensions: ['vue'],
       include: [/\.vue$/, /\.vue\?vue/],
       dts: 'src/components.d.ts',
-    }),
-    // splitVendorChunkPlugin(),
-    chunkSplitPlugin({
-      strategy: 'single-vendor',
-      customSplitting: {
-        vue: ['vue', 'vue-router', 'pinia', /@vueuse\/core/, /vue-i18n/],
-        helper: [
-          /nanoid/,
-          /lodash/,
-          /html-escaper/,
-          /date-fns/,
-          /eventsource-parser/,
-        ],
-        gpt: [/gpt3-tokenizer/],
-        ui: [/naive-ui/, /splitpanes/],
-        markdown: [
-          /markdown-it/,
-          /shiki/,
-          /katex/,
-          /@traptitech\/markdown-it-katex/,
-          /markdown-it-link-attributes/,
-        ],
-      },
     }),
   ],
 
