@@ -228,9 +228,9 @@
   counter-reset: line-number;
   font-size: 1em;
   background-color: #f6f6f6;
-  @apply absolute top-0 left-0 bottom-0 border-r border-r-gray-300 pt-4 w-8;
+  @apply absolute top-0 left-0 bottom-0 border-r border-r-gray-200 pt-4 w-8;
   @apply text-right pt-3 pr-1 text-gray-400 transition-colors;
-  @apply rounded-l-md;
+  @apply rounded-l-md select-none;
 }
 
 .dark .markdown-body [class*="language-"] .line-numbers {

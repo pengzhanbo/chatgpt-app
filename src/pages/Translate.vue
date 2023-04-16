@@ -1,10 +1,8 @@
 <script lang="ts" setup>
 import { Pane, Splitpanes } from 'splitpanes'
 import { chatMessageError, languageOptions } from '~/common/constants'
-import { copyToClipboard } from '~/composables/copyCode'
-import { renderText } from '~/composables/markdown'
-import { useTranslate } from '~/composables/translate'
 import type { TranslateType } from '~/composables/translate'
+
 const languageList = [...languageOptions]
 const { t } = useI18n()
 const { type, targetLang, translateText } = useTranslate()
@@ -14,17 +12,15 @@ const result = ref<Omit<ChatGPTMessage, 'sendId'>>({
   id: '',
   type: 'success',
   text: '',
-  rendered: '',
   role: 'assistant',
   createTime: 0,
 })
 
-const rendered = computed(() => result.value.rendered)
+const rendered = computed(() => renderText(result.value.text))
 
 const onTranslate = async (current: TranslateType) => {
   if (!text.value) return
   type.value = current
-  result.value.rendered = ''
   loading.value = true
   const response = await translateText(text.value, (res) => {
     result.value = res
