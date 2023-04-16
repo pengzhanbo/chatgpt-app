@@ -1,6 +1,5 @@
 import type { MaybeRef } from '@vueuse/core'
 import { storeToRefs } from 'pinia'
-import { renderMarkdown } from './markdown'
 import { generateId } from '~/utils'
 
 export function useChatMessage(id: MaybeRef<string>) {
@@ -35,8 +34,7 @@ export function useChatMessage(id: MaybeRef<string>) {
   }
 
   async function addUserMessage(text: string) {
-    const rendered = renderMarkdown(text)
-    messageStore.addUserMessage(generateId(), text, rendered)
+    messageStore.addUserMessage(generateId(), text)
     await updateHistory()
     return messageList.value[messageList.value.length - 1]
   }

@@ -15,12 +15,11 @@ export const useChatMessageStore = defineStore('chat-message', {
     initMessageList(list: ChatGPTMessage[]) {
       this.messageList = list || []
     },
-    addUserMessage(id: string, text: string, rendered: string) {
+    addUserMessage(id: string, text: string) {
       this.messageList.push({
         sendId: id,
         id,
         text,
-        rendered,
         type: 'success',
         role: 'user',
         createTime: Date.now(),
@@ -33,7 +32,6 @@ export const useChatMessageStore = defineStore('chat-message', {
         role: 'assistant',
         type: 'success',
         text: '',
-        rendered: '',
       } as ChatGPTMessage)
       return this.messageList.length - 1
     },

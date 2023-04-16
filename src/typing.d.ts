@@ -37,8 +37,8 @@ interface ChatGPTMessage {
   role: Role
   text: string
   type: 'success' | 'error'
+  createTime: number
   errorCode?: number
   errorMessage?: string
-  createTime: number
   retryList?: Omit<ChatGPTMessage, 'retryList'>[]
 }

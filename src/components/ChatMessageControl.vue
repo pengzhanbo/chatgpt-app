@@ -19,7 +19,6 @@ const onRetry = async () => {
   retryList.push(message)
   await updateAssistantMessage(props.index, {
     text: '',
-    rendered: '',
     errorMessage: '',
     retryList,
   })

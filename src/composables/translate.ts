@@ -48,7 +48,6 @@ export function useTranslate() {
       stream: false,
       memory: false,
       systemMessage: systemMessage.value,
-      renderType: 'text',
       onMessage,
     })
   }
