@@ -79,7 +79,7 @@ async function checkChatRecord(title: string) {
 
 const loading = ref(false)
 
-const onMessage = async (message: string, forceUnMemoryMode = false) => {
+const onMessage = async (message: string) => {
   message = message
     .trim()
     .replace(/^\n+|\n+$/g, '')
@@ -101,7 +101,7 @@ const onMessage = async (message: string, forceUnMemoryMode = false) => {
   const response = await sendMessage({
     stream: true,
     prompt: message,
-    memory: forceUnMemoryMode ? false : memoryMode.value,
+    memory: memoryMode.value,
     historyId: chatId.value,
     systemMessage: currentRecord.value?.prompt || '',
     onMessage(response) {
@@ -113,13 +113,6 @@ const onMessage = async (message: string, forceUnMemoryMode = false) => {
 
   loading.value = false
   scrollToBottomIfAtBottom()
-}
-
-const actTo = ref<string>('')
-const actToChange = async () => {
-  if (actTo.value === '') return
-  messageText.value = actTo.value
-  await onMessage(messageText.value, true)
 }
 
 const dialog = useDialog()

@@ -1,4 +1,5 @@
 <script lang="ts" setup>
+import { estimateTokens } from '~/utils'
 const router = useRouter()
 const { t } = useI18n()
 const { recordList, createChatRecord, addChatRecord, updateChatRecord } =
@@ -105,9 +106,16 @@ const onSelect = (act: string) => {
         ></NSelect>
       </NFormItem>
       <NFormItem v-if="record.prompt" label="Prompt">
-        <p class="break-words leading-6 py-2 px-2 bg-light-300">
+        <NInput
+          v-model:value="record.prompt"
+          type="textarea"
+          autosize
+          show-count
+          :count-graphemes="estimateTokens"
+        />
+        <!-- <p class="break-words leading-6 py-2 px-2 bg-light-300">
           {{ record.prompt }}
-        </p>
+        </p> -->
       </NFormItem>
     </NForm>
     <template #footer>

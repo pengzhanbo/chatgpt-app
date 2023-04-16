@@ -55,7 +55,9 @@ const onSelect = async (key: 'edit' | 'delete') => {
   >
     <div class="flex-1 flex items-center cursor-pointer" @click="toggleChat">
       <NIcon size="16"><MessageIcon /></NIcon>
-      <NEllipsis class="ml-3 flex-1 w-0">{{ record.title }}</NEllipsis>
+      <NEllipsis :tooltip="false" class="ml-3 flex-1 w-0">{{
+        record.title
+      }}</NEllipsis>
     </div>
     <NDropdown
       :options="sidebarOptions"

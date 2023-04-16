@@ -218,7 +218,7 @@
 }
 
 .shiki{
-  background-color: #f6f6f6 !important;
+  background-color: #fafafa !important;
 }
 .dark .shiki {
   background-color: #292D3E !important;
@@ -227,7 +227,7 @@
 .markdown-body [class*="language-"] .line-numbers {
   counter-reset: line-number;
   font-size: 1em;
-  background-color: #f6f6f6;
+  background-color: #fafafa;
   @apply absolute top-0 left-0 bottom-0 border-r border-r-gray-200 pt-4 w-8;
   @apply text-right pt-3 pr-1 text-gray-400 transition-colors;
   @apply rounded-l-md select-none;
