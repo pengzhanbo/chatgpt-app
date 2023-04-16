@@ -29,10 +29,12 @@ const deleteRecord = async () => {
       await deleteChatRecord(props.record.id)
       await clearChatMessage(props.record.id, true)
       const first = recordList.value[0]
-      if (first) {
-        router.push({ name: 'chat', params: { id: first.id } })
-      } else {
-        router.push({ name: 'chat' })
+      if (chatId.value === props.record.id) {
+        if (first) {
+          router.push({ name: 'chat', params: { id: first.id } })
+        } else {
+          router.push({ name: 'chat' })
+        }
       }
     },
   })
