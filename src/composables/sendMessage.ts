@@ -1,6 +1,5 @@
 import { useAppConfig } from './appConfig'
 import { useChatHistoryDB } from './db'
-import { renderText } from './markdown'
 import type { ChatMessage, SendMessageRequest } from '~/api/chatgpt'
 import {
   sendMessage as sendMessageApi,
@@ -15,7 +14,6 @@ export interface SendMessageOptions {
   systemMessage?: string
   retryIndex?: number
   abortSignal?: AbortSignal
-  renderType?: 'md' | 'text'
   onMessage?: (res: ChatGPTMessage) => void
 }
 
@@ -27,7 +25,6 @@ export async function sendMessage({
   retryIndex,
   abortSignal,
   systemMessage,
-  renderType = 'md',
   onMessage,
 }: SendMessageOptions): Promise<Omit<ChatGPTMessage, 'sendId'>> {
   const { appConfig } = useAppConfig()
@@ -87,10 +84,6 @@ export async function sendMessage({
               errorMessage: '',
               id: response.id,
               role: response.role,
-              rendered:
-                renderType === 'text'
-                  ? renderText(response.text)
-                  : renderMarkdown(response.text),
             }
             onMessage?.(result as ChatGPTMessage)
           },
@@ -103,10 +96,6 @@ export async function sendMessage({
       errorMessage: '',
       id: response.id,
       role: response.role,
-      rendered:
-        renderType === 'text'
-          ? renderText(response.text)
-          : renderMarkdown(response.text),
     }
   } catch (e: any) {
     return {

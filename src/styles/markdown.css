@@ -1,12 +1,17 @@
 :root {
-  --icon-copy: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' height='24' width='24' stroke='%23ccc' stroke-width='2' viewBox='0 0 24 24'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' d='M9 5H7a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-2M9 5a2 2 0 0 0 2 2h2a2 2 0 0 0 2-2M9 5a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2'/%3E%3C/svg%3E");
-  --icon-copied: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' height='24' width='24' stroke='%23ccc' stroke-width='2' viewBox='0 0 24 24'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' d='M9 5H7a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-2M9 5a2 2 0 0 0 2 2h2a2 2 0 0 0 2-2M9 5a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2m-6 9 2 2 4-4'/%3E%3C/svg%3E");
+  --icon-copy: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' height='24' width='24' stroke='%23999' stroke-width='2' viewBox='0 0 24 24'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' d='M9 5H7a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-2M9 5a2 2 0 0 0 2 2h2a2 2 0 0 0 2-2M9 5a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2'/%3E%3C/svg%3E");
+  --icon-copied: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' height='24' width='24' stroke='%23999' stroke-width='2' viewBox='0 0 24 24'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' d='M9 5H7a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-2M9 5a2 2 0 0 0 2 2h2a2 2 0 0 0 2-2M9 5a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2m-6 9 2 2 4-4'/%3E%3C/svg%3E");
   --font-family: ui-sans-serif, system-ui,
     -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue',
     Helvetica, Arial, 'Noto Sans', sans-serif, 'Apple Color Emoji',
     'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   --font-family-mono: ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Monaco,
     Consolas, 'Liberation Mono', 'Courier New', monospace;
+}
+
+.dark {
+  --icon-copy: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' height='24' width='24' stroke='%23ccc' stroke-width='2' viewBox='0 0 24 24'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' d='M9 5H7a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-2M9 5a2 2 0 0 0 2 2h2a2 2 0 0 0 2-2M9 5a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2'/%3E%3C/svg%3E");
+  --icon-copied: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' height='24' width='24' stroke='%23ccc' stroke-width='2' viewBox='0 0 24 24'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' d='M9 5H7a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-2M9 5a2 2 0 0 0 2 2h2a2 2 0 0 0 2-2M9 5a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2m-6 9 2 2 4-4'/%3E%3C/svg%3E");
 }
 
 .markdown-body {
@@ -39,27 +44,24 @@
 }
 
 .markdown-body ul {
-  list-style: disc;
+  @apply list-disc;
 }
 
 .markdown-body ol {
-  list-style: decimal;
+  @apply list-decimal;
 }
 
 .markdown-body li + li {
-  margin-top: 8px;
+  @apply mt-2;
 }
 
 .markdown-body li > ol,
 .markdown-body li > ul {
-  margin: 8px 0 0;
+  @apply mt-2 mx-0 mb-0;
 }
 
 .markdown-body table {
-  display: block;
-  border-collapse: collapse;
-  margin: 20px 0;
-  overflow-x: auto;
+  @apply block border-collapse my-5 mx-0 overflow-x-auto;
 }
 
 .markdown-body tr {
@@ -76,8 +78,7 @@
 
 .markdown-body th,
 .markdown-body td {
-  padding: 8px 16px;
-  @apply border-1 border-gray-400;
+  @apply py-2 px-4 border-1 border-gray-400;
 }
 
 .dark .markdown-body th,
@@ -86,10 +87,7 @@
 }
 
 .markdown-body th {
-  text-align: left;
-  font-size: 14px;
-  font-weight: 600;
-  @apply text-gray-600 bg-light-500;
+  @apply text-gray-600 bg-light-500 text-left font-semibold text-sm;
 }
 
 .dark .markdown-body th {
@@ -97,12 +95,11 @@
 }
 
 .markdown-body td {
-  font-size: 14px;
+  @apply text-sm;
 }
 
 .markdown-body p {
-  @apply mt-0 mb-4;
-  line-height: 28px;
+  @apply mt-0 mb-4 leading-7;
 }
 
 .markdown-body > :first-child {
@@ -116,11 +113,11 @@
 .markdown-body details,
 .markdown-body figcaption,
 .markdown-body figure {
-  display: block;
+  @apply block;
 }
 
 .markdown-body summary {
-  display: list-item;
+  @apply list-item;
 }
 
 .markdown-body [hidden] {
@@ -145,8 +142,7 @@
 .markdown-body sup {
   font-size: 75%;
   line-height: 0;
-  position: relative;
-  vertical-align: baseline;
+  @apply relative align-baseline;
 }
 
 .markdown-body sub {
@@ -158,20 +154,13 @@
 }
 
 .markdown-body img {
-  border-style: none;
-  max-width: 100%;
-  box-sizing: content-box;
+  @apply box-content border-none max-w-full;
 }
 
 .markdown-body hr {
-  box-sizing: content-box;
-  overflow: hidden;
-  background: transparent;
   height: .25em;
-  padding: 0;
-  margin: 24px 0;
-  border: 0;
   @apply border-b border-b-light-800 dark:border-b-dark-800;
+  @apply box-content overflow-hidden bg-transparent p-0 border-0 my-6 mx-0;
 }
 
 .markdown-body .katexmath-container {
@@ -228,13 +217,25 @@
   hyphens: none;
 }
 
+.shiki{
+  background-color: #f6f6f6 !important;
+}
+.dark .shiki {
+  background-color: #292D3E !important;
+}
+
 .markdown-body [class*="language-"] .line-numbers {
   counter-reset: line-number;
   font-size: 1em;
-  background-color: #292D3E;
-  @apply absolute top-0 left-0 bottom-0 border-r border-r-gray-900 pt-4 w-8;
-  @apply text-right pt-3 pr-1 text-gray-500 transition-colors;
+  background-color: #f6f6f6;
+  @apply absolute top-0 left-0 bottom-0 border-r border-r-gray-300 pt-4 w-8;
+  @apply text-right pt-3 pr-1 text-gray-400 transition-colors;
   @apply rounded-l-md;
+}
+
+.dark .markdown-body [class*="language-"] .line-numbers {
+  background-color: #292D3E;
+  @apply text-gray-500 border-r-gray-900;
 }
 
 .markdown-body [class*="language-"] .line-numbers .line-number::before {
@@ -243,23 +244,19 @@
 }
 
 .markdown-body [class*="language-"] .copy-code {
-  @apply absolute right-2 top-2 text-gray-50 opacity-0 z-3;
-  @apply transition-all cursor-pointer block bg-gray-700;
-  @apply justify-center items-center;
-  width: 40px;
-  height: 40px;
-  border-radius: 4px;
+  @apply absolute right-2 top-2 text-light-500 dark:text-gray-50 opacity-0 z-3;
+  @apply transition-all cursor-pointer block bg-light-700 dark:bg-gray-700;
+  @apply justify-center items-center w-10 h-10 rounded bg-no-repeat;
   background-image: var(--icon-copy);
   background-position: 50%;
   background-size: 20px;
-  background-repeat: no-repeat;
 }
 
 .markdown-body [class*="language-"]:hover .copy-code {
   @apply opacity-100;
 }
 .markdown-body [class*="language-"] .copy-code:hover {
-  @apply bg-gray-600;
+  @apply bg-light-900 dark:bg-gray-600;
 }
 
 
@@ -267,12 +264,13 @@
 .markdown-body [class*="language-"] .copy-code:hover.copied {
   background-image: var(--icon-copied);
   border-radius: 0 4px 4px 0;
-  @apply bg-gray-600;
+  @apply bg-light-900 dark:bg-gray-600;
 }
 
 .markdown-body [class*='language-'] .copy-code.copied::before,
 .markdown-body [class*='language-'] .copy-code:hover.copied::before {
-  position: relative;
+  @apply relative text-green-500 dark:text-green-400 bg-light-900 dark:bg-gray-600;
+  @apply w-16 h-10 text-center font-medium whitespace-nowrap;
   /*rtl:ignore*/
   left: -64px;
   display: flex;
@@ -280,14 +278,8 @@
   align-items: center;
   /*rtl:ignore*/
   border-radius: 4px 0 0 4px;
-  width: 64px;
-  height: 40px;
-  text-align: center;
   font-size: 12px;
-  font-weight: 500;
-  white-space: nowrap;
   content: 'Copied';
-  @apply text-green-400 bg-gray-600;
 }
 
 /* inline code */

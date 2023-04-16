@@ -7,6 +7,7 @@ const props = defineProps<{
 }>()
 
 const { t } = useI18n()
+const isDark = useDarkMode()
 
 const totalRetry = computed(() => {
   if (props.message?.retryList?.length) {
@@ -45,7 +46,11 @@ const localeDate = computed(() =>
     ? format(currentMessage.value.createTime, 'yyyy-MM-dd HH:mm:ss')
     : '',
 )
-const rendered = computed(() => currentMessage.value?.rendered)
+const rendered = computed(() =>
+  currentMessage.value
+    ? renderMarkdown(currentMessage.value.text, isDark.value)
+    : '',
+)
 const errorMessage = computed(() => currentMessage.value?.errorMessage)
 </script>
 
@@ -150,12 +155,12 @@ const errorMessage = computed(() => currentMessage.value?.errorMessage)
   @apply text-right;
 }
 .reverse .message-content {
-  @apply text-left bg-green-400 dark:bg-green-900 dark:text-gray-200;
+  @apply text-left;
 }
 
 .reverse .message-content::before {
   right: -12px;
   left: unset;
-  @apply border-r-transparent border-l-green-400 dark:border-l-green-900;
+  @apply border-r-transparent;
 }
 </style>

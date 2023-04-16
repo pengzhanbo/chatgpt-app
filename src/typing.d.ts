@@ -36,7 +36,6 @@ interface ChatGPTMessage {
   id: string
   role: Role
   text: string
-  rendered?: string
   type: 'success' | 'error'
   errorCode?: number
   errorMessage?: string
