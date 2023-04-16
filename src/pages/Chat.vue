@@ -180,7 +180,10 @@ onMounted(() => {
               </NIcon>
             </template>
           </NPopover>
-          <NPopover v-if="currentRecord?.act" :width="400">
+          <NPopover
+            v-if="currentRecord?.act && currentRecord.act !== 'Default'"
+            :width="400"
+          >
             <p class="break-words leading-7">{{ currentRecord?.prompt }}</p>
             <template #trigger>
               <div class="flex justify-start items-center mr-5 cursor-default">
