@@ -106,16 +106,15 @@ const onSelect = (act: string) => {
         ></NSelect>
       </NFormItem>
       <NFormItem v-if="record.prompt" label="Prompt">
-        <NInput
-          v-model:value="record.prompt"
-          type="textarea"
-          autosize
-          show-count
-          :count-graphemes="estimateTokens"
-        />
-        <!-- <p class="break-words leading-6 py-2 px-2 bg-light-300">
-          {{ record.prompt }}
-        </p> -->
+        <div class="w-full">
+          <NInput
+            v-model:value="record.prompt"
+            type="textarea"
+            autosize
+            show-count
+            :count-graphemes="estimateTokens"
+          />
+        </div>
       </NFormItem>
     </NForm>
     <template #footer>

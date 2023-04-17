@@ -27,7 +27,7 @@ const deleteRecord = async () => {
     negativeText: t('dialog.deleteRecord.cancel'),
     onPositiveClick: async () => {
       await deleteChatRecord(props.record.id)
-      await clearChatMessage(props.record.id, true)
+      await clearChatMessage(props.record.id, chatId.value === props.record.id)
       const first = recordList.value[0]
       if (chatId.value === props.record.id) {
         if (first) {

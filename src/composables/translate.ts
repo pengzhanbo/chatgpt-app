@@ -34,7 +34,7 @@ export function useTranslate() {
     const target = targetLang.value
     let message =
       type.value === 'translate'
-        ? `{translate to ${realLang[target] || target}}`
+        ? `{Translate the following to ${realLang[target] || target}}:`
         : 'polish this sentence:'
 
     text = text

@@ -1,5 +1,6 @@
 <script lang="ts" setup>
 import format from 'date-fns/format'
+import { estimateTokens } from '~/utils'
 const props = defineProps<{
   message: ChatGPTMessage
   index: number
@@ -52,6 +53,7 @@ const rendered = computed(() =>
     : '',
 )
 const errorMessage = computed(() => currentMessage.value?.errorMessage)
+const tokens = computed(() => estimateTokens(currentMessage.value?.text))
 </script>
 
 <template>
@@ -77,7 +79,10 @@ const errorMessage = computed(() => currentMessage.value?.errorMessage)
       </div>
     </div>
     <div class="message-container">
-      <p class="createTime">{{ localeDate }}</p>
+      <div class="message-header">
+        <span>{{ localeDate }}</span>
+        <span>{{ tokens }} tokens</span>
+      </div>
       <div
         class="flex"
         :class="{
@@ -144,8 +149,16 @@ const errorMessage = computed(() => currentMessage.value?.errorMessage)
   @apply inline-block absolute w-0 h-0;
 }
 
-.createTime {
-  @apply text-gray-500 text-xs pb-1;
+.message-header {
+  @apply flex justify-start items-center text-gray-500 text-xs pb-1 -mx-2;
+}
+
+.message-header span {
+  @apply mx-2;
+}
+
+.reverse .message-header {
+  @apply flex-row-reverse;
 }
 
 .chat-message.reverse {
@@ -161,6 +174,6 @@ const errorMessage = computed(() => currentMessage.value?.errorMessage)
 .reverse .message-content::before {
   right: -12px;
   left: unset;
-  @apply border-r-transparent;
+  @apply border-r-transparent border-l-light-50 dark:border-l-dark-500;
 }
 </style>
