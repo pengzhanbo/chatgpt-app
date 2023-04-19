@@ -1,6 +1,7 @@
 navbar:
   chatGPT: ChatGPT
   translate: 翻訳/润色
+  coder: Coder
   setting: 設定
 
 sidebar:
@@ -57,6 +58,9 @@ translate:
   copy: コピー
   copied: コピーされました！
   placeholder: 翻訳するテキストを入力してください。
+
+coder:
+  prompt: 日本語で答えます
 
 error:
   message:

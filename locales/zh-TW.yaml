@@ -1,6 +1,7 @@
 navbar:
   chatGPT: ChatGPT
   translate: 翻譯/潤色
+  coder: Coder
   setting: 設置
 
 sidebar:
@@ -57,6 +58,9 @@ translate:
   copy: 複製
   copied: 複製成功！
   placeholder: 請輸入待翻譯內容
+
+coder:
+  prompt: 使用繁體中文回答
 
 error:
   message:

@@ -24,6 +24,7 @@ declare module '@vue/runtime-core' {
     ChatTextArea: typeof import('./components/ChatTextArea.vue')['default']
     CheckedIcon: typeof import('./components/icons/CheckedIcon.vue')['default']
     CloseIcon: typeof import('./components/icons/CloseIcon.vue')['default']
+    CoderIcon: typeof import('./components/icons/CoderIcon.vue')['default']
     CopyIcon: typeof import('./components/icons/CopyIcon.vue')['default']
     DarkIcon: typeof import('./components/icons/DarkIcon.vue')['default']
     DeleteIcon: typeof import('./components/icons/DeleteIcon.vue')['default']

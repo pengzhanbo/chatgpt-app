@@ -74,6 +74,20 @@ const popoverStyles = {
           <span class="text-xs">{{ t('navbar.translate') }}</span>
         </NPopover>
       </div>
+      <div
+        class="icon"
+        :class="{ active: routeName === 'coder' }"
+        @click="goto('coder')"
+      >
+        <NPopover :style="popoverStyles" placement="bottom" :delay="300">
+          <template #trigger>
+            <NIcon :size="iconSize">
+              <CoderIcon />
+            </NIcon>
+          </template>
+          <span class="text-xs">{{ t('navbar.coder') }}</span>
+        </NPopover>
+      </div>
     </div>
     <div
       class="flex-1"

@@ -1,6 +1,7 @@
 navbar:
   chatGPT: ChatGPT
   translate: Translate/polish
+  coder: Coder
   setting: Setting
 
 sidebar:
@@ -57,6 +58,9 @@ translate:
   copy: Copy
   copied: Copy successful!
   placeholder: Please input the content to be translated.
+
+coder:
+  prompt: ''
 
 error:
   message:
