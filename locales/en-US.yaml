@@ -61,6 +61,8 @@ translate:
 
 coder:
   prompt: ''
+  interpretive: interpretive code
+  optimize: optimize code
 
 error:
   message:

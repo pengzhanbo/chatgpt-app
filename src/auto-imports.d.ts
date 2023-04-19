@@ -163,7 +163,7 @@ declare global {
   const useChatRecordStore: typeof import('./store/modules/chatRecord')['useChatRecordStore']
   const useClipboard: typeof import('@vueuse/core')['useClipboard']
   const useCloned: typeof import('@vueuse/core')['useCloned']
-  const useCodeMessage: typeof import('./composables/monaco')['useCodeMessage']
+  const useCodeMessage: typeof import('./composables/coder')['useCodeMessage']
   const useColorMode: typeof import('@vueuse/core')['useColorMode']
   const useConfirmDialog: typeof import('@vueuse/core')['useConfirmDialog']
   const useCopyCode: typeof import('./composables/copyCode')['useCopyCode']
@@ -227,7 +227,7 @@ declare global {
   const useMemoize: typeof import('@vueuse/core')['useMemoize']
   const useMemory: typeof import('@vueuse/core')['useMemory']
   const useMessage: typeof import('naive-ui')['useMessage']
-  const useMonaco: typeof import('./composables/monaco')['useMonaco']
+  const useMonaco: typeof import('./composables/coder')['useMonaco']
   const useMounted: typeof import('@vueuse/core')['useMounted']
   const useMouse: typeof import('@vueuse/core')['useMouse']
   const useMouseInElement: typeof import('@vueuse/core')['useMouseInElement']
@@ -496,7 +496,7 @@ declare module 'vue' {
     readonly useChatRecordStore: UnwrapRef<typeof import('./store/modules/chatRecord')['useChatRecordStore']>
     readonly useClipboard: UnwrapRef<typeof import('@vueuse/core')['useClipboard']>
     readonly useCloned: UnwrapRef<typeof import('@vueuse/core')['useCloned']>
-    readonly useCodeMessage: UnwrapRef<typeof import('./composables/monaco')['useCodeMessage']>
+    readonly useCodeMessage: UnwrapRef<typeof import('./composables/coder')['useCodeMessage']>
     readonly useColorMode: UnwrapRef<typeof import('@vueuse/core')['useColorMode']>
     readonly useConfirmDialog: UnwrapRef<typeof import('@vueuse/core')['useConfirmDialog']>
     readonly useCopyCode: UnwrapRef<typeof import('./composables/copyCode')['useCopyCode']>
@@ -560,7 +560,7 @@ declare module 'vue' {
     readonly useMemoize: UnwrapRef<typeof import('@vueuse/core')['useMemoize']>
     readonly useMemory: UnwrapRef<typeof import('@vueuse/core')['useMemory']>
     readonly useMessage: UnwrapRef<typeof import('naive-ui')['useMessage']>
-    readonly useMonaco: UnwrapRef<typeof import('./composables/monaco')['useMonaco']>
+    readonly useMonaco: UnwrapRef<typeof import('./composables/coder')['useMonaco']>
     readonly useMounted: UnwrapRef<typeof import('@vueuse/core')['useMounted']>
     readonly useMouse: UnwrapRef<typeof import('@vueuse/core')['useMouse']>
     readonly useMouseInElement: UnwrapRef<typeof import('@vueuse/core')['useMouseInElement']>
