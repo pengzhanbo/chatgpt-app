@@ -28,6 +28,9 @@ const onSubmit = async () => {
 <template>
   <NForm label-width="100" label-placement="left" :model="appConfig">
     <NH5>{{ t('setting.subTitle.chatgpt') }}</NH5>
+    <NFormItem label="Base Url" path="apiBaseUrl">
+      <NInput v-model:value="appConfig!.apiBaseUrl" type="text"></NInput>
+    </NFormItem>
     <NFormItem :label="t('setting.apiKey')" path="apiKey">
       <NInput
         v-model:value="appConfig!.apiKey"
