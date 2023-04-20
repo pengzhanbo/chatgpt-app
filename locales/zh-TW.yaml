@@ -63,6 +63,7 @@ coder:
   prompt: 使用繁體中文回答
   interpretive: 解釋代碼
   optimize: 優化代碼
+  developer: Typescript Developer
 
 error:
   message:

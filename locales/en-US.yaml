@@ -63,6 +63,7 @@ coder:
   prompt: ''
   interpretive: interpretive code
   optimize: optimize code
+  developer: Typescript Developer
 
 error:
   message:

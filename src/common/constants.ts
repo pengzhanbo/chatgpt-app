@@ -99,5 +99,3 @@ export const codeLanguageAlias = {
   stylus: 'styl',
   yaml: 'yml',
 }
-
-export const coderActions = ['interpretive', 'optimize']

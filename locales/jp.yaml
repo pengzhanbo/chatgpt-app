@@ -63,6 +63,7 @@ coder:
   prompt: 日本語で答えます
   interpretive: コードを解釈します
   optimize: 最適化コードです
+  developer: Typescript Developer
 
 error:
   message:

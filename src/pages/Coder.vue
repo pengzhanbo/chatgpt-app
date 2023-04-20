@@ -1,17 +1,15 @@
 <script lang="ts" setup>
 import { Pane, Splitpanes } from 'splitpanes'
-import { coderActions } from '~/common/constants'
 import type { CodeAction } from '~/composables/coder'
 
 const { t } = useI18n()
+const { codeOptimizer, coderActions } = useCodeMessage()
 
 const action = ref<CodeAction>(coderActions[0] as CodeAction)
 const loading = ref(false)
 const rendered = ref('')
 const errorMessage = ref('')
 const content = ref('')
-
-const { codeOptimizer } = useCodeMessage()
 
 const onMessage = async (code: string) => {
   loading.value = true
