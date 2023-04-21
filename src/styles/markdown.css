@@ -243,23 +243,27 @@
   content: counter(line-number);
 }
 
+.translated-content .copy-code,
 .markdown-body [class*="language-"] .copy-code {
   @apply absolute right-2 top-2 text-light-500 dark:text-gray-50 opacity-0 z-3;
   @apply transition-all cursor-pointer block bg-light-700 dark:bg-gray-700;
   @apply justify-center items-center w-10 h-10 rounded bg-no-repeat;
   background-image: var(--icon-copy);
   background-position: 50%;
-  background-size: 20px;
+  background-size: 24px;
 }
 
+.translated-content:hover .copy-code,
 .markdown-body [class*="language-"]:hover .copy-code {
   @apply opacity-100;
 }
+.translated-content .copy-code,
 .markdown-body [class*="language-"] .copy-code:hover {
   @apply bg-light-900 dark:bg-gray-600;
 }
 
-
+.translated-content .copy-code.copied,
+.translated-content .copy-code:hover.copied,
 .markdown-body [class*="language-"] .copy-code.copied,
 .markdown-body [class*="language-"] .copy-code:hover.copied {
   background-image: var(--icon-copied);
@@ -267,6 +271,8 @@
   @apply bg-light-900 dark:bg-gray-600;
 }
 
+.translated-content .copy-code.copied::before,
+.translated-content .copy-code:hover.copied::before,
 .markdown-body [class*='language-'] .copy-code.copied::before,
 .markdown-body [class*='language-'] .copy-code:hover.copied::before {
   @apply relative text-green-500 dark:text-green-400 bg-light-900 dark:bg-gray-600;

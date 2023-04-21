@@ -37,10 +37,15 @@ const onTranslate = async (current: TranslateType) => {
 
 const message = useMessage()
 
-const onCopy = async () => {
+const onCopy = async (e: Event) => {
   if (!result.value.text) return
   await copyToClipboard(result.value.text)
   message.success(t('translate.copied'))
+  const el = e.target as HTMLElement
+  el.classList.add('copied')
+  setTimeout(() => {
+    el.classList.remove('copied')
+  }, 2000)
 }
 </script>
 
@@ -72,9 +77,6 @@ const onCopy = async () => {
           >
         </div>
       </div>
-      <div class="flex-1 flex justify-end pr-5">
-        <NButton @click="onCopy">{{ t('translate.copy') }}</NButton>
-      </div>
     </div>
     <Splitpanes class="translate-content">
       <Pane class="translate-source" size="50" min-size="10">
@@ -88,6 +90,7 @@ const onCopy = async () => {
       </Pane>
       <Pane class="translate-target" min-size="10">
         <div class="translated-content">
+          <span class="copy-code" @click="onCopy($event)"></span>
           <div v-if="rendered" class="markdown-body" v-html="rendered"></div>
           <div v-if="result.errorMessage">
             <NAlert type="error">{{ result.errorMessage }}</NAlert>
@@ -121,7 +124,7 @@ const onCopy = async () => {
 }
 
 .translated-content {
-  @apply w-full h-full m-0 px-5 py-3 rounded-md;
+  @apply relative w-full h-full m-0 px-5 py-3 rounded-md;
   @apply bg-light-600 dark: bg-dark-800;
 }
 
