@@ -11,6 +11,27 @@ const rendered = ref('')
 const errorMessage = ref('')
 const content = ref('')
 
+const cache = useLocalStorage('gpt_coder', {
+  content: '',
+  errorMessage: '',
+  rendered: '',
+  action: '',
+})
+
+watchOnce(
+  cache,
+  (cache) => {
+    rendered.value = cache.rendered
+    content.value = cache.content
+    errorMessage.value = cache.errorMessage
+    action.value = cache.action as CodeAction
+  },
+  { immediate: true },
+)
+
+watch(content, (content) => (cache.value.content = content))
+watch(action, (action) => (cache.value.action = action))
+
 const onMessage = async (code: string) => {
   loading.value = true
   rendered.value = ''
@@ -24,6 +45,11 @@ const onMessage = async (code: string) => {
     rendered.value = renderMarkdown(response.text)
   } else {
     errorMessage.value = response.errorMessage || ''
+  }
+  cache.value = {
+    ...cache.value,
+    rendered: rendered.value,
+    errorMessage: errorMessage.value,
   }
 }
 </script>
