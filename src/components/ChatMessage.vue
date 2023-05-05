@@ -1,6 +1,7 @@
 <script lang="ts" setup>
 import format from 'date-fns/format'
 import { estimateTokens } from '~/utils'
+
 const props = defineProps<{
   message: ChatGPTMessage
   index: number

@@ -69,7 +69,7 @@ error:
   message:
     401: Incorrect API key provided
     403: Server refused to access, please try again later
-    429: Too Many Requests 
+    429: Too Many Requests
     502: Bad Gateway
     503: Server is busy, please try again later
     504: Gateway Time-out

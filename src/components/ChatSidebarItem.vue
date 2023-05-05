@@ -1,5 +1,6 @@
 <script lang="ts" setup>
 import { sidebarOptions } from '~/common/constants'
+
 const props = defineProps<{
   record: ChatRecord
 }>()

@@ -1,5 +1,6 @@
 <script lang="ts" setup>
 import { estimateTokens } from '~/utils'
+
 const router = useRouter()
 const { t } = useI18n()
 const { recordList, createChatRecord, addChatRecord, updateChatRecord } =
@@ -70,9 +71,9 @@ const onSelect = (act: string) => {
   <div class="chat-sidebar" size="23" min-size="10" max-size="23">
     <div class="chat-sidebar-container">
       <ChatSidebarItem
-        v-for="record in recordList"
-        :key="record.id"
-        :record="record"
+        v-for="item in recordList"
+        :key="item.id"
+        :record="item"
         @on-edit="editRecord"
       />
     </div>

@@ -1,7 +1,7 @@
-name: 'publish'
+name: publish
 on:
   push:
-    tags: [ v\d+\.\d+\.\d+ ]
+    tags: [v\d+\.\d+\.\d+]
 
 jobs:
   publish-tauri:
@@ -24,7 +24,7 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: 18
-      
+
       - name: Install pnpm
         uses: pnpm/action-setup@v2
 
@@ -34,7 +34,7 @@ jobs:
       - name: Rust cache
         uses: swatinem/rust-cache@v2
         with:
-          workspaces: './src-tauri -> target'
+          workspaces: ./src-tauri -> target
 
       - name: install dependencies (ubuntu only)
         if: matrix.platform == 'ubuntu-20.04'
@@ -57,7 +57,7 @@ jobs:
 
       - name: Change Version
         env:
-          VERSION: "${{ steps.get_version.outputs.version-without-v }}"
+          VERSION: '${{ steps.get_version.outputs.version-without-v }}'
         run: make change-version
 
       - uses: tauri-apps/tauri-action@dev
@@ -73,7 +73,7 @@ jobs:
           # TAURI_KEY_PASSWORD: ${{ secrets.TAURI_KEY_PASSWORD }}
         with:
           tagName: chatgpt-app-v__VERSION__ # the action automatically replaces \_\_VERSION\_\_ with the app version
-          releaseName: 'chatgpt APP v__VERSION__'
-          releaseBody: 'See the assets to download this version and install.'
+          releaseName: chatgpt APP v__VERSION__
+          releaseBody: See the assets to download this version and install.
           releaseDraft: true
           prerelease: false

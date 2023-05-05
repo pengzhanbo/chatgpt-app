@@ -1,5 +1,6 @@
 <script lang="ts" setup>
 import { messageControlOptions } from '~/common/constants'
+
 const props = defineProps<{
   message: ChatGPTMessage
   index: number
