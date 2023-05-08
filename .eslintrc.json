@@ -1,3 +1,3 @@
 {
-  "extends": "@pengzhanbo/eslint-config-vue-ts"
+  "extends": "@pengzhanbo/eslint-config-vue"
 }
