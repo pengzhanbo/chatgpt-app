@@ -10,7 +10,7 @@ interface ScrollReturn {
 }
 
 export function useScrollControl(): ScrollReturn {
-  const scrollRef = ref<ScrollElement>(null)
+  const scrollRef = ref<ScrollElement>(null) as ScrollReturn['scrollRef']
 
   const scrollToBottom = async () => {
     await nextTick()
