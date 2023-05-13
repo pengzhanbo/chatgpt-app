@@ -91,9 +91,11 @@ const onCopy = async (e: Event) => {
       <Pane class="translate-target" min-size="10">
         <div class="translated-content">
           <span class="copy-code" @click="onCopy($event)"></span>
-          <div v-if="rendered" class="markdown-body" v-html="rendered"></div>
-          <div v-if="result.errorMessage">
-            <NAlert type="error">{{ result.errorMessage }}</NAlert>
+          <div class="h-full overflow-auto px-5 py-3">
+            <div v-if="rendered" class="markdown-body" v-html="rendered"></div>
+            <div v-if="result.errorMessage">
+              <NAlert type="error">{{ result.errorMessage }}</NAlert>
+            </div>
           </div>
         </div>
       </Pane>
@@ -124,7 +126,7 @@ const onCopy = async (e: Event) => {
 }
 
 .translated-content {
-  @apply relative w-full h-full m-0 px-5 py-3 rounded-md;
+  @apply relative w-full h-full m-0 rounded-md;
   @apply bg-light-600 dark: bg-dark-800;
 }
 
