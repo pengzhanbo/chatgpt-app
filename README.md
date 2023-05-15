@@ -6,7 +6,7 @@ ChatGPT 桌面应用
 
 ## Explanation 说明
 
-- This project is based on the MIT license and is only for open source communication and learning purposes.
+- This project is based on the MIT license and is only for open-source communication and learning purposes.
 - All data is only saved locally.
 - The current desktop application has not yet provided an official installation package.
 
@@ -24,7 +24,6 @@ The basic functions have been implemented.
 
 - [x] Chat conversation  聊天对话
 - [x] Message format beautification 消息格式美化
-- [x] Proxy 代理 http/https/socks
 - [x] Multilingual 多语言
 - [x] Switch Theme Mode 主题模式切换
 - [x] Response error handling 响应错误处理
